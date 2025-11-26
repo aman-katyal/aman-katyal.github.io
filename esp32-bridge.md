@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "ESP32 Game Controller Bridge"
 permalink: /projects/esp32-bridge
 ---
