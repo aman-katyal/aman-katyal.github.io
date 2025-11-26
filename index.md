@@ -7,7 +7,7 @@ title: Aman Katyal | Computer Engineering Portfolio
 **Computer Engineering Student at Purdue University**
 *Hardware Design | UVM Verification | Embedded Systems*
 
-[Email](mailto:itsamankatyal@gmail.com) | [LinkedIn]([INSERT LINKEDIN URL]) | [GitHub]([INSERT GITHUB URL])
+[Email](mailto:itsamankatyal@gmail.com) | [LinkedIn]([https://www.linkedin.com/in/its-aman-katyal/]) | [GitHub]([INSERT GITHUB URL])
 
 ---
 
