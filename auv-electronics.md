@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "AUV Electronics Design"
 permalink: /projects/auv-electronics
 ---
