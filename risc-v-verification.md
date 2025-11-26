@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "RISC-V FPU Verification"
 permalink: /projects/risc-v-verification
 ---
