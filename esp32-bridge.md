@@ -3,7 +3,7 @@ layout: default
 title: "ESP32 Game Controller Bridge"
 permalink: /projects/esp32-bridge
 ---
-
+[← Back to Home](/)
 # ESP32 Universal Game Controller Bridge
 
 **Technologies:** ESP32-S3, ESP-IDF, C++, Bluetooth, USB HID.
