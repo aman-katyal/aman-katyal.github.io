@@ -3,6 +3,7 @@ layout: default
 title: "ROV Control Systems"
 permalink: /projects/rov-systems
 ---
+[← Back to Home](/)
 
 # Unified ROV Control & Verification Architecture
 
