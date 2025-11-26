@@ -56,6 +56,11 @@ Designed a unified test bench using RP2350 and STM32 to decouple firmware verifi
 Engineered a dual-core RP2350 system running TensorFlow Lite (<5ms latency) for gesture recognition with a custom IR communication protocol.
 [Read Case Study →](./projects/ml-dueling-system.md)
 
+### [ESP32 Universal Game Controller Bridge](./projects/esp32-bridge.md)
+**Role:** Embedded Software Engineer
+Developed a low-latency (sub-30ms) bridge on ESP32-S3 to translate Bluetooth packets from third-party controllers into Nintendo Switch USB HID reports, solving critical heap fragmentation issues.
+[Read Case Study →](./projects/esp32-bridge.md)
+
 ---
 
 ## 📜 Certifications
