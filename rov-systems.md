@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "ROV Control Systems"
 permalink: /projects/rov-systems
 ---
