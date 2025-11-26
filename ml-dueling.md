@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: "ML Gesture Dueling System"
 permalink: /projects/ml-dueling
 ---
