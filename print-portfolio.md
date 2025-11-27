@@ -4,39 +4,28 @@ title: Aman Katyal - Full Portfolio
 permalink: /print-portfolio/
 ---
 
-<!-- This header only shows on the web, hidden in print via CSS -->
-**[Download as PDF by pressing Ctrl + P / Cmd + P]**
+<!-- This header hides when printing -->
+<div class="print-instruction">
+    <p><strong>Step 1:</strong> Press <code>Ctrl + P</code> (or Cmd + P).</p>
+    <p><strong>Step 2:</strong> Set "Margins" to "None" or "Minimum" in print settings.</p>
+    <p><strong>Step 3:</strong> Save as PDF.</p>
+    <hr>
+</div>
 
----
+<!-- AUTOMATION LOOP STARTS HERE -->
+{% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
 
-<div class="page-break"></div>
+{% for project in print_pages %}
+    
+    <!-- Force a page break before every new project -->
+    <div class="page-break"></div>
 
-# Project 1: AUV Electronics Design
-**Role:** AUV Electronics Design Intern @ Boundary RSS
-*(Copy/Paste the full content of your AUV project here)*
+    <!-- Inject the Title manually (because we stripped the header) -->
+    <h1>{{ project.title }}</h1>
+    
+    <!-- Inject the content automatically -->
+    {{ project.content }}
 
----
-<div class="page-break"></div>
+    <hr class="print-divider">
 
-# Project 2: RISC-V Verification
-**Role:** Verification Engineer
-*(Copy/Paste the full content of your RISC-V project here)*
-
----
-<div class="page-break"></div>
-
-# Project 3: ROV Control Systems
-**Role:** Electrical Lead
-*(Copy/Paste the full content of your ROV project here)*
-
----
-<div class="page-break"></div>
-
-# Project 4: ML Dueling System
-*(Copy/Paste content...)*
-
----
-<div class="page-break"></div>
-
-# Project 5: ESP32 Bridge
-*(Copy/Paste content...)*
+{% endfor %}
