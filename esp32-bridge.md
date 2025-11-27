@@ -2,6 +2,8 @@
 layout: default
 title: "ESP32 Game Controller Bridge"
 permalink: /projects/esp32-bridge
+printable: true
+order: 5
 ---
 [← Back to Home](/)
 # ESP32 Universal Game Controller Bridge
