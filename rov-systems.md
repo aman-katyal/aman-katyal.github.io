@@ -2,6 +2,8 @@
 layout: default
 title: "ROV Control Systems"
 permalink: /projects/rov-systems
+printable: true
+order: 3
 ---
 [← Back to Home](/)
 
