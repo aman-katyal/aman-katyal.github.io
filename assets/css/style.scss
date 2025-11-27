@@ -1,38 +1,36 @@
 @media print {
-  /* Hide the web-only instructions */
+  /* 1. Hide the web-only instructions and site header/footer */
   .print-instruction, 
   .site-header, 
   .site-footer, 
-  .btn,
-  a[href="/"] { 
+  .btn { 
     display: none !important; 
   }
 
-  /* Reset colors for printing */
+  /* 2. SPECIFICALLY HIDE THE BACK BUTTON IN CONTENT */
+  /* This finds any link that points to "/" (home) and hides it */
+  a[href="/"] {
+    display: none !important;
+  }
+
+  /* 3. Reset page styling for paper */
   body, .main-content {
     background: white !important;
     color: black !important;
     max-width: 100% !important;
     padding: 0 !important;
-    margin: 1cm !important;
+    margin: 0.5cm !important;
   }
 
-  /* Ensure page breaks happen between projects */
+  /* 4. Ensure page breaks work */
   .page-break {
     page-break-before: always;
     display: block;
     height: 1px;
   }
 
-  /* Hide the divider line we added in the loop */
+  /* 5. Hide the dashed divider in print mode */
   .print-divider {
     display: none;
-  }
-
-  /* Clean up headers */
-  h1 {
-    font-size: 24pt;
-    border-bottom: 2px solid #000;
-    margin-top: 0;
   }
 }
