@@ -2,8 +2,10 @@
 layout: default
 title: "RISC-V FPU Verification"
 permalink: /projects/risc-v-verification
+printable: true
+order: 2
 ---
-
+[← Back to Home](/)
 # UVM Verification for AFT x09 RISC-V SoC
 
 **Technologies:** UVM, SystemVerilog, DPI-C, Tcl, AMD Vivado.
