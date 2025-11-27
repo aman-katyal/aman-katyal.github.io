@@ -1,0 +1,41 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* PRINT STYLES - Hides clutter when printing to PDF */
+@media print {
+  /* Hide the top header buttons and footer */
+  .page-header a.btn,
+  .site-footer,
+  .main-content a[href="/"] { 
+    display: none !important; 
+  }
+
+  /* Force the text to be black and background white */
+  body, .page-header {
+    background: white !important;
+    color: black !important;
+    background-image: none !important;
+  }
+
+  /* Make the header text smaller so it doesn't take up half the page */
+  .page-header {
+    padding: 1rem 0 !important;
+    border-bottom: 2px solid #333;
+  }
+
+  .project-name {
+    font-size: 2rem !important;
+    color: black !important;
+  }
+  
+  .project-tagline {
+    color: #555 !important;
+  }
+
+  /* Force a page break after specific sections if needed */
+  .page-break {
+    page-break-before: always;
+  }
+}
