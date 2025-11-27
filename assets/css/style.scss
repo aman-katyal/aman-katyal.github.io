@@ -1,41 +1,38 @@
----
----
-
-@import "{{ site.theme }}";
-
-/* PRINT STYLES - Hides clutter when printing to PDF */
 @media print {
-  /* Hide the top header buttons and footer */
-  .page-header a.btn,
-  .site-footer,
-  .main-content a[href="/"] { 
+  /* Hide the web-only instructions */
+  .print-instruction, 
+  .site-header, 
+  .site-footer, 
+  .btn,
+  a[href="/"] { 
     display: none !important; 
   }
 
-  /* Force the text to be black and background white */
-  body, .page-header {
+  /* Reset colors for printing */
+  body, .main-content {
     background: white !important;
     color: black !important;
-    background-image: none !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 1cm !important;
   }
 
-  /* Make the header text smaller so it doesn't take up half the page */
-  .page-header {
-    padding: 1rem 0 !important;
-    border-bottom: 2px solid #333;
-  }
-
-  .project-name {
-    font-size: 2rem !important;
-    color: black !important;
-  }
-  
-  .project-tagline {
-    color: #555 !important;
-  }
-
-  /* Force a page break after specific sections if needed */
+  /* Ensure page breaks happen between projects */
   .page-break {
     page-break-before: always;
+    display: block;
+    height: 1px;
+  }
+
+  /* Hide the divider line we added in the loop */
+  .print-divider {
+    display: none;
+  }
+
+  /* Clean up headers */
+  h1 {
+    font-size: 24pt;
+    border-bottom: 2px solid #000;
+    margin-top: 0;
   }
 }
