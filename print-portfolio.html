@@ -1,0 +1,34 @@
+---
+layout: default
+title: Aman Katyal - Full Portfolio
+permalink: /print-portfolio/
+---
+
+<!-- Web-only instructions (Hidden when printing) -->
+<div class="print-instruction" style="margin-bottom: 2rem; padding: 1rem; background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px;">
+    <h3>🖨️ How to Print</h3>
+    <p>1. Press <strong>Ctrl + P</strong> (or Cmd + P).</p>
+    <p>2. Set Margins to <strong>"Minimum"</strong> or "None".</p>
+    <p>3. Save as PDF.</p>
+</div>
+
+<!-- AUTOMATION LOGIC -->
+{% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
+
+{% for project in print_pages %}
+
+<div class="page-break"></div>
+
+<section class="print-project-section">
+    <!-- Inject Title -->
+    <h1 style="border-bottom: 2px solid #000; padding-bottom: 10px; margin-top: 0;">{{ project.title }}</h1>
+    
+    <!-- Inject Content -->
+    <div>
+        {{ project.content }}
+    </div>
+</section>
+
+<hr class="print-divider" style="margin: 3rem 0; border: 0; border-top: 1px dashed #ccc;">
+
+{% endfor %}
