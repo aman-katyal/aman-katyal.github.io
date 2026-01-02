@@ -1,36 +1,58 @@
+---
+---
+@import "{{ site.theme }}";
+
+// Standardize Image Handling
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 4px;
+}
+
+.no-print { display: block; }
+
 @media print {
-  /* 1. Hide the web-only instructions and site header/footer */
-  .print-instruction, 
+  /* 1. Hide web-only navigation and instructions */
+  .no-print, 
   .site-header, 
   .site-footer, 
-  .btn { 
+  .btn,
+  .print-instruction { 
     display: none !important; 
   }
 
-  /* 2. SPECIFICALLY HIDE THE BACK BUTTON IN CONTENT */
-  /* This finds any link that points to "/" (home) and hides it */
-  a[href="/"] {
-    display: none !important;
-  }
-
-  /* 3. Reset page styling for paper */
+  /* 2. Professional PDF Layout */
   body, .main-content {
     background: white !important;
     color: black !important;
     max-width: 100% !important;
     padding: 0 !important;
-    margin: 0.5cm !important;
+    margin: 1.5cm !important;
+    font-size: 11pt;
   }
 
-  /* 4. Ensure page breaks work */
+  h1 { border-bottom: 2px solid #333; padding-bottom: 5px; }
+
+  /* 3. Reveal URLs in printed PDF */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8rem;
+    color: #555;
+  }
+
+  /* 4. Prevent content splitting across pages */
+  .print-project-section, img, pre, code {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* 5. Modern Page Breaks */
   .page-break {
-    page-break-before: always;
+    break-before: page;
     display: block;
-    height: 1px;
   }
 
-  /* 5. Hide the dashed divider in print mode */
-  .print-divider {
-    display: none;
-  }
+  .print-divider { display: none; }
 }

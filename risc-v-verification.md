@@ -5,7 +5,7 @@ permalink: /projects/risc-v-verification
 printable: true
 order: 2
 ---
-[← Back to Home](/)
+
 
 # RISC-V FPU Verification (UVM & DPI-C)
 

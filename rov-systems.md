@@ -5,7 +5,7 @@ permalink: /projects/rov-systems
 printable: true
 order: 3
 ---
-[← Back to Home](/)
+
 
 # Unified ROV Control & Verification Architecture
 

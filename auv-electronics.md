@@ -5,7 +5,6 @@ permalink: /projects/auv-electronics
 printable: true
 order: 1
 ---
-[← Back to Home](/)
 
 # Swarm-Style AUV Compute & Power Architecture
 

@@ -12,7 +12,7 @@ title: Aman Katyal | Portfolio
 ---
 
 ## 👨‍💻 About Me
-I am a Computer Engineering undergraduate at Purdue University (GPA: 3.99/4.0) specializing in the intersection of hardware architecture and embedded firmware. I don't just write code; I design the boards it runs on and verify the silicon it powers.
+I am a Computer Engineering undergraduate at Purdue University (GPA: 3.94/4.0) specializing in the intersection of hardware architecture and embedded firmware. I don't just write code; I design the boards it runs on and verify the silicon it powers.
 
 ---
 

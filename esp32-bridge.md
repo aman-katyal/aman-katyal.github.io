@@ -5,7 +5,7 @@ permalink: /projects/esp32-bridge
 printable: true
 order: 5
 ---
-[← Back to Home](/)
+
 # ESP32 Universal Game Controller Bridge
 
 **Technologies:** ESP32-S3, ESP-IDF, C++, Bluetooth, USB HID.

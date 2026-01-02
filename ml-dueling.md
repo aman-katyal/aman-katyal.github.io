@@ -5,7 +5,7 @@ permalink: /projects/ml-dueling
 printable: true
 order: 4
 ---
-[← Back to Home](/)
+
 # Microcontroller Dueling System with ML Input
 
 **Technologies:** RP2350 (Dual Core), TensorFlow Lite, C++, PCB Design.

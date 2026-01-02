@@ -1,34 +1,35 @@
 ---
 layout: default
-title: Aman Katyal - Full Portfolio
+title: Aman Katyal - Full Engineering Portfolio
 permalink: /print-portfolio/
 ---
 
-<!-- Web-only instructions (Hidden when printing) -->
 <div class="print-instruction" style="margin-bottom: 2rem; padding: 1rem; background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px;">
-    <h3>🖨️ How to Print</h3>
-    <p>1. Press <strong>Ctrl + P</strong> (or Cmd + P).</p>
-    <p>2. Set Margins to <strong>"Minimum"</strong> or "None".</p>
-    <p>3. Save as PDF.</p>
+    <h3>🖨️ PDF Generation Instructions</h3>
+    <p>1. Press <strong>Ctrl + P</strong> (Windows) or <strong>Cmd + P</strong> (Mac).</p>
+    <p>2. Set Destination to <strong>"Save as PDF"</strong>.</p>
+    <p>3. Set Margins to <strong>"None"</strong> or <strong>"Minimum"</strong>.</p>
+    <p>4. Ensure "Background Graphics" is <strong>checked</strong> for code block colors.</p>
 </div>
 
-<!-- AUTOMATION LOGIC -->
+<header class="only-print" style="display: none; margin-bottom: 2cm;">
+  <h2 style="margin: 0;">Aman Katyal</h2>
+  <p>Computer Engineering Portfolio | itsamankatyal@gmail.com</p>
+  <hr>
+</header>
+
+<style>
+  @media print { .only-print { display: block !important; } }
+</style>
+
 {% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
 
 {% for project in print_pages %}
-
 <div class="page-break"></div>
-
 <section class="print-project-section">
-    <!-- Inject Title -->
-    <h1 style="border-bottom: 2px solid #000; padding-bottom: 10px; margin-top: 0;">{{ project.title }}</h1>
-    
-    <!-- Inject Content (The fix is here: | markdownify) -->
-    <div>
+    <h1 style="margin-top: 0;">{{ project.title }}</h1>
+    <div class="project-content">
         {{ project.content | markdownify }}
     </div>
 </section>
-
-<hr class="print-divider" style="margin: 3rem 0; border: 0; border-top: 1px dashed #ccc;">
-
 {% endfor %}
