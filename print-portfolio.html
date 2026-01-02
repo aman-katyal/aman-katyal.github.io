@@ -5,26 +5,27 @@ permalink: /print-portfolio/
 ---
 
 <div class="print-instruction" style="margin-bottom: 2rem; padding: 1rem; background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px;">
-    <h3>🖨️ PDF Instructions</h3>
-    <p>1. Press <strong>Ctrl + P</strong>.</p>
-    <p>2. Set Margins to <strong>"None"</strong>.</p>
-    <p>3. Enable <strong>"Background Graphics"</strong> for code blocks.</p>
+    <h3>🖨️ PDF Generation Instructions</h3>
+    <p>1. Press <strong>Ctrl + P</strong> (Windows) or <strong>Cmd + P</strong> (Mac).</p>
+    <p>2. Set Destination to <strong>"Save as PDF"</strong>.</p>
+    <p>3. Set Margins to <strong>"None"</strong> and enable <strong>"Background Graphics"</strong>.</p>
 </div>
 
-<header class="only-print" style="display: none; margin-bottom: 2cm;">
-  <h2 style="margin: 0;">Aman Katyal</h2>
-  <p>itsamankatyal@gmail.com | 6782429495 | Purdue University</p>
+<header class="only-print" style="display: none; margin-bottom: 1cm;">
+  <h1 style="margin: 0; border: none;">Aman Katyal</h1>
+  <p>itsamankatyal@gmail.com | 678-242-9495 | Purdue University</p>
   <hr>
 </header>
 
-<style>@media print { .only-print { display: block !important; } }</style>
+<style>
+  @media print { .only-print { display: block !important; } }
+</style>
 
 {% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
 
 {% for project in print_pages %}
 <div class="page-break"></div>
 <section class="print-project-section">
-    <h1 style="margin-top: 0;">{{ project.title }}</h1>
     {{ project.content | markdownify }}
 </section>
 {% endfor %}
