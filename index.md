@@ -4,48 +4,44 @@ title: Aman Katyal | Portfolio
 ---
 
 # Aman Katyal
-**Computer Engineering Student @ Purdue University**
-*Hardware Design | UVM Verification | Embedded Systems*
-
-[Email](mailto:itsamankatyal@gmail.com) | [LinkedIn](https://linkedin.com/in/your-profile) | [GitHub](https://github.com/your-username)
+**Computer Engineering @ Purdue University**
+[Email](mailto:itsamankatyal@gmail.com) | [LinkedIn](https://linkedin.com/in/aman-katyal) | [GitHub](https://github.com/itsamankatyal)
 
 ---
 
-## 👨‍💻 About Me
-I am a Computer Engineering undergraduate at Purdue University (GPA: 3.94/4.0) specializing in the intersection of hardware architecture and embedded firmware. I don't just write code; I design the boards it runs on and verify the silicon it powers.
+## 👨‍💻 Professional Summary
+[cite_start]Computer Engineering student at Purdue University (GPA: 3.94/4.0)[cite: 1, 3, 5]. [cite_start]I specialize in the intersection of hardware architecture and verification, with experience ranging from UVM-based silicon verification to high-speed PCB design for underwater robotics[cite: 7, 14, 20].
 
 ---
 
-## 🚀 Featured Projects
-
-### [AUV Electronics & Power Architecture](/projects/auv-electronics)
-**Role:** AUV Electronics Design Intern
-Architected a hierarchical compute system for swarm-style AUVs, optimizing task distribution between Pi CM5 and Jetson Nano.
-[View Project →](/projects/auv-electronics)
+## 🔬 Silicon Verification & Digital Design
+*RTL Design, UVM Verification, and ASIC Physical Design Flow.*
 
 ### [RISC-V FPU UVM Verification](/projects/risc-v-verification)
-**Role:** Verification Engineer
-Built a modular UVM testbench to verify a Floating-Point Unit (FPU) for the AFT x09 SoC, utilizing DPI-C reference models.
-[View Project →](/projects/risc-v-verification)
+[cite_start]Architected a modular UVM testbench for an AFT x09 SoC FPU using DPI-C golden models and Tcl automation[cite: 9, 10, 11].
 
-### [Unified ROV Control Systems](/projects/rov-systems)
-**Role:** Electrical Lead
-Designed a custom sensor aggregation PCB and decoupled firmware verification using an RP2350/STM32 test bench.
-[View Project →](/projects/rov-systems)
+### [ASIC Physical Design & Timing Closure](/projects/asic-physical-design)
+[cite_start]Guided a digital design through synthesis, CTS, and routing to achieve 400MHz timing closure using Synopsys and Cadence tools[cite: 36, 37].
 
-### [ML-Enabled Dueling System](/projects/ml-dueling)
-**Role:** Full Stack Embedded Engineer
-Engineered a dual-core RP2350 system running TensorFlow Lite (<5ms latency) for gesture recognition.
-[View Project →](/projects/ml-dueling)
+### [USB 1.1 Full-Speed SoC Peripheral](/projects/usb-peripheral)
+[cite_start]Designed a USB transceiver with NRZI encoding and an AHB-Lite interface featuring Clock Domain Crossing (CDC) logic[cite: 24, 25].
 
-### [ESP32 Game Controller Bridge](/projects/esp32-bridge)
-**Role:** Embedded Software Engineer
-Developed a Bluetooth-to-USB bridge on ESP32-S3 with verified sub-30ms latency, solving critical heap fragmentation issues.
-[View Project →](/projects/esp32-bridge)
+### [AHB-Lite FIR Filter Hardware Accelerator](/projects/fir-accelerator)
+[cite_start]Developed a 4-tap programmable DSP accelerator with memory-mapped coefficients and hazard handling logic[cite: 28, 29].
 
 ---
 
-## 🛠️ Core Skills
-*   **Verification:** UVM, SystemVerilog, RISC-V, DPI-C, AMD Vivado, QuestaSim.
-*   **Hardware:** KiCad (Schematic/Layout), Differential Pairs, High-Speed Routing.
-*   **Firmware:** Embedded C/C++, ESP-IDF, FreeRTOS, Python, Git.
+## 🤖 Robotics & Embedded Systems
+*Hardware design and firmware for autonomous underwater vehicles.*
+
+### [Swarm-Style AUV Compute Architecture](/projects/auv-electronics)
+Architected hierarchical compute systems for AUVs, designing custom carrier boards for Jetson Orin Nano and Pi CM5.
+
+### [Unified ROV Control Systems](/projects/rov-systems)
+[cite_start]Pioneered a Hardware-in-the-Loop (HIL) test bench using RP2350/STM32 to decouple firmware/hardware cycles[cite: 14, 16].
+
+---
+
+## 🎮 Personal Projects
+### [ML-Enabled Dueling Wands](/projects/ml-dueling)
+### [ESP32 Controller Bridge](/projects/esp32-bridge)
