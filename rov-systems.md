@@ -40,3 +40,4 @@ I engineered the power section to step down the incoming 12V rail to 6V specific
 
 
 ---
+<img width="1475" height="1049" alt="mcu and pi board" src="https://github.com/user-attachments/assets/003e8ea1-235f-47e9-8f6d-c46aac6157c0" />
