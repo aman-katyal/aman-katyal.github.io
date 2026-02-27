@@ -14,26 +14,23 @@ Computer Engineering student at Purdue University (GPA: 3.94/4.0). I specialize 
 
 ---
 
-## Silicon Verification & Digital Design
-*RTL Design, UVM Verification, and ASIC Physical Design Flow.*
+## [ASIC & Digital Design Portfolio](/projects/asic-design)
+*A comprehensive overview of RTL design, SoC bus protocols, and physical implementation.*
 
+* **APB UART SoC Peripheral:** Configurable serial communication IP.
+* **AHB-Lite FIR Filter Accelerator:** Pipelined DSP hardware with hazard mitigation.
+* **USB 1.1 Full-Speed SoC Peripheral:** Complex transceiver design with 64B FIFO.
+* **ASIC Physical Design & Timing Closure:** Complete backend flow achieving 400MHz.
+
+---
+
+## Silicon Verification
 ### [RISC-V FPU UVM Verification](/projects/risc-v-verification)
 Architected a modular UVM testbench for an AFT x09 SoC FPU using DPI-C golden models and Tcl automation.
-
-### [ASIC Physical Design & Timing Closure](/projects/asic-physical-design)
-Guided a digital design through synthesis, CTS, and routing to achieve 400MHz timing closure using Synopsys and Cadence tools.
-
-### [USB 1.1 Full-Speed SoC Peripheral](/projects/usb-peripheral)
-Designed a USB transceiver with NRZI encoding and an AHB-Lite interface featuring Clock Domain Crossing (CDC) logic.
-
-### [AHB-Lite FIR Filter Hardware Accelerator](/projects/fir-accelerator)
-Developed a 4-tap programmable DSP accelerator with memory-mapped coefficients and hazard handling logic.
 
 ---
 
 ## Robotics & Embedded Systems
-*Hardware design and firmware for underwater and modular robotic platforms.*
-
 ### [Unified ROV Control Systems](/projects/rov-systems)
 Pioneered a Hardware-in-the-Loop (HIL) test bench using RP2350/STM32 to decouple firmware/hardware cycles.
 
