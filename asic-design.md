@@ -43,7 +43,7 @@ I developed a high-performance 4-tap Finite Impulse Response (FIR) filter accele
 * **Fixed-Point Math:** Utilized a 17-bit datapath for absolute precision during convolution operations.
 
 ![AHB Subordinate & FIR Accelerator RTL Diagram](/assets/images/ahb_rtl.png)
-**[Space for Coefficient Loader State Transition Diagram]**
+![Coefficient Loader State Transition Diagram](/assets/images/ahb_fsm.png)
 
 ---
 
