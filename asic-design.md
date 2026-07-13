@@ -2,10 +2,12 @@
 layout: default
 title: "ASIC & Digital Design Portfolio"
 permalink: /projects/asic-design
+role: "Digital Design & Backend"
+description: "RTL design, SoC bus protocols (APB, AHB-Lite), and backend physical design flow achieving timing closure at 400MHz."
+technologies: ["SystemVerilog", "APB", "AHB-Lite", "USB 1.1", "OpenLane", "Synopsys Design Compiler", "ModelSim"]
+order: 1
 printable: true
 ---
-
-# ASIC & Digital Design Portfolio
 
 This portfolio details my experience in the full digital design cycle, from architectural planning and RTL implementation to physical design and timing closure.
 

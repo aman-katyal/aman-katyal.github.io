@@ -2,14 +2,14 @@
 layout: default
 title: "RISC-V FPU Verification (UVM/DPI-C)"
 permalink: /projects/risc-v-verification
+role: "Verification Architect"
+description: "Modular UVM testbench for an AFTx SoC floating-point unit utilizing DPI-C golden reference models and constrained random verification."
+technologies: ["SystemVerilog", "UVM", "C/C++", "DPI-C", "Tcl Scripting", "Vivado"]
 printable: true
 order: 2
 ---
 
 
-# RISC-V FPU Verification (UVM & DPI-C)
-
-**Technologies:** SystemVerilog, UVM, C/C++, DPI-C, Tcl Scripting, AMD Vivado.
 **Context:** Purdue SoCET (System-on-Chip Extension Technologies) — AFTx SoC Team.
 
 ## 1. The Mission: Tape-Out Readiness

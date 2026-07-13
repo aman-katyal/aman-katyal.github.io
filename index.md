@@ -3,39 +3,58 @@ layout: default
 title: Aman Katyal | Portfolio
 ---
 
-# Aman Katyal
-**Computer Engineering @ Purdue University**
-[Email](mailto:itsamankatyal@gmail.com) | [LinkedIn](https://linkedin.com/in/aman-katyal) | [GitHub](https://github.com/itsamankatyal)
+<!-- Profile Hero Section -->
+<div class="profile-hero">
+  <h1 class="profile-name">Aman Katyal</h1>
+  <p class="profile-tagline">Computer Engineering @ Purdue University</p>
+  
+  <div class="profile-meta-info">
+    <span class="profile-meta-item">
+      <i class="fa-solid fa-graduation-cap"></i> GPA: 3.94 / 4.0
+    </span>
+    <span class="profile-meta-item">
+      <i class="fa-solid fa-location-dot"></i> West Lafayette, IN
+    </span>
+  </div>
 
----
+  <div class="profile-links">
+    <a href="mailto:itsamankatyal@gmail.com" class="profile-link-btn" title="Email">
+      <i class="fa-solid fa-envelope"></i> Email
+    </a>
+    <a href="https://linkedin.com/in/aman-katyal" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="LinkedIn">
+      <i class="fa-brands fa-linkedin"></i> LinkedIn
+    </a>
+    <a href="https://github.com/itsamankatyal" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="GitHub">
+      <i class="fa-brands fa-github"></i> GitHub
+    </a>
+  </div>
 
-## Professional Summary
-Computer Engineering student at Purdue University (GPA: 3.94/4.0). I specialize in the intersection of hardware architecture and verification, with experience ranging from UVM-based silicon verification to high-speed PCB design for robotic systems.
+  <div class="profile-bio-card">
+    <p>
+      I am a Computer Engineering student at Purdue University specializing in the intersection of hardware architecture and verification. My experience ranges from UVM-based silicon verification for tape-out ready chips to high-speed PCB design and low-latency embedded firmware for robotic control systems. I am passionate about constructing robust, highly optimized, and mathematically verified hardware systems.
+    </p>
+  </div>
+</div>
 
----
-
-## [ASIC & Digital Design Portfolio](/projects/asic-design)
-*A comprehensive overview of RTL design, SoC bus protocols, and physical implementation.*
-
-* **APB UART SoC Peripheral:** Configurable serial communication IP.
-* **AHB-Lite FIR Filter Accelerator:** Pipelined DSP hardware with hazard mitigation.
-* **USB 1.1 Full-Speed SoC Peripheral:** Complex transceiver design with 64B FIFO.
-* **ASIC Physical Design & Timing Closure:** Complete backend flow achieving 400MHz.
-
----
-
-## Silicon Verification
-### [RISC-V FPU UVM Verification](/projects/risc-v-verification)
-Architected a modular UVM testbench for an AFT x09 SoC FPU using DPI-C golden models and Tcl automation.
-
----
-
-## Robotics & Embedded Systems
-### [Unified ROV Control Systems](/projects/rov-systems)
-Pioneered a Hardware-in-the-Loop (HIL) test bench using RP2350/STM32 to decouple firmware/hardware cycles.
-
----
-
-## Personal Projects
-### [ML-Enabled Dueling Wands](/projects/ml-dueling)
-### [ESP32 Controller Bridge](/projects/esp32-bridge)
+<!-- Projects Section -->
+<div class="projects-section">
+  <h2 class="section-title">Featured Projects</h2>
+  
+  <div class="projects-grid">
+    {% assign sorted_projects = site.pages | where_exp: "item", "item.permalink contains '/projects/'" | sort: "order" %}
+    {% for project in sorted_projects %}
+      <a href="{{ project.url | relative_url }}" class="project-card">
+        <div class="project-card-header">
+          <span class="project-card-tag">{{ project.role | default: "Project" }}</span>
+          <h3 class="project-card-title">{{ project.title }}</h3>
+          <p class="project-card-desc">{{ project.description }}</p>
+        </div>
+        <div class="project-card-tech">
+          {% for tech in project.technologies %}
+            <span class="tech-badge">{{ tech }}</span>
+          {% endfor %}
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+</div>

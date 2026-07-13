@@ -2,19 +2,16 @@
 layout: default
 title: "ESP32 Game Controller Bridge"
 permalink: /projects/esp32-bridge
+role: "Embedded Software"
+description: "Low-latency controller conversion bridge using ESP32-S3 and TinyUSB stack to emulate Nintendo Switch Pro Controllers with Bluedroid communication."
+technologies: ["ESP32-S3", "C++", "ESP-IDF", "TinyUSB", "Bluedroid BT", "FreeRTOS"]
 printable: true
 order: 5
 ---
 
 This technical report details the architecture and implementation of a hardware-level translation bridge designed to enable seamless compatibility between third-party Bluetooth peripherals (specifically 8BitDo controllers) and the Nintendo Switch. By leveraging the **ESP32-S3** and the **ESP-IDF TinyUSB stack**, the system emulates a bit-accurate Nintendo Switch Pro Controller.
 
----
-
-## Project Overview: ESP32 Universal Game Controller Bridge
-
-**Technologies:** ESP32-S3 (Dual-Core), C++, ESP-IDF, TinyUSB Stack, Bluedroid (Bluetooth Stack), FreeRTOS.
-
-### The Engineering Challenge
+## The Engineering Challenge
 
 Many high-performance third-party controllers utilize standard HID profiles that are not natively recognized by the Nintendo Switch due to proprietary USB handshakes and specific HID report structures. To bridge this gap, I developed a low-latency "Man-in-the-Middle" system that intercepts Bluetooth packets and re-encodes them into a format the Switch accepts as a native Pro Controller.
 

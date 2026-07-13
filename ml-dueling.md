@@ -2,15 +2,15 @@
 layout: default
 title: "ML Gesture Dueling System"
 permalink: /projects/ml-dueling
+role: "Lead Embedded Engineer"
+description: "Asymmetric dual-core RP2350 firmware running TensorFlow Lite Micro for 96% gesture accuracy with real-time IMU polling and custom PCB design."
+technologies: ["RP2350", "Edge Impulse (TFLite)", "C/C++", "KiCad", "FreeRTOS", "3D Printing"]
 printable: true
 order: 4
 ---
 
 
-# ML-Powered Gesture Dueling System: A Real-Time Embedded AI Implementation
 
-**Project Role:** Lead Embedded Systems Engineer
-**Core Technologies:** RP2350 (Dual-Core ARM Cortex-M33), Edge Impulse (TFLite Micro), C/C++, KiCad (PCB Design), IR PWM Encoding, ABS 3D Printing, DMA, PIO.
 
 ## I. System Overview & Problem Statement
 
