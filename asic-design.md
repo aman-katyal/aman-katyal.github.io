@@ -42,7 +42,7 @@ I developed a high-performance 4-tap Finite Impulse Response (FIR) filter accele
 * **Pipelined Architecture:** Supported nonsequential transfers with registered read data (hrdata) to maximize propagation time and minimize critical path issues.
 * **Fixed-Point Math:** Utilized a 17-bit datapath for absolute precision during convolution operations.
 
-**[Space for AHB Subordinate & FIR Accelerator RTL Diagram]**
+![AHB Subordinate & FIR Accelerator RTL Diagram](/assets/images/ahb_rtl.png)
 **[Space for Coefficient Loader State Transition Diagram]**
 
 ---
