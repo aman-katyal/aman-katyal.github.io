@@ -1161,3 +1161,33 @@ body {
     padding: 1.5rem 1rem;
   }
 }
+
+/* ==========================================================================
+   SYNTAX HIGHLIGHTING (ROUGE)
+   ========================================================================== */
+
+/* Light Mode Syntax Colors (Default) */
+.highlight {
+  .c, .cm, .c1, .ch, .cs { color: #64748b; font-style: italic; } /* Comments */
+  .k, .kd, .kn, .kp, .kr, .kt, .kv { color: #1e3a8a; font-weight: 600; } /* Keywords */
+  .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss { color: #0f766e; } /* Strings */
+  .m, .mb, .mf, .mh, .mi, .il, .mo { color: #b45309; } /* Numbers */
+  .o, .ow { color: #334155; } /* Operators */
+  .nf, .nc, .nn, .no, .nd { color: #701a75; font-weight: 500; } /* Functions, Classes */
+  .nt, .na, .nb { color: #0369a1; } /* Tags, Attributes, Builtins */
+  .nv, .vc, .vg, .vi, .vm { color: #0f172a; } /* Variables */
+  .err { color: #ef4444; } /* Error */
+}
+
+/* Dark Mode Syntax Colors */
+[data-theme="dark"] .highlight {
+  .c, .cm, .c1, .ch, .cs { color: #94a3b8; font-style: italic; }
+  .k, .kd, .kn, .kp, .kr, .kt, .kv { color: #38bdf8; font-weight: 600; }
+  .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss { color: #2dd4bf; }
+  .m, .mb, .mf, .mh, .mi, .il, .mo { color: #fb923c; }
+  .o, .ow { color: #cbd5e1; }
+  .nf, .nc, .nn, .no, .nd { color: #c084fc; font-weight: 500; }
+  .nt, .na, .nb { color: #60a5fa; }
+  .nv, .vc, .vg, .vi, .vm { color: #f8fafc; }
+  .err { color: #f87171; }
+}
