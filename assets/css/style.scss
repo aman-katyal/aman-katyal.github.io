@@ -335,7 +335,6 @@ body {
   margin-top: 1.5rem;
 }
 
-/* Project Card */
 .project-card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border);
@@ -349,12 +348,32 @@ body {
   text-decoration: none;
   color: inherit;
   height: 100%;
+  overflow: hidden; /* Ensure image preview is clipped correctly */
 }
 
 .project-card:hover {
   transform: translateY(-5px);
   border-color: var(--accent-interactive);
   box-shadow: var(--shadow-lg);
+}
+
+.project-card-image {
+  width: calc(100% + 3.5rem);
+  height: 180px;
+  overflow: hidden;
+  margin: -1.75rem -1.75rem 1.25rem -1.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.project-card:hover .project-card-image img {
+  transform: scale(1.05);
 }
 
 .project-card-header {

@@ -44,6 +44,11 @@ title: Aman Katyal | Portfolio
     {% assign sorted_projects = site.pages | where_exp: "item", "item.permalink contains '/projects/'" | sort: "order" %}
     {% for project in sorted_projects %}
       <a href="{{ project.url | relative_url }}" class="project-card">
+        {% if project.image %}
+          <div class="project-card-image">
+            <img src="{{ project.image | relative_url }}" alt="{{ project.title }}">
+          </div>
+        {% endif %}
         <div class="project-card-header">
           <span class="project-card-tag">{{ project.role | default: "Project" }}</span>
           <h3 class="project-card-title">{{ project.title }}</h3>

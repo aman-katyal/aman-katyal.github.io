@@ -5,6 +5,7 @@ permalink: /projects/risc-v-verification
 role: "Verification Architect"
 description: "Modular UVM testbench for an AFTx SoC floating-point unit utilizing DPI-C golden reference models and constrained random verification."
 technologies: ["SystemVerilog", "UVM", "C/C++", "DPI-C", "Tcl Scripting", "Vivado"]
+image: "/assets/images/riscv_preview.jpg"
 printable: true
 order: 2
 ---
