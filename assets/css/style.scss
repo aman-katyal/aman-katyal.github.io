@@ -1012,10 +1012,399 @@ body {
 }
 
 /* ==========================================================================
+   PDF BUILDER CONTROL PANEL (SCREEN STYLES)
+   ========================================================================== */
+
+.only-print {
+  display: none !important;
+}
+
+.pdf-builder-panel {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.pdf-builder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.pdf-builder-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pdf-builder-title i {
+  color: var(--accent-interactive);
+}
+
+.pdf-builder-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 650px;
+  line-height: 1.5;
+}
+
+.print-primary-btn {
+  background-color: var(--accent-interactive);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.print-primary-btn:hover {
+  background-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+.print-primary-btn:active {
+  transform: translateY(0);
+}
+
+/* Presets & Filter Toolbar */
+.pdf-filter-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.75rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.pdf-filter-left,
+.pdf-filter-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.preset-btn {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.preset-btn:hover {
+  border-color: var(--accent-interactive);
+  color: var(--accent-interactive);
+}
+
+.preset-btn.active {
+  background-color: var(--accent-interactive);
+  border-color: var(--accent-interactive);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.text-action-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.text-action-btn:hover {
+  color: var(--accent-interactive);
+}
+
+.btn-divider {
+  color: var(--border-hover);
+  font-size: 0.75rem;
+}
+
+.selected-badge {
+  background-color: var(--accent-light);
+  color: var(--accent-interactive);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.selected-badge.none-selected {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Project Checklist Grid */
+.pdf-project-checklist {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.pdf-checkbox-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.pdf-checkbox-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pdf-checkbox-card.selected {
+  border-color: var(--accent-interactive);
+  background-color: var(--bg-primary);
+}
+
+.checkbox-input-wrapper {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.project-toggle-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.custom-checkmark {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid var(--border-hover);
+  background-color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: transparent;
+  transition: all var(--transition-fast);
+}
+
+.project-toggle-checkbox:checked + .custom-checkmark {
+  background-color: var(--accent-interactive);
+  border-color: var(--accent-interactive);
+  color: #ffffff;
+}
+
+.checkbox-card-content {
+  flex: 1;
+}
+
+.checkbox-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.project-order-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.project-role-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-interactive);
+}
+
+.checkbox-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+
+.checkbox-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.checkbox-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tech-badge-sm {
+  background-color: var(--badge-bg);
+  color: var(--badge-text);
+  border: 1px solid var(--badge-border);
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+}
+
+/* Print Instruction Box */
+.print-instruction-box {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+}
+
+.instruction-header {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.instruction-header i {
+  color: var(--accent-interactive);
+}
+
+.instruction-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.instruction-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--accent-interactive);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Excluded Project Section Rule */
+.print-project-section.is-excluded {
+  display: none !important;
+}
+
+.print-project-section {
+  margin-bottom: 3.5rem;
+}
+
+.print-project-meta-header {
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.print-project-title {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.print-project-badges {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.print-badge-role strong,
+.print-badge-link strong,
+.print-tech-stack strong {
+  color: var(--text-primary);
+}
+
+.print-tech-stack {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
    PRINT LAYOUT & PDF OPTIMIZATION
    ========================================================================== */
 
 @media print {
+  .only-print {
+    display: block !important;
+  }
+
   /* Hide all non-printable UI elements */
   .no-print,
   .navbar,
@@ -1025,7 +1414,12 @@ body {
   .scroll-to-top-btn,
   .quick-actions,
   #theme-toggle,
-  .print-instruction {
+  .print-instruction,
+  .pdf-builder-panel {
+    display: none !important;
+  }
+
+  .print-project-section.is-excluded {
     display: none !important;
   }
 
@@ -1033,7 +1427,7 @@ body {
   html, body {
     background-color: #ffffff !important;
     color: #000000 !important;
-    font-size: 10.5pt !important;
+    font-size: 10pt !important;
     line-height: 1.5 !important;
   }
 
@@ -1044,99 +1438,145 @@ body {
     animation: none !important;
   }
 
-  /* Project Layout Grid restructure to flat stack */
-  .project-grid {
-    display: block !important;
+  /* Document Header in Print */
+  .print-doc-header {
+    padding-bottom: 1.25rem;
+    margin-bottom: 2rem;
   }
 
-  /* Reposition sidebar at the top under project title */
-  .project-sidebar {
-    width: 100% !important;
-    position: static !important;
-    margin-bottom: 2rem !important;
+  .print-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.35rem;
   }
 
-  .sidebar-card {
-    background-color: #f8fafc !important;
-    border: 1px solid #d0d7de !important;
-    padding: 1rem !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 1.5rem !important;
-    box-shadow: none !important;
-  }
-
-  .sidebar-card-title {
-    width: 100% !important;
-    border-bottom: 1px solid #d0d7de !important;
-    margin-bottom: 0.5rem !important;
-    padding-bottom: 0.25rem !important;
-    font-size: 11pt !important;
-  }
-
-  .metadata-list {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 1.5rem !important;
-    width: 100% !important;
-  }
-
-  .metadata-list li {
-    margin-bottom: 0 !important;
-  }
-
-  .sidebar-tech {
-    border-top: none !important;
-    padding-top: 0 !important;
-    margin-top: 0.5rem !important;
-    width: 100% !important;
-  }
-
-  .tech-badges {
-    gap: 0.25rem !important;
-  }
-
-  .tech-badge {
-    background: none !important;
-    border: 1px solid #d0d7de !important;
+  .print-candidate-name {
+    font-family: var(--font-serif);
+    font-size: 22pt !important;
+    font-weight: 700 !important;
     color: #000000 !important;
+    margin: 0 !important;
+  }
+
+  .print-degree {
+    font-size: 11pt !important;
+    font-weight: 600 !important;
+    color: #1e3a8a !important;
+  }
+
+  .print-contact-row {
     font-size: 8.5pt !important;
-    padding: 1px 4px !important;
+    color: #475569 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .print-doc-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .print-portfolio-heading {
+    font-family: var(--font-serif);
+    font-size: 12pt !important;
+    font-weight: 700 !important;
+    color: #1e3a8a !important;
+    margin: 0 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .print-doc-meta {
+    font-size: 9pt !important;
+    font-weight: 600 !important;
+    color: #000000 !important;
+  }
+
+  .print-header-divider {
+    height: 2px !important;
+    background-color: #000000 !important;
+    border: none !important;
+    margin-top: 0.75rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* Project Section in Print */
+  .print-project-section {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    margin-bottom: 2.5rem !important;
+  }
+
+  .print-project-section:not(.is-excluded) {
+    page-break-before: always !important;
+    break-before: page !important;
+  }
+
+  .print-project-section:not(.is-excluded):first-of-type {
+    page-break-before: avoid !important;
+    break-before: avoid !important;
+  }
+
+  .print-project-meta-header {
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 0.4rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  .print-project-title {
+    font-family: var(--font-serif);
+    font-size: 17pt !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    margin: 0 0 0.35rem 0 !important;
+  }
+
+  .print-project-badges {
+    font-size: 9pt !important;
+    color: #334155 !important;
+    display: flex !important;
+    gap: 1rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .print-tech-stack {
+    font-size: 8.5pt !important;
+    color: #475569 !important;
   }
 
   /* Academic Typography for print */
   .markdown-body {
     color: #000000 !important;
+    font-size: 10pt !important;
+    line-height: 1.5 !important;
   }
 
-  .project-title,
   .markdown-body h1,
   .markdown-body h2,
   .markdown-body h3,
   .markdown-body h4 {
     color: #000000 !important;
-    page-break-after: avoid;
-    break-after: avoid;
-  }
-
-  .project-title {
-    font-size: 20pt !important;
-    border-bottom: 2px solid #000000 !important;
-    padding-bottom: 0.5rem !important;
-    margin-bottom: 1.5rem !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
   }
 
   .markdown-body h2 {
-    font-size: 14pt !important;
+    font-size: 13pt !important;
     border-bottom: 1px solid #d0d7de !important;
-    margin-top: 2rem !important;
+    margin-top: 1.5rem !important;
+    padding-bottom: 0.25rem !important;
   }
 
   .markdown-body h3 {
-    font-size: 12pt !important;
+    font-size: 11pt !important;
+    margin-top: 1.25rem !important;
   }
 
-  /* Anchors styling to display target URL */
   a {
     color: #000000 !important;
     text-decoration: underline !important;
@@ -1144,13 +1584,12 @@ body {
   
   a[href^="http"]:after {
     content: " (" attr(href) ")";
-    font-size: 8.5pt !important;
+    font-size: 8pt !important;
     color: #555555 !important;
     font-weight: normal !important;
   }
 
   a[href^="/"]:after {
-    /* Don't show URL for relative layout path links */
     content: "" !important;
   }
 
@@ -1185,30 +1624,19 @@ body {
 
   pre, code {
     color: #000000 !important;
-    font-size: 8.5pt !important;
+    font-size: 8pt !important;
   }
 
-  /* Blockquotes */
+  .markdown-body img {
+    max-width: 90% !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
   .markdown-body blockquote {
     background-color: #f8fafc !important;
     border-left: 3px solid #000000 !important;
     color: #333333 !important;
-  }
-
-  /* Print Page Breaks */
-  .page-break {
-    page-break-before: always !important;
-    break-before: page !important;
-    display: block !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-  }
-
-  .print-project-section {
-    page-break-inside: auto !important;
-    break-inside: auto !important;
   }
 }
 

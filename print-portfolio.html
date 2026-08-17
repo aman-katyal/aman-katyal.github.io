@@ -1,38 +1,263 @@
 ---
 layout: default
-title: Aman Katyal - Full Portfolio
+title: "Custom PDF Portfolio Builder | Aman Katyal"
 permalink: /print-portfolio/
 ---
 
-<div class="print-instruction" style="margin-bottom: 2rem; padding: 1rem; background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 6px;">
-    <h3>🖨️ PDF Generation Instructions</h3>
-    <p>1. Press <strong>Ctrl + P</strong> (Windows) or <strong>Cmd + P</strong> (Mac).</p>
-    <p>2. Set Destination to <strong>"Save as PDF"</strong>.</p>
-    <p>3. Set Margins to <strong>"None"</strong> and enable <strong>"Background Graphics"</strong>.</p>
+<!-- ==========================================================================
+     PDF BUILDER CONTROL PANEL (Screen Only)
+     ========================================================================== -->
+<div class="pdf-builder-panel no-print">
+  <div class="pdf-builder-header">
+    <div class="pdf-builder-title-group">
+      <h1 class="pdf-builder-title"><i class="fa-solid fa-file-pdf"></i> Custom PDF Portfolio Builder</h1>
+      <p class="pdf-builder-subtitle">Select the specific projects you wish to include in your customized PDF document, then click <strong>Print / Save PDF</strong>.</p>
+    </div>
+    <div class="pdf-builder-actions">
+      <button id="print-now-btn" class="print-primary-btn" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> Print / Save as PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Presets and Filter Bar -->
+  <div class="pdf-filter-toolbar">
+    <div class="pdf-filter-left">
+      <span class="filter-label">Quick Presets:</span>
+      <button type="button" class="preset-btn active" data-preset="all">All Projects</button>
+      <button type="button" class="preset-btn" data-preset="hardware">Hardware & Verification</button>
+      <button type="button" class="preset-btn" data-preset="embedded">Embedded & Robotics</button>
+    </div>
+    <div class="pdf-filter-right">
+      <button type="button" class="text-action-btn" id="btn-select-all">Select All</button>
+      <span class="btn-divider">•</span>
+      <button type="button" class="text-action-btn" id="btn-clear-all">Clear All</button>
+      <span class="selected-badge" id="selected-counter-badge">6 of 6 Selected</span>
+    </div>
+  </div>
+
+  <!-- Project Checkbox Grid -->
+  {% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
+  <div class="pdf-project-checklist">
+    {% for project in print_pages %}
+      {% assign proj_slug = project.permalink | remove: "/projects/" | remove: "/" %}
+      <label class="pdf-checkbox-card selected" for="check-{{ proj_slug }}" data-project-slug="{{ proj_slug }}" data-project-role="{{ project.role }}">
+        <div class="checkbox-input-wrapper">
+          <input type="checkbox" id="check-{{ proj_slug }}" class="project-toggle-checkbox" data-target="proj-sec-{{ proj_slug }}" checked>
+          <span class="custom-checkmark"><i class="fa-solid fa-check"></i></span>
+        </div>
+        <div class="checkbox-card-content">
+          <div class="checkbox-card-header">
+            <span class="project-order-tag">#{{ project.order }}</span>
+            <span class="project-role-tag">{{ project.role }}</span>
+          </div>
+          <h3 class="checkbox-card-title">{{ project.title }}</h3>
+          <p class="checkbox-card-desc">{{ project.description }}</p>
+          <div class="checkbox-card-tech">
+            {% for tech in project.technologies limit:4 %}
+              <span class="tech-badge-sm">{{ tech }}</span>
+            {% endfor %}
+            {% if project.technologies.size > 4 %}
+              <span class="tech-badge-sm">+{{ project.technologies.size | minus: 4 }} more</span>
+            {% endif %}
+          </div>
+        </div>
+      </label>
+    {% endfor %}
+  </div>
+
+  <!-- Print Instructions Accordion -->
+  <div class="print-instruction-box">
+    <div class="instruction-header">
+      <i class="fa-solid fa-circle-question"></i>
+      <span>Recommended PDF Settings for Best Quality</span>
+    </div>
+    <div class="instruction-body">
+      <div class="instruction-step">
+        <span class="step-num">1</span>
+        <div><strong>Destination:</strong> Select <em>"Save as PDF"</em> in your browser print dialog.</div>
+      </div>
+      <div class="instruction-step">
+        <span class="step-num">2</span>
+        <div><strong>Margins:</strong> Set to <em>"Default"</em> or <em>"None"</em>.</div>
+      </div>
+      <div class="instruction-step">
+        <span class="step-num">3</span>
+        <div><strong>Options:</strong> Check <em>"Background Graphics"</em> and uncheck <em>"Headers and Footers"</em>.</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<header class="only-print" style="display: none; margin-bottom: 1cm;">
-  <h1 style="margin: 0; border: none;">Aman Katyal</h1>
-  <p>itsamankatyal@gmail.com | 678-242-9495 | Purdue University</p>
-  <hr>
+<!-- ==========================================================================
+     PRINT DOCUMENT CONTENT (Appears in Print & Preview)
+     ========================================================================== -->
+
+<!-- Formal Cover Header for Printed PDF -->
+<header class="print-doc-header only-print">
+  <div class="print-header-top">
+    <h1 class="print-candidate-name">Aman Katyal</h1>
+    <span class="print-degree">Computer Engineering @ Purdue University</span>
+  </div>
+  <div class="print-contact-row">
+    <span><i class="fa-solid fa-envelope"></i> itsamankatyal@gmail.com</span>
+    <span>•</span>
+    <span><i class="fa-brands fa-linkedin"></i> linkedin.com/in/aman-katyal</span>
+    <span>•</span>
+    <span><i class="fa-brands fa-github"></i> github.com/itsamankatyal</span>
+    <span>•</span>
+    <span><i class="fa-solid fa-globe"></i> aman-katyal.github.io</span>
+  </div>
+  <div class="print-doc-title-row">
+    <h2 class="print-portfolio-heading">Selected Technical Project Portfolio</h2>
+    <span class="print-doc-meta" id="print-timestamp">GPA: 3.94 / 4.0</span>
+  </div>
+  <hr class="print-header-divider">
 </header>
 
-<style>
-  @media print { .only-print { display: block !important; } }
-</style>
+<!-- Projects Print Container -->
+<div class="print-projects-container">
+  {% for project in print_pages %}
+    {% assign proj_slug = project.permalink | remove: "/projects/" | remove: "/" %}
+    <section class="print-project-section" id="proj-sec-{{ proj_slug }}" data-project-slug="{{ proj_slug }}">
+      <div class="print-project-meta-header">
+        <div class="print-title-group">
+          <h2 class="print-project-title">{{ project.title }}</h2>
+          <div class="print-project-badges">
+            <span class="print-badge-role"><strong>Role:</strong> {{ project.role }}</span>
+            {% if project.github %}
+              <span class="print-badge-link"><strong>Repo:</strong> {{ project.github }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <div class="print-tech-stack">
+          <strong>Technologies:</strong> {{ project.technologies | join: ", " }}
+        </div>
+      </div>
+      
+      <div class="markdown-body print-markdown-body">
+        {{ project.content | markdownify }}
+      </div>
+    </section>
+  {% endfor %}
+</div>
 
-{% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
+<!-- ==========================================================================
+     INTERACTIVE JAVASCRIPT LOGIC
+     ========================================================================== -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const checkboxes = document.querySelectorAll('.project-toggle-checkbox');
+    const counterBadge = document.getElementById('selected-counter-badge');
+    const selectAllBtn = document.getElementById('btn-select-all');
+    const clearAllBtn = document.getElementById('btn-clear-all');
+    const presetBtns = document.querySelectorAll('.preset-btn');
+    const totalCount = checkboxes.length;
 
-{% for project in print_pages %}
-<div class="page-break"></div>
-<section class="print-project-section">
-    <h1 class="project-title" style="margin-top: 0; margin-bottom: 0.5rem; font-family: var(--font-serif); border-bottom: 2px solid #000; padding-bottom: 0.5rem;">{{ project.title }}</h1>
-    <div style="font-size: 0.9rem; color: #475569; margin-bottom: 1.5rem; font-family: var(--font-sans); font-weight: 500;">
-      <strong>Role:</strong> {{ project.role }} &nbsp;|&nbsp; 
-      <strong>Technologies:</strong> {{ project.technologies | join: ", " }}
-    </div>
-    <div class="markdown-body">
-      {{ project.content | markdownify }}
-    </div>
-</section>
-{% endfor %}
+    // Mapping for presets
+    const hardwareSlugs = ['asic-design', 'risc-v-verification'];
+    const embeddedSlugs = ['rov-hil-testbench', 'rov-buoyancy-float', 'esp32-bridge', 'ml-dueling'];
+
+    function updateState() {
+      let selectedCount = 0;
+
+      checkboxes.forEach(cb => {
+        const targetId = cb.getAttribute('data-target');
+        const section = document.getElementById(targetId);
+        const card = cb.closest('.pdf-checkbox-card');
+
+        if (cb.checked) {
+          selectedCount++;
+          if (section) section.classList.remove('is-excluded');
+          if (card) card.classList.add('selected');
+        } else {
+          if (section) section.classList.add('is-excluded');
+          if (card) card.classList.remove('selected');
+        }
+      });
+
+      if (counterBadge) {
+        counterBadge.textContent = `${selectedCount} of ${totalCount} Selected`;
+        if (selectedCount === 0) {
+          counterBadge.classList.add('none-selected');
+        } else {
+          counterBadge.classList.remove('none-selected');
+        }
+      }
+
+      // Save state in localStorage
+      const activeSlugs = Array.from(checkboxes)
+        .filter(cb => cb.checked)
+        .map(cb => cb.closest('.pdf-checkbox-card').getAttribute('data-project-slug'));
+      localStorage.setItem('pdf_selected_projects', JSON.stringify(activeSlugs));
+    }
+
+    // Toggle on checkbox click or card click
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        // Clear active preset highlight when manual toggles occur
+        presetBtns.forEach(b => b.classList.remove('active'));
+        updateState();
+      });
+    });
+
+    // Select All
+    if (selectAllBtn) {
+      selectAllBtn.addEventListener('click', () => {
+        checkboxes.forEach(cb => cb.checked = true);
+        presetBtns.forEach(b => b.classList.remove('active'));
+        const allPreset = document.querySelector('.preset-btn[data-preset="all"]');
+        if (allPreset) allPreset.classList.add('active');
+        updateState();
+      });
+    }
+
+    // Clear All
+    if (clearAllBtn) {
+      clearAllBtn.addEventListener('click', () => {
+        checkboxes.forEach(cb => cb.checked = false);
+        presetBtns.forEach(b => b.classList.remove('active'));
+        updateState();
+      });
+    }
+
+    // Preset Buttons
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        presetBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const preset = btn.getAttribute('data-preset');
+        checkboxes.forEach(cb => {
+          const card = cb.closest('.pdf-checkbox-card');
+          const slug = card.getAttribute('data-project-slug');
+
+          if (preset === 'all') {
+            cb.checked = true;
+          } else if (preset === 'hardware') {
+            cb.checked = hardwareSlugs.includes(slug);
+          } else if (preset === 'embedded') {
+            cb.checked = embeddedSlugs.includes(slug);
+          }
+        });
+        updateState();
+      });
+    });
+
+    // Restore saved selections if available
+    try {
+      const saved = JSON.parse(localStorage.getItem('pdf_selected_projects'));
+      if (saved && Array.isArray(saved) && saved.length > 0) {
+        checkboxes.forEach(cb => {
+          const card = cb.closest('.pdf-checkbox-card');
+          const slug = card.getAttribute('data-project-slug');
+          cb.checked = saved.includes(slug);
+        });
+      }
+    } catch (e) {
+      // Default to all selected
+    }
+
+    updateState();
+  });
+</script>
