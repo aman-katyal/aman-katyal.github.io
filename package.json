@@ -1,0 +1,16 @@
+{
+  "name": "aman-katyal-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aman Katyal's Personal Portfolio Website",
+  "scripts": {
+    "issue:start": "pwsh ./scripts/issue-start.ps1",
+    "issue:lint": "python -m gh_tool issue lint",
+    "issue:suggest": "python -m gh_tool issue suggest-labels",
+    "issue:create": "python -m gh_tool issue create",
+    "issue:port": "python -m gh_tool issue port",
+    "pr:lint": "python -m gh_tool pr lint",
+    "pr:create": "python -m gh_tool pr create",
+    "labels:sync": "python -m gh_tool label sync"
+  }
+}

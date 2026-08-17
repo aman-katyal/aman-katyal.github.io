@@ -1,0 +1,28 @@
+name: Sync Canonical Labels
+
+on:
+  workflow_dispatch:  # manual trigger
+  push:
+    paths:
+      - ".agents/tools/gh_tool/config.py"  # re-sync whenever taxonomy changes
+
+jobs:
+  sync:
+    name: Ensure canonical labels exist on repo
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Sync labels
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd .agents/tools
+          python -m gh_tool label sync

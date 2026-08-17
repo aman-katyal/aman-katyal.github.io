@@ -1,0 +1,76 @@
+name: "🔧 Task / Maintenance"
+description: Track a removal, refactor, config change, asset optimization, or content cleanup
+title: "[TASK]: "
+labels: ["type:task", "priority:medium", "status:ready"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Task / Maintenance
+        Use this template for cleanup, refactors, asset optimization, markdown fixes,
+        and maintenance items that are not bugs or new features.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "📋 Description"
+      description: What needs to be done and why?
+      placeholder: "e.g., Replace unfulfilled placeholders in project writeups with finalized schematics or remove draft text."
+    validations:
+      required: true
+
+  - type: textarea
+    id: requested_changes
+    attributes:
+      label: "📝 Requested Changes"
+      description: List the specific changes to be made.
+      placeholder: |
+        - Remove `[Placeholder: ...]` tags from `asic-design.md` and `ml-dueling.md`
+        - Compress large image assets in `assets/images/`
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "📍 Affected Area"
+      options:
+        - "area:home — Home page, hero profile, bio card, project cards"
+        - "area:projects — Project case studies (ASIC, RISC-V, ROV, ESP32, ML)"
+        - "area:print — Print portfolio layout and @media print CSS"
+        - "area:nav — Navbar, breadcrumbs, footer, social links"
+        - "area:styles — CSS tokens, dark mode, typography, Rouge code themes"
+        - "area:assets — Images, schematics, compression, preview cards"
+        - "area:seo — Meta tags, OpenGraph, Twitter cards, alt texts"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "🚨 Priority"
+      options:
+        - "priority:high — Important for portfolio presentation"
+        - "priority:medium — Standard sprint task"
+        - "priority:low — Minor polish, no deadline"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "☑️ Acceptance Criteria"
+      description: Verifiable conditions that mark this task as done.
+      placeholder: |
+        - [ ] All listed changes are applied and tested
+        - [ ] No layout or rendering regressions
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "📌 Pre-submission Checklist"
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true

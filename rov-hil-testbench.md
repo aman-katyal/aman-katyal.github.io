@@ -5,7 +5,7 @@ permalink: /projects/rov-hil-testbench
 role: "Embedded Firmware & Electrical"
 description: "Hardware-in-the-Loop (HIL) carrier board and testbench for MATE ROV, enabling firmware development and real-time comparison of STM32/RP2350."
 technologies: ["STM32", "RP2350B", "Raspberry Pi 5", "SPI/I2C/UART", "FreeRTOS", "KiCad"]
-image: "https://github.com/user-attachments/assets/c372b716-f19f-46da-be7e-866f1f1b793e"
+image: "/assets/images/rov_hil_carrier.png"
 printable: true
 order: 3
 ---
@@ -36,6 +36,6 @@ I engineered the power section to step down the incoming 12V rail to 6V specific
 
 ---
 
-<img width="1035" height="auto" alt="mcu and pi board" src="https://github.com/user-attachments/assets/c372b716-f19f-46da-be7e-866f1f1b793e" />
+![ROV HIL Carrier Board with Raspberry Pi 5 and Dual MCU](/assets/images/rov_hil_carrier.png)
 
-<img width="878" height="auto" alt="Screenshot 2026-02-27 165804" src="https://github.com/user-attachments/assets/ffc42217-b6ea-43cd-82f3-94ce471c0b6c" />
+![ROV HIL Carrier Board KiCad PCB Routing and Layer Stack](/assets/images/rov_hil_schematic.png)

@@ -1,0 +1,37 @@
+name: Issue Lint
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  lint:
+    name: Validate issue format and labels
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install gh_tool deps
+        run: pip install scikit-learn --quiet
+
+      - name: Run issue lint
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd .agents/tools
+          python -m gh_tool issue lint --number ${{ github.event.issue.number }}
+
+      - name: Auto-apply missing canonical labels
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd .agents/tools
+          python -m gh_tool issue port

@@ -1,0 +1,30 @@
+name: PR Lint
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  lint:
+    name: Validate PR format and labels
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install gh_tool deps
+        run: pip install scikit-learn --quiet
+
+      - name: Run PR lint
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd .agents/tools
+          python -m gh_tool pr lint --number ${{ github.event.pull_request.number }}

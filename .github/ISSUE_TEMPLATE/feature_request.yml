@@ -1,0 +1,73 @@
+name: "✨ Feature Request"
+description: Propose a new portfolio capability, section, or integration
+title: "[FEATURE]: "
+labels: ["type:feature", "priority:medium", "status:triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+        Use this template to propose new features, interactive elements, or sections for the portfolio.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "🎯 Motivation / Problem Statement"
+      description: What is currently missing or could be improved?
+      placeholder: "e.g., Visitors reaching the bottom of a project page have no quick way to navigate to adjacent projects."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "💡 Proposed Solution"
+      description: Describe the feature or improvement.
+      placeholder: "Add next/previous project pagination links at the bottom of each project detail page."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "📍 Target Area"
+      options:
+        - "area:home — Home page, hero profile, bio card, project cards"
+        - "area:projects — Project case studies (ASIC, RISC-V, ROV, ESP32, ML)"
+        - "area:print — Print portfolio layout and @media print CSS"
+        - "area:nav — Navbar, breadcrumbs, footer, social links"
+        - "area:styles — CSS tokens, dark mode, typography, Rouge code themes"
+        - "area:assets — Images, schematics, compression, preview cards"
+        - "area:seo — Meta tags, OpenGraph, Twitter cards, alt texts"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "🚨 Priority"
+      options:
+        - "priority:high — High impact feature"
+        - "priority:medium — Standard feature"
+        - "priority:low — Nice to have"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "☑️ Acceptance Criteria"
+      description: What verifiable criteria define this feature as complete?
+      placeholder: |
+        - [ ] Feature is fully implemented and styled
+        - [ ] Works cleanly across responsive breakpoints and both themes
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "📌 Pre-submission Checklist"
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true

@@ -1,0 +1,90 @@
+name: "🐛 Bug Report"
+description: Report broken or unexpected behavior on the portfolio website
+title: "[BUG]: "
+labels: ["type:bug", "priority:medium", "status:triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report
+        Use this template to report broken links, syntax errors, layout bugs, or rendering glitches.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "🔍 Bug Description"
+      description: Clear and concise description of what the bug is.
+      placeholder: "e.g., Escaped asterisk list items in risc-v-verification.md render as literal asterisks instead of HTML unordered lists."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "📋 Steps to Reproduce"
+      description: Provide exact steps so we can reproduce this consistently.
+      placeholder: |
+        1. Navigate to `/projects/risc-v-verification`
+        2. Scroll to Section 5: Results
+        3. Observe: List rendered with literal `\*` instead of bullet points.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_vs_actual
+    attributes:
+      label: "✅ Expected vs Actual Behavior"
+      description: Clearly describe what should happen vs what does happen.
+      placeholder: |
+        **Expected:** Standard bulleted unordered list
+        **Actual:** Escaped asterisks showing up as raw markdown syntax
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "🚨 Severity"
+      options:
+        - "priority:critical — Broken page or broken layout"
+        - "priority:high — High visibility defect"
+        - "priority:medium — Noticeable glitch, workaround exists"
+        - "priority:low — Minor cosmetic flaw"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "📍 Affected Area"
+      options:
+        - "area:home — Home page, hero profile, bio card, project cards"
+        - "area:projects — Project case studies (ASIC, RISC-V, ROV, ESP32, ML)"
+        - "area:print — Print portfolio layout and @media print CSS"
+        - "area:nav — Navbar, breadcrumbs, footer, social links"
+        - "area:styles — CSS tokens, dark mode, typography, Rouge code themes"
+        - "area:assets — Images, schematics, compression, preview cards"
+        - "area:seo — Meta tags, OpenGraph, Twitter cards, alt texts"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "☑️ Acceptance Criteria"
+      description: What must be true for this bug to be considered fixed?
+      placeholder: |
+        - [ ] Bug is resolved and verified in both light and dark themes
+        - [ ] No regressions in mobile or print view
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "📌 Pre-submission Checklist"
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
+        - label: I can reproduce this consistently
+          required: true

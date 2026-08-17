@@ -617,6 +617,85 @@ body {
   background-color: var(--bg-secondary);
 }
 
+/* Project Bottom Pagination */
+.project-pagination {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.pagination-spacer {
+  /* Keeps the next link aligned to the right when no prev link exists */
+}
+
+.pagination-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.pagination-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-interactive);
+  box-shadow: var(--shadow-md);
+}
+
+.pagination-card.next {
+  text-align: right;
+  grid-column: 2;
+}
+
+.pagination-card.prev {
+  text-align: left;
+  grid-column: 1;
+}
+
+.pagination-dir {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-interactive);
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pagination-card.next .pagination-dir {
+  justify-content: flex-end;
+}
+
+.pagination-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+@media (max-width: 640px) {
+  .project-pagination {
+    grid-template-columns: 1fr;
+  }
+  .pagination-card.next {
+    grid-column: 1;
+    text-align: left;
+  }
+  .pagination-card.next .pagination-dir {
+    justify-content: flex-start;
+  }
+}
+
 /* ==========================================================================
    MARKDOWN TYPOGRAPHY STYLE (Academic Style)
    ========================================================================== */

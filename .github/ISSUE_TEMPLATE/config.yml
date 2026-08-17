@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "📧 Email Contact"
+    url: mailto:itsamankatyal@gmail.com
+    about: Ask questions or discuss portfolio inquiries directly via email.
+  - name: "💼 LinkedIn Profile"
+    url: https://linkedin.com/in/aman-katyal
+    about: Connect on LinkedIn.

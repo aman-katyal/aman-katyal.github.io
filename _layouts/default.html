@@ -6,11 +6,17 @@
   <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
   
-  <!-- SEO Meta Tags -->
+  <!-- SEO & Social Sharing Meta Tags -->
   <meta property="og:title" content="{{ page.title | default: site.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ site.url }}{{ page.url }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:image" content="{{ page.image | default: '/assets/images/asic_preview.jpg' | absolute_url }}">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title | default: site.title }}">
+  <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+  <meta name="twitter:image" content="{{ page.image | default: '/assets/images/asic_preview.jpg' | absolute_url }}">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -130,6 +136,43 @@
           <article class="project-content markdown-body">
             {{ content }}
           </article>
+        </div>
+
+        <!-- Project Pagination Navigation -->
+        {% assign all_projects = site.pages | where_exp: "item", "item.permalink contains '/projects/'" | sort: "order" %}
+        {% assign prev_project = nil %}
+        {% assign next_project = nil %}
+        {% for p in all_projects %}
+          {% if p.url == page.url %}
+            {% assign curr_idx = forloop.index0 %}
+            {% assign prev_idx = curr_idx | minus: 1 %}
+            {% assign next_idx = curr_idx | plus: 1 %}
+            {% if prev_idx >= 0 %}
+              {% assign prev_project = all_projects[prev_idx] %}
+            {% endif %}
+            {% if next_idx < all_projects.size %}
+              {% assign next_project = all_projects[next_idx] %}
+            {% endif %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        <div class="project-pagination no-print">
+          {% if prev_project %}
+            <a href="{{ prev_project.url | relative_url }}" class="pagination-card prev">
+              <span class="pagination-dir"><i class="fa-solid fa-arrow-left"></i> Previous Project</span>
+              <span class="pagination-title">{{ prev_project.title }}</span>
+            </a>
+          {% else %}
+            <div class="pagination-spacer"></div>
+          {% endif %}
+
+          {% if next_project %}
+            <a href="{{ next_project.url | relative_url }}" class="pagination-card next">
+              <span class="pagination-dir">Next Project <i class="fa-solid fa-arrow-right"></i></span>
+              <span class="pagination-title">{{ next_project.title }}</span>
+            </a>
+          {% endif %}
         </div>
 
       </main>

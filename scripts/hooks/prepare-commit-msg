@@ -1,0 +1,22 @@
+#!/bin/sh
+
+COMMIT_MSG_FILE=$1
+COMMIT_SOURCE=$2
+SHA1=$3
+
+# Extract issue number from branch name (e.g. issue-42-fix-nav -> 42)
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+ISSUE_ID=$(echo "$BRANCH_NAME" | grep -oE '[0-9]+' | head -n 1)
+
+if [ -n "$ISSUE_ID" ]; then
+    # Read existing message
+    ORIGINAL_MSG=$(cat "$COMMIT_MSG_FILE")
+    
+    # Check if message already contains [#<id>]
+    case "$ORIGINAL_MSG" in
+        *"[#$ISSUE_ID]"*) ;;
+        *)
+            echo "[#$ISSUE_ID] $ORIGINAL_MSG" > "$COMMIT_MSG_FILE"
+            ;;
+    esac
+fi

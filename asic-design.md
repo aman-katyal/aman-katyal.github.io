@@ -26,8 +26,6 @@ I designed a UART receiver integrated into an SoC via the APB protocol. This pro
 * **Clocking:** Validated for a 50MHz system clock.
 * **Error Handling:** Integrated transaction error feedback (psaterr) for invalid access attempts or write-to-read-only violations.
 
-**[Space for APB Subordinate & UART RX RTL Diagram]**
-
 ---
 
 ## 2. AHB-Lite FIR Filter Hardware Accelerator
@@ -59,9 +57,6 @@ This project involved designing an AHB-based SoC peripheral supporting USB 1.1 F
 * **Buffer Management:** Integrated a 64-byte dual-port FIFO buffer to decouple bus transactions from the serial bitstream.
 * **Protocol Support:** Engineered hardware to handle OUT, IN, DATA0/1, and handshake (ACK/NAK/STALL) packets.
 * **Bonus Features:** Support for Bit-Stuffing and Cyclic Redundancy Check (CRC) signatures (x16 + x15 + x2 + 1) for data integrity.
-
-**[Space for USB SoC Module Top-Level Architecture Diagram]**
-**[Space for USB RX and TX FSM RTL Diagrams]**
 
 ---
 

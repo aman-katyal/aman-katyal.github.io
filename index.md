@@ -27,6 +27,9 @@ title: Aman Katyal | Portfolio
     <a href="https://github.com/itsamankatyal" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="GitHub">
       <i class="fa-brands fa-github"></i> GitHub
     </a>
+    <a href="{{ '/print-portfolio/' | relative_url }}" class="profile-link-btn" title="PDF Portfolio">
+      <i class="fa-solid fa-file-pdf"></i> PDF Portfolio
+    </a>
   </div>
 
   <div class="profile-bio-card">

@@ -1,0 +1,76 @@
+name: "🎨 UI / UX Polish"
+description: Report a visual, layout, typography, or interaction design enhancement
+title: "[UI/UX]: "
+labels: ["type:ui-ux", "priority:low", "status:ready"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## UI / UX Polish
+        Use this template for visual refinements, layout adjustments, spacing fixes,
+        and typography or interaction improvements.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "🖼 Current State"
+      description: Describe what currently exists and what feels off.
+      placeholder: "e.g., Code block copy buttons should give clear visual feedback upon copying."
+    validations:
+      required: true
+
+  - type: textarea
+    id: requested_changes
+    attributes:
+      label: "✏️ Requested Changes"
+      description: Describe the specific visual or interaction changes needed.
+      placeholder: |
+        - Refine spacing on mobile hero card
+        - Adjust hover state borders
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "📍 Affected Area"
+      options:
+        - "area:home — Home page, hero profile, bio card, project cards"
+        - "area:projects — Project case studies (ASIC, RISC-V, ROV, ESP32, ML)"
+        - "area:print — Print portfolio layout and @media print CSS"
+        - "area:nav — Navbar, breadcrumbs, footer, social links"
+        - "area:styles — CSS tokens, dark mode, typography, Rouge code themes"
+        - "area:assets — Images, schematics, compression, preview cards"
+        - "area:seo — Meta tags, OpenGraph, Twitter cards, alt texts"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "🚨 Priority"
+      options:
+        - "priority:high — High visual impact"
+        - "priority:medium — Noticeable polish item"
+        - "priority:low — Minor polish, no deadline"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "☑️ Acceptance Criteria"
+      description: Define what "done" looks like visually.
+      placeholder: |
+        - [ ] Visual polish matches design system guidelines
+        - [ ] Verified in light and dark mode across breakpoints
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "📌 Pre-submission Checklist"
+      options:
+        - label: I have searched existing issues and this is not a duplicate
+          required: true
