@@ -163,8 +163,8 @@
   function handleGlobalClick(e) {
     const trigger = e.target.closest('[data-project-trigger], [data-project-id]');
     if (trigger) {
-      // If the clicked target was an external action link inside the card (e.g. GitHub link), let it navigate naturally
-      if (e.target.closest('a[href^="http"], a[target="_blank"]')) {
+      // If the clicked target was an anchor link inside the card that is not the trigger itself, let it navigate naturally
+      if (e.target.closest('a:not([data-project-trigger])')) {
         return;
       }
       e.preventDefault();
@@ -180,6 +180,32 @@
    */
   function handleKeyDown(e) {
     if (!isModalOpen && !isLightboxOpen) return;
+
+    if (e.key === 'Tab') {
+      const container = isLightboxOpen ? lightboxEl : (isModalOpen ? modalEl : null);
+      if (!container) return;
+
+      const focusable = container.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+      return;
+    }
 
     if (e.key === 'Escape') {
       e.preventDefault();
@@ -243,6 +269,10 @@
    * @param {string} projectId
    */
   function openProjectModal(projectId) {
+    if (isLightboxOpen) {
+      closeLightbox();
+    }
+
     const index = projects.findIndex(p => p.id === projectId);
     if (index === -1) {
       console.warn('Project not found in loaded data:', projectId);
