@@ -1,0 +1,109 @@
+<!-- Project Showcase Modal & Gallery Overlay -->
+<div id="project-modal-backdrop" class="project-modal-backdrop" aria-hidden="true">
+  <div id="project-modal" class="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-project-title" aria-describedby="modal-project-summary">
+    <!-- Modal Header -->
+    <header class="modal-header">
+      <div class="modal-header-meta">
+        <span id="modal-project-category" class="modal-category-eyebrow">Category</span>
+        <h2 id="modal-project-title" class="modal-title">Project Title</h2>
+        <div class="modal-submeta">
+          <span id="modal-project-year" class="modal-meta-item modal-year">Year</span>
+          <span class="modal-meta-separator">•</span>
+          <span id="modal-project-role" class="modal-meta-item modal-role">Role</span>
+        </div>
+      </div>
+      <div class="modal-header-actions">
+        <a id="modal-project-github" href="#" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-secondary" aria-label="View Source on GitHub">
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub</span>
+        </a>
+        <a id="modal-project-live" href="#" target="_blank" rel="noopener noreferrer" class="modal-btn modal-btn-primary" aria-label="View Live Project">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span>View</span>
+        </a>
+        <button id="modal-close-btn" class="modal-close-btn" type="button" aria-label="Close modal dialog">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Modal Scrollable Content -->
+    <div class="modal-body">
+      <!-- Media Gallery Section -->
+      <section class="modal-gallery" aria-label="Project media gallery">
+        <div class="modal-gallery-viewport" id="modal-gallery-viewport">
+          <img id="modal-main-img" class="modal-main-img" src="" alt="Project featured preview">
+          <div id="modal-img-caption" class="modal-img-caption">Caption text</div>
+          <button id="modal-zoom-btn" class="modal-zoom-btn" type="button" aria-label="Zoom image to full screen">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+        </div>
+        <div id="modal-thumbnails" class="modal-thumbnails" role="tablist" aria-label="Project images list">
+          <!-- Dynamically populated thumbnail buttons -->
+        </div>
+      </section>
+
+      <!-- Overview Section -->
+      <section class="modal-section modal-overview-section">
+        <h3 class="modal-section-title">Overview</h3>
+        <p id="modal-project-summary" class="modal-overview">Summary description</p>
+      </section>
+
+      <!-- Highlights Section -->
+      <section class="modal-section modal-highlights-section">
+        <h3 class="modal-section-title">Engineering Highlights</h3>
+        <ul id="modal-highlights-list" class="modal-highlights">
+          <!-- Dynamically populated ▹ items -->
+        </ul>
+      </section>
+
+      <!-- Skills Cluster Section -->
+      <section class="modal-section modal-skills-section">
+        <h3 class="modal-section-title">Technical Skills & Protocols</h3>
+        <div class="skills-cluster" id="modal-skills-cluster">
+          <div class="skills-group skills-group-languages" id="modal-group-languages">
+            <span class="skills-group-label"><i class="fa-solid fa-code"></i> Languages</span>
+            <div class="skills-pill-group" id="modal-pills-languages"></div>
+          </div>
+          <div class="skills-group skills-group-technologies" id="modal-group-technologies">
+            <span class="skills-group-label"><i class="fa-solid fa-microchip"></i> Technologies & Tools</span>
+            <div class="skills-pill-group" id="modal-pills-technologies"></div>
+          </div>
+          <div class="skills-group skills-group-protocols" id="modal-group-protocols">
+            <span class="skills-group-label"><i class="fa-solid fa-network-wired"></i> Protocols & Standards</span>
+            <div class="skills-pill-group" id="modal-pills-protocols"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Modal Footer Navigation -->
+    <footer class="modal-footer">
+      <button id="modal-prev-btn" class="modal-nav-btn modal-nav-prev" type="button">
+        <i class="fa-solid fa-chevron-left"></i>
+        <span>Previous Project</span>
+      </button>
+      <div class="modal-nav-indicator" id="modal-nav-indicator">1 / 6</div>
+      <button id="modal-next-btn" class="modal-nav-btn modal-nav-next" type="button">
+        <span>Next Project</span>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </footer>
+  </div>
+</div>
+
+<!-- Full-Viewport Lightbox Overlay -->
+<div id="modal-lightbox" class="modal-lightbox" aria-hidden="true" role="dialog" aria-label="Enlarged image view">
+  <button id="lightbox-close-btn" class="lightbox-close-btn" type="button" aria-label="Close enlarged view">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <div class="lightbox-content">
+    <img id="lightbox-img" class="lightbox-img" src="" alt="Full-resolution preview">
+    <div id="lightbox-caption" class="lightbox-caption"></div>
+  </div>
+</div>
+
+<!-- Embedded JSON Project Data Payload -->
+<script id="portfolio-projects-data" type="application/json">
+  {{ site.data.projects | jsonify }}
+</script>
