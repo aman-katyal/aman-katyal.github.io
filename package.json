@@ -4,6 +4,7 @@
   "private": true,
   "description": "Aman Katyal's Personal Portfolio Website",
   "scripts": {
+    "test": "node --test tests/e2e-project-viewer.test.js",
     "issue:start": "pwsh ./scripts/issue-start.ps1",
     "issue:lint": "python -m gh_tool issue lint",
     "issue:suggest": "python -m gh_tool issue suggest-labels",
