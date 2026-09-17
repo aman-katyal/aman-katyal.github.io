@@ -176,10 +176,23 @@
   }
 
   /**
-   * Keyboard handler for Esc, ArrowLeft, ArrowRight.
+   * Keyboard handler for Esc, ArrowLeft, ArrowRight, and Enter/Space on triggers.
    */
   function handleKeyDown(e) {
-    if (!isModalOpen && !isLightboxOpen) return;
+    // If modal/lightbox is not open, handle Enter or Space on focused project triggers
+    if (!isModalOpen && !isLightboxOpen) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const trigger = e.target.closest('[data-project-trigger], [data-project-id]');
+        if (trigger && !e.target.closest('a:not([data-project-trigger])')) {
+          e.preventDefault();
+          const projectId = trigger.getAttribute('data-project-trigger') || trigger.getAttribute('data-project-id');
+          if (projectId) {
+            openProjectModal(projectId);
+          }
+        }
+      }
+      return;
+    }
 
     if (e.key === 'Tab') {
       const container = isLightboxOpen ? lightboxEl : (isModalOpen ? modalEl : null);
