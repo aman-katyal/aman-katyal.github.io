@@ -44,25 +44,61 @@ title: Aman Katyal | Portfolio
   <h2 class="section-title">Featured Projects</h2>
   
   <div class="projects-grid">
-    {% assign sorted_projects = site.pages | where_exp: "item", "item.permalink contains '/projects/'" | sort: "order" %}
-    {% for project in sorted_projects %}
-      <a href="{{ project.url | relative_url }}" class="project-card">
-        {% if project.image %}
-          <div class="project-card-image">
-            <img src="{{ project.image | relative_url }}" alt="{{ project.title }}">
+    {% for project in site.data.projects %}
+      {% assign featured_image = project.images | where: "featured", true | first | default: project.images.first %}
+      <article class="project-card" data-project-trigger="{{ project.id }}" role="button" tabindex="0" aria-label="Open details for {{ project.title }}">
+        <!-- Terminal Header Bar (thavlik.dev style) -->
+        <div class="termbar">
+          <span class="termbar-title">{{ project.title }}</span>
+          <span class="termbar-badge">{{ project.badge_type | default: project.category }}</span>
+        </div>
+
+        <!-- Media Frame -->
+        {% if featured_image %}
+          <div class="project-card-media" data-project-trigger="{{ project.id }}">
+            <img src="{{ featured_image.src | relative_url }}" alt="{{ featured_image.label | default: project.title }}" loading="lazy">
           </div>
         {% endif %}
-        <div class="project-card-header">
-          <span class="project-card-tag">{{ project.role | default: "Project" }}</span>
-          <h3 class="project-card-title">{{ project.title }}</h3>
-          <p class="project-card-desc">{{ project.description }}</p>
+
+        <!-- Card Body Content -->
+        <div class="project-card-content">
+          {% if project.subtitle %}
+            <span class="project-card-subtitle">{{ project.subtitle }}</span>
+          {% endif %}
+          <h3 class="project-card-heading">{{ project.title }}</h3>
+          <p class="project-card-desc">{{ project.summary }}</p>
+
+          <!-- Technology Badges / Pills -->
+          <div class="project-card-tech">
+            {% for tech in project.skills.technologies limit:3 %}
+              <span class="tech-badge">{{ tech }}</span>
+            {% endfor %}
+            {% for lang in project.skills.languages limit:2 %}
+              <span class="tech-badge">{{ lang }}</span>
+            {% endfor %}
+          </div>
+
+          <!-- Card Action Buttons -->
+          <div class="project-card-actions">
+            <button type="button" class="card-btn card-btn-primary" data-project-trigger="{{ project.id }}">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              <span>Preview & Gallery ↗</span>
+            </button>
+            {% if project.github %}
+              <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on GitHub">
+                <i class="fa-brands fa-github"></i>
+                <span>GitHub</span>
+              </a>
+            {% endif %}
+            {% if project.live %}
+              <a href="{{ project.live | relative_url }}" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} documentation">
+                <i class="fa-solid fa-file-lines"></i>
+                <span>Docs</span>
+              </a>
+            {% endif %}
+          </div>
         </div>
-        <div class="project-card-tech">
-          {% for tech in project.technologies %}
-            <span class="tech-badge">{{ tech }}</span>
-          {% endfor %}
-        </div>
-      </a>
+      </article>
     {% endfor %}
   </div>
 </div>
