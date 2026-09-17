@@ -1,0 +1,245 @@
+# Project Showcase Viewer Data Model
+# Consumed by Jekyll templates, modal dialog viewer, and terminal cards
+
+- id: "asic-design"
+  title: "ASIC & Digital Design Portfolio"
+  subtitle: "Full-Cycle Digital IC Design, APB/AHB-Lite Peripherals & 400MHz Timing Closure"
+  category: "Digital IC Design"
+  badge_type: "silicon / asic"
+  role: "Digital Design & Backend"
+  year: "2024"
+  github: "https://github.com/itsamankatyal"
+  live: "/projects/asic-design"
+  summary: "Full digital IC design cycle from architectural specification and RTL implementation to physical synthesis, place-and-route, and timing closure. Features custom APB UART peripherals, AHB-Lite FIR accelerators with dynamic hazard mitigation, and 400MHz timing closure using Cadence Innovus."
+  highlights:
+    - "Engineered an APB UART SoC peripheral supporting 5–8 bit frames, programmable bit periods (10–16,383 clock cycles), and psaterr transaction error feedback at 50MHz."
+    - "Developed an AHB-Lite FIR filter hardware accelerator with pipelined address/data phases, dynamic RAW hazard mitigation, and a 17-bit fixed-point convolution datapath."
+    - "Implemented USB 1.1 Full-Speed transceiver logic with NRZI encoding/decoding, clock domain crossing (CDC), and a 64-byte dual-port FIFO buffer for 12MHz serial data handling."
+    - "Achieved physical design timing closure at 400MHz using Synopsys Design Compiler and Cadence Innovus, including custom I/O pad-frame configuration and metal density dummy fills."
+  skills:
+    languages:
+      - "SystemVerilog"
+      - "Verilog"
+      - "Tcl"
+    technologies:
+      - "Synopsys Design Compiler"
+      - "Cadence Innovus"
+      - "ModelSim"
+      - "OpenLane"
+    protocols:
+      - "AHB-Lite"
+      - "APB"
+      - "USB 1.1"
+      - "UART"
+  images:
+    - src: "/assets/images/asic_preview.jpg"
+      label: "ASIC Physical Design & Chip Layout Preview"
+      featured: true
+    - src: "/assets/images/ahb_rtl.png"
+      label: "AHB Subordinate & FIR Accelerator RTL Architecture"
+      featured: false
+    - src: "/assets/images/ahb_fsm.png"
+      label: "Coefficient Loader State Transition Diagram"
+      featured: false
+
+- id: "risc-v-verification"
+  title: "RISC-V FPU Verification (UVM/DPI-C)"
+  subtitle: "Tape-Out Verification for AFTx SoC with C++ Golden Reference & CRV"
+  category: "Silicon Verification"
+  badge_type: "verification / uvm"
+  role: "Verification Architect"
+  year: "2024"
+  github: "https://github.com/itsamankatyal"
+  live: "/projects/risc-v-verification"
+  summary: "Tape-out verification architecture for the AFTx SoC Floating Point Unit at Purdue SoCET. Architected a modular UVM environment integrating a C++ IEEE 754 DPI-C golden reference model, achieving 100% functional coverage before foundry fabrication."
+  highlights:
+    - "Architected a modular UVM testbench applying Constrained Random Verification (CRV) across millions of randomized cycles to mathematically validate tape-out readiness."
+    - "Integrated a C++ DPI-C golden reference predictor utilizing fenv.h for dynamic IEEE 754 rounding mode switching (RDN, RNE, RTZ, RUP) and bit-accurate prediction."
+    - "Engineered a custom UVM Scoreboard with IEEE 754 signed-zero equivalence detection (+0.0 vs -0.0) preventing false mismatch flags."
+    - "Identified and resolved a critical RTL bug in NaN propagation during division operations prior to SkyWater/TSMC fabrication."
+    - "Developed Tcl automation scripts for one-command Vivado project generation and automated regression testing across the team."
+  skills:
+    languages:
+      - "SystemVerilog"
+      - "C/C++"
+      - "Tcl"
+      - "Python"
+    technologies:
+      - "UVM"
+      - "DPI-C"
+      - "Vivado"
+      - "ModelSim"
+      - "Git"
+    protocols:
+      - "IEEE 754"
+      - "RISC-V ISA"
+      - "AXI / AHB"
+  images:
+    - src: "/assets/images/riscv_preview.jpg"
+      label: "RISC-V FPU Architecture & Verification Hierarchy"
+      featured: true
+
+- id: "rov-hil-testbench"
+  title: "ROV HIL Testbench & Control Board"
+  subtitle: "Surface Hardware-in-the-Loop Carrier Board for MATE ROV Architecture Migration"
+  category: "Embedded Hardware"
+  badge_type: "hardware / pcb"
+  role: "Embedded Firmware & Electrical"
+  year: "2024 - 2025"
+  github: "https://github.com/itsamankatyal"
+  live: "/projects/rov-hil-testbench"
+  summary: "Surface-level Hardware-in-the-Loop carrier board designed for the Purdue IEEE MATE ROV team. Mounts a Raspberry Pi 5 alongside STM32 and RP2350B microcontrollers with signal muxing for real-time firmware evaluation."
+  highlights:
+    - "Engineered a multi-MCU carrier board supporting Raspberry Pi 5, STM32, and RP2350B to evaluate MCU migration with zero vehicle downtime."
+    - "Implemented hardware signal muxing allowing seamless toggling of thruster ESCs and servos between microcontrollers without rewiring."
+    - "Integrated SPI host communication from Raspberry Pi 5 and multi-channel I2C sensor bus for IMU, depth, and leak detection modules."
+    - "Designed dedicated UART telemetry channels capturing real-time motor current draw and RPM feedback from Electronic Speed Controllers."
+    - "Engineered multi-rail power regulation stepping 12V down to 6V for high-torque servos and 5V down to 3.3V for microcontrollers and sensors."
+  skills:
+    languages:
+      - "C/C++"
+      - "Python"
+    technologies:
+      - "STM32"
+      - "RP2350B"
+      - "Raspberry Pi 5"
+      - "KiCad"
+      - "FreeRTOS"
+    protocols:
+      - "SPI"
+      - "I2C"
+      - "UART"
+      - "PWM"
+  images:
+    - src: "/assets/images/rov_hil_carrier.png"
+      label: "ROV HIL Carrier Board with Raspberry Pi 5 and Dual MCU"
+      featured: true
+    - src: "/assets/images/rov_hil_schematic.png"
+      label: "ROV HIL Carrier Board KiCad PCB Routing and Layer Stack"
+      featured: false
+
+- id: "rov-buoyancy-float"
+  title: "Autonomous Buoyancy Float"
+  subtitle: "RP2040 Bare-Metal Profiling Float with Multi-Rate Depth PID & bsdiff OTA"
+  category: "Subsea Robotics & Firmware"
+  badge_type: "robotics / firmware"
+  role: "Embedded Systems & Firmware Architecture"
+  year: "2024 - 2025"
+  github: "https://github.com/itsamankatyal"
+  live: "/projects/rov-buoyancy-float"
+  summary: "Autonomous subsea profiling buoyancy float engineered for automated water column data collection. Features deterministic bare-metal C firmware on RP2040, 10Hz neutral-buoyancy feedforward PID, 915MHz LoRa telemetry, and bsdiff differential OTA updates."
+  highlights:
+    - "Architected deterministic dual-rate bare-metal C firmware on RP2040 (50Hz inner actuator loop, 10Hz outer depth control loop) replacing legacy CircuitPython scripts."
+    - "Developed neutral-buoyancy ADC baseline feedforward control law eliminating steady-state depth hunting and vertical overshoot."
+    - "Implemented adaptive hover learning that calibrates buoyancy baseline in-situ and persists salinity/temperature compensation to LittleFS flash."
+    - "Constructed an in-situ secondary OTA bootloader with bsdiff differential patching over 915MHz SX1276 LoRa, reducing firmware update time from 8 minutes to under 20 seconds."
+    - "Designed 3-tier I2C sensor recovery matrix (soft reset, clock cycle toggle, emergency positive-buoyancy abort surface blow)."
+    - "Created Python/Streamlit mission control dashboard with thread-safe telemetry ingestion and UNESCO EOS-80 hydrodynamics HIL simulation."
+  skills:
+    languages:
+      - "C (Bare-Metal)"
+      - "Python"
+      - "ARM Assembly"
+    technologies:
+      - "RP2040 (Raspberry Pi Pico)"
+      - "LittleFS"
+      - "SX1276 LoRa"
+      - "MS5837 Sensor"
+      - "Streamlit / Plotly"
+      - "KiCad"
+    protocols:
+      - "LoRa (915 MHz)"
+      - "SPI"
+      - "I2C"
+      - "UART / USB CDC"
+      - "PIO (WS2812)"
+  images:
+    - src: "/assets/images/buoyancy_preview.jpg"
+      label: "Buoyancy Float Physical Electronics Stack & CAD Assembly"
+      featured: true
+    - src: "/assets/images/rov_buoyancy_pcb.png"
+      label: "Custom Circular Carrier Board with RP2040 & LoRa RF"
+      featured: false
+    - src: "/assets/images/rov_buoyancy_cad.png"
+      label: "3D CAD Mechanical Assembly of Pressure Hull & Buoyancy Engine"
+      featured: false
+    - src: "/assets/images/rov_buoyancy_dashboard.png"
+      label: "X18 Streamlit Mission Control & Telemetry Dashboard"
+      featured: false
+
+- id: "ml-dueling"
+  title: "ML Gesture Dueling System"
+  subtitle: "Dual-Core RP2350 Gesture Recognition with On-Device TFLite Micro Inference"
+  category: "Embedded ML & Hardware"
+  badge_type: "embedded / ml"
+  role: "Lead Embedded Engineer"
+  year: "2024 - 2025"
+  github: "https://github.com/itsamankatyal"
+  live: "/projects/ml-dueling"
+  summary: "Real-time competitive gesture dueling system combining custom handheld wand and chest-mounted hardware. Utilizes asymmetric dual-core RP2350 architecture to run TensorFlow Lite Micro inference at 96% accuracy while maintaining a jitter-free 74Hz sensor and IR combat loop."
+  highlights:
+    - "Architected asymmetric dual-core multiprocessing on RP2350: Core 0 manages 74Hz IMU polling, circular ring buffers, and IR; Core 1 runs dedicated TFLite Micro inference in <5ms."
+    - "Achieved 96% gesture classification accuracy across spell gestures using 6-axis BNO08x IMU motion features and Gaussian Mixture Model (GMM) anomaly rejection."
+    - "Engineered a 'Spell Bucket' leaky-integrator trigger algorithm to eliminate false activations and smooth inference jitter."
+    - "Designed custom multi-layer PCBs in KiCad for wand and chest units, integrating DRV2605 haptics, 38kHz NEC IR transceiver, and 256-LED WS2812 display matrix via PIO/DMA."
+    - "Engineered wand PCB hardware with low-power sensor integration, tactile feedback, and robust battery power management."
+  skills:
+    languages:
+      - "C/C++"
+      - "Python"
+    technologies:
+      - "RP2350"
+      - "TensorFlow Lite Micro"
+      - "Edge Impulse"
+      - "KiCad"
+      - "FreeRTOS"
+      - "3D Printing (ABS)"
+    protocols:
+      - "I2C (400 kHz)"
+      - "NEC IR (38 kHz)"
+      - "PIO / DMA"
+      - "SPI"
+  images:
+    - src: "/assets/images/dueling_preview.jpg"
+      label: "ML Gesture Dueling Hardware & Wand Prototype"
+      featured: true
+    - src: "/assets/images/wand_pcb_1.jpg"
+      label: "Custom Handheld Wand PCB Assembly (Component View)"
+      featured: false
+    - src: "/assets/images/wand_pcb_2.jpg"
+      label: "Custom Handheld Wand PCB Assembly (Trace & Connector View)"
+      featured: false
+
+- id: "esp32-bridge"
+  title: "ESP32 Game Controller Bridge"
+  subtitle: "Low-Latency Nintendo Switch Pro Controller Emulation via TinyUSB"
+  category: "Embedded Software & Systems"
+  badge_type: "embedded / usb"
+  role: "Embedded Software"
+  year: "2024"
+  github: "https://github.com/itsamankatyal"
+  live: "/projects/esp32-bridge"
+  summary: "Low-latency hardware translation bridge built on ESP32-S3 and TinyUSB stack. Intercepts Bluetooth HID packets from third-party controllers and emulates a bit-accurate Nintendo Switch Pro Controller with sub-30ms latency."
+  highlights:
+    - "Configured TinyUSB USB descriptors to spoof Nintendo Vendor ID (0x0F0D) and Product ID (0x00C1) for native console peripheral recognition."
+    - "Architected packed 8-byte HID report bitmask matching Nintendo Switch Pro Controller specifications (14 buttons, 4-bit D-pad, 4 analog axes)."
+    - "Implemented dual-core task segregation: Core 0 runs Bluedroid Bluetooth stack; Core 1 runs high-frequency HID translation and USB report dispatch."
+    - "Applied ESP-IDF heap tracing and static buffer allocation to eliminate memory fragmentation and guarantee zero allocation latency during play."
+    - "Achieved sub-30ms end-to-end controller conversion latency using non-blocking FreeRTOS queues."
+  skills:
+    languages:
+      - "C++"
+      - "C"
+    technologies:
+      - "ESP32-S3"
+      - "ESP-IDF"
+      - "TinyUSB"
+      - "FreeRTOS"
+    protocols:
+      - "USB 2.0 HID"
+      - "Bluetooth Classic (Bluedroid)"
+      - "UART"
+  images:
+    - src: "/assets/images/esp32_preview.jpg"
+      label: "ESP32-S3 Hardware Bridge & USB Controller Interface"
+      featured: true
