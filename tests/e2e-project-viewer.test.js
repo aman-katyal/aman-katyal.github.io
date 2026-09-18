@@ -384,8 +384,8 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
   // 1. Data Model & Schema Verification
   // =========================================================================
   describe('1. Data Model & Schema (_data/projects.yml)', () => {
-    it('should contain exactly 6 project entries', () => {
-      assert.strictEqual(projects.length, 6, `Expected 6 projects, found ${projects.length}`);
+    it('should contain all project entries', () => {
+      assert.strictEqual(projects.length, 7, `Expected 7 projects, found ${projects.length}`);
     });
 
     it('should contain all required project IDs', () => {
@@ -395,11 +395,13 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
         'rov-hil-testbench',
         'rov-buoyancy-float',
         'ml-dueling',
-        'esp32-bridge'
+        'esp32-bridge',
+        'posture-pet'
       ];
       const actualIds = projects.map(p => p.id);
       assert.deepStrictEqual(actualIds, expectedIds);
     });
+
 
     it('should satisfy strict schema for every project entry', () => {
       projects.forEach(p => {
@@ -538,7 +540,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
         assert.strictEqual(doc.getElementById('modal-project-year').textContent, proj.year);
         assert.strictEqual(doc.getElementById('modal-project-role').textContent, proj.role);
         assert.strictEqual(doc.getElementById('modal-project-summary').textContent, proj.summary);
-        assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${idx + 1} / 6`);
+        assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${idx + 1} / ${projects.length}`);
 
         // Highlights list
         const highlightsList = doc.getElementById('modal-highlights-list');
@@ -590,23 +592,24 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       const { doc, sandbox } = createDOMSandbox(projects);
 
       sandbox.window.openProjectModal(projects[0].id);
-      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, '1 / 6');
+      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `1 / ${projects.length}`);
 
-      // Cycle forward 1 -> 2 -> ... -> 6 -> 1
-      for (let i = 1; i < 6; i++) {
+      // Cycle forward 1 -> 2 -> ... -> N -> 1
+      for (let i = 1; i < projects.length; i++) {
         sandbox.window.nextProject();
-        assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${i + 1} / 6`);
+        assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${i + 1} / ${projects.length}`);
         assert.strictEqual(doc.getElementById('modal-project-title').textContent, projects[i].title);
       }
       sandbox.window.nextProject(); // Wrap around
-      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, '1 / 6');
+      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `1 / ${projects.length}`);
 
-      // Cycle backward 1 -> 6 -> 5 -> ... -> 1
-      sandbox.window.prevProject(); // Wrap back to 6
-      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, '6 / 6');
+      // Cycle backward 1 -> N -> N-1 -> ... -> 1
+      sandbox.window.prevProject(); // Wrap back to N
+      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${projects.length} / ${projects.length}`);
       sandbox.window.prevProject();
-      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, '5 / 6');
+      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${projects.length - 1} / ${projects.length}`);
     });
+
 
     it('should open and close lightbox and sync image', () => {
       const { doc, sandbox } = createDOMSandbox(projects);

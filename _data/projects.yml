@@ -168,14 +168,15 @@
       featured: false
 
 - id: "ml-dueling"
-  title: "ML Gesture Dueling System"
+  title: "Harry Potter Gesture Dueling Wand"
   subtitle: "Dual-Core RP2350 Gesture Recognition with On-Device TFLite Micro Inference"
   category: "Embedded ML & Hardware"
   badge_type: "embedded / ml"
   role: "Lead Embedded Engineer"
   year: "2024 - 2025"
-  github: "https://github.com/itsamankatyal"
+  github: "https://github.com/aman-katyal/harry-potter-wand-duel"
   live: "/projects/ml-dueling"
+
   summary: "Real-time competitive gesture dueling system combining custom handheld wand and chest-mounted hardware. Utilizes asymmetric dual-core RP2350 architecture to run TensorFlow Lite Micro inference at 96% accuracy while maintaining a jitter-free 74Hz sensor and IR combat loop."
   highlights:
     - "Architected asymmetric dual-core multiprocessing on RP2350: Core 0 manages 74Hz IMU polling, circular ring buffers, and IR; Core 1 runs dedicated TFLite Micro inference in <5ms."
@@ -243,3 +244,44 @@
     - src: "/assets/images/esp32_preview.jpg"
       label: "ESP32-S3 Hardware Bridge & USB Controller Interface"
       featured: true
+
+- id: "posture-pet"
+  title: "Posture Pet (StarkHacks)"
+  subtitle: "Wearable AI & Robotic Companion for Real-Time Posture Mirroring"
+  category: "Wearable AI & Robotics"
+  badge_type: "Honorable Mention · Best Use of AMD Tech"
+  role: "Embedded Hardware & Edge ML"
+  year: "2026"
+  github: "https://github.com/aman-katyal/posture-pet"
+  live: "https://devpost.com/software/posture-pet-brh6vx"
+  summary: "A wearable AI companion built at the StarkHacks Hardware Hackathon (Purdue University) that won Honorable Mention for Best Use of AMD Tech. Utilizes a hybrid system of wearable 3-IMU sensors and computer vision to track posture in real time, mirroring the user's spinal state on an articulating 3D-printed robotic pet."
+  highlights:
+    - "Awarded Honorable Mention for Best Use of AMD Tech at the StarkHacks Hardware Hackathon (Purdue University)."
+    - "Designed the pet's body and articulating base from the ground up in Onshape, rapidly iterated with custom 3D-printed assemblies."
+    - "Engineered an ESP32-S3 wearable network gathering motion data from 3 IMUs placed on both shoulders and neck, streaming quaternions over BLE to an Arduino Uno Q."
+    - "Trained an on-device posture-detection Dense Neural Network (MLP) with Edge Impulse on an AMD AI PC using ROCm acceleration, achieving up to 98.18% accuracy."
+    - "Deployed OpenCV and MediaPipe computer vision on an AMD AI PC for supplementary posture classification, streaming live inference over WiFi/UDP sockets."
+    - "Integrated dual model outputs on the Arduino Uno Q to actuate servos that physically reflect and correct posture in real time."
+  skills:
+    languages:
+      - "C/C++"
+      - "Python"
+    technologies:
+      - "ESP32-S3"
+      - "Arduino Uno Q"
+      - "Edge Impulse"
+      - "AMD ROCm"
+      - "MediaPipe"
+      - "OpenCV"
+      - "Onshape (CAD)"
+      - "3D Printing"
+    protocols:
+      - "BLE (Bluetooth Low Energy)"
+      - "WiFi / UDP Sockets"
+      - "I2C"
+      - "PWM"
+  images:
+    - src: "/assets/images/posture_pet_preview.jpg"
+      label: "Posture Pet Robotic Companion & Hackathon Hardware Setup"
+      featured: true
+
