@@ -27,4 +27,4 @@ jobs:
       - name: Check links in built HTML
         run: >
           bundle exec htmlproofer ./_site --assume-extension
-          --ignore-urls '/linkedin\.com/' --allow-hash-href --disable-external=false
+          --ignore-urls '/linkedin\.com/' --allow-hash-href
