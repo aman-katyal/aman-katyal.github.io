@@ -281,6 +281,14 @@ body {
   margin-bottom: 0;
 }
 
+.hero-about {
+  margin-top: 0.85rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 48ch;
+}
+
 .hero-ctas {
   display: flex;
   flex-wrap: wrap;

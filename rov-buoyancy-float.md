@@ -33,7 +33,7 @@ While the mechanical cylinder—incorporating a 90 mL syringe-driven variable bu
 
   <figure class="figure-card">
     <div class="figure-image-container">
-      <img src="{{ '/assets/images/rov_buoyancy_pcb.png' | relative_url }}" alt="Physical Internal Electronics Stack and Custom Carrier PCB">
+      <img src="{{ '/assets/images/rov_buoyancy_pcb.jpg' | relative_url }}" alt="Physical Internal Electronics Stack and Custom Carrier PCB">
     </div>
     <figcaption class="figure-caption">
       <i class="fa-solid fa-microchip"></i>

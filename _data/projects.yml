@@ -3,18 +3,18 @@
 
 - id: "rov-hil-testbench"
   title: "ROV HIL Testbench & Control Board"
-  subtitle: "Surface Hardware-in-the-Loop Carrier Board for MATE ROV Architecture Migration"
+  subtitle: "Surface Hardware-in-the-Loop Carrier Board for Topside ROV Validation"
   category: "Embedded Hardware"
   badge_type: "hardware / pcb"
   role: "Embedded Firmware & Electrical"
   year: "2024 - 2025"
   github: "https://github.com/purduerov/X18-ROV-Test-Bench"
   live: "/projects/rov-hil-testbench"
-  summary: "Surface-level Hardware-in-the-Loop carrier board designed for the Purdue IEEE MATE ROV team. Mounts a Raspberry Pi 5 alongside STM32 and RP2350B microcontrollers with signal muxing for real-time firmware evaluation."
+  summary: "Surface-level Hardware-in-the-Loop carrier board for the Purdue IEEE ROV team. Mates a Raspberry Pi 4B compute module with an STM32F091 over a servo/ESC backplane, so thrusters and sensors validate topside without the vehicle in the water."
   highlights:
-    - "Engineered a multi-MCU carrier board supporting Raspberry Pi 5, STM32, and RP2350B to evaluate MCU migration with zero vehicle downtime."
-    - "Implemented hardware signal muxing allowing seamless toggling of thruster ESCs and servos between microcontrollers without rewiring."
-    - "Integrated SPI host communication from Raspberry Pi 5 and multi-channel I2C sensor bus for IMU, depth, and leak detection modules."
+    - "Engineered an MCU + Pi carrier board (STM32F091, Molex-mated Raspberry Pi 4B) with servo/ESC backplane and multi-rail power for topside HIL validation."
+    - "Implemented hardware signal muxing allowing seamless toggling of thruster ESCs and servos without rewiring."
+    - "Integrated SPI host communication from the Raspberry Pi 4B and multi-channel I2C sensor bus over JST-GH for IMU, depth, and leak detection modules."
     - "Designed dedicated UART telemetry channels capturing real-time motor current draw and RPM feedback from Electronic Speed Controllers."
     - "Engineered multi-rail power regulation stepping 12V down to 6V for high-torque servos and 5V down to 3.3V for microcontrollers and sensors."
   skills:
@@ -83,7 +83,7 @@
   year: "2024 - 2025"
   github: "https://github.com/itsamankatyal"
   live: "/projects/rov-buoyancy-float"
-  summary: "Autonomous subsea profiling buoyancy float engineered for automated water column data collection. Features deterministic bare-metal C firmware on RP2040, 10Hz neutral-buoyancy feedforward PID, 915MHz LoRa telemetry, and bsdiff differential OTA updates."
+  summary: "Autonomous subsea profiling buoyancy float engineered for automated water column data collection. Features deterministic bare-metal C firmware on RP2040, 10Hz neutral-buoyancy feedforward PID holding depth within 5 cm, 915MHz LoRa telemetry, and bsdiff differential OTA updates that cut firmware refreshes from 8 minutes to under 20 seconds."
   highlights:
     - "Architected deterministic dual-rate bare-metal C firmware on RP2040 (50Hz inner actuator loop, 10Hz outer depth control loop) replacing legacy CircuitPython scripts."
     - "Developed neutral-buoyancy ADC baseline feedforward control law eliminating steady-state depth hunting and vertical overshoot."
@@ -113,7 +113,7 @@
     - src: "/assets/images/buoyancy_preview.jpg"
       label: "Buoyancy Float Physical Electronics Stack & CAD Assembly"
       featured: true
-    - src: "/assets/images/rov_buoyancy_pcb.png"
+    - src: "/assets/images/rov_buoyancy_pcb.jpg"
       label: "Custom Circular Carrier Board with RP2040 & LoRa RF"
       featured: false
     - src: "/assets/images/rov_buoyancy_cad.png"
@@ -132,7 +132,7 @@
   year: "2026"
   github: "https://github.com/aman-katyal/posture-pet"
   live: "https://devpost.com/software/posture-pet-brh6vx"
-  summary: "A wearable AI companion built at the StarkHacks Hardware Hackathon (Purdue University) that won Honorable Mention for Best Use of AMD Tech. Utilizes a hybrid system of wearable 3-IMU sensors and computer vision to track posture in real time, mirroring the user's spinal state on an articulating 3D-printed robotic pet."
+  summary: "A wearable AI companion built at the StarkHacks Hardware Hackathon (Purdue University) that won Honorable Mention for Best Use of AMD Tech. Utilizes a hybrid system of wearable 3-IMU sensors and computer vision to track posture in real time at up to 98.18% detection accuracy, mirroring the user's spinal state on an articulating 3D-printed robotic pet."
   highlights:
     - "Awarded Honorable Mention for Best Use of AMD Tech at the StarkHacks Hardware Hackathon (Purdue University)."
     - "Designed the pet's body and articulating base from the ground up in Onshape, rapidly iterated with custom 3D-printed assemblies."
