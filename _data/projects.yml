@@ -8,7 +8,7 @@
   badge_type: "hardware / pcb"
   role: "Embedded Firmware & Electrical"
   year: "2024 - 2025"
-  github: "https://github.com/itsamankatyal"
+  github: "https://github.com/purduerov/X18-ROV-Test-Bench"
   live: "/projects/rov-hil-testbench"
   summary: "Surface-level Hardware-in-the-Loop carrier board designed for the Purdue IEEE MATE ROV team. Mounts a Raspberry Pi 5 alongside STM32 and RP2350B microcontrollers with signal muxing for real-time firmware evaluation."
   highlights:
