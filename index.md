@@ -13,7 +13,7 @@ title: Aman Katyal | Portfolio
       <i class="fa-solid fa-graduation-cap"></i> GPA: 3.94 / 4.0
     </span>
     <span class="profile-meta-item">
-      <i class="fa-solid fa-location-dot"></i> West Lafayette, IN
+      <i class="fa-solid fa-location-dot"></i> Fremont, CA
     </span>
   </div>
 
