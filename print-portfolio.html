@@ -96,15 +96,15 @@ permalink: /print-portfolio/
   <div class="print-contact-row">
     <span><i class="fa-solid fa-envelope"></i> itsamankatyal@gmail.com</span>
     <span>•</span>
-    <span><i class="fa-brands fa-linkedin"></i> linkedin.com/in/aman-katyal</span>
+    <span><i class="fa-brands fa-linkedin"></i> {{ site.linkedin | remove: 'https://' }}</span>
     <span>•</span>
-    <span><i class="fa-brands fa-github"></i> github.com/itsamankatyal</span>
+    <span><i class="fa-brands fa-github"></i> {{ site.github | remove: 'https://' }}</span>
     <span>•</span>
     <span><i class="fa-solid fa-globe"></i> aman-katyal.github.io</span>
   </div>
   <div class="print-doc-title-row">
     <h2 class="print-portfolio-heading">Selected Technical Project Portfolio</h2>
-    <span class="print-doc-meta" id="print-timestamp">GPA: 3.91 / 4.0</span>
+    <span class="print-doc-meta" id="print-timestamp">GPA: {{ site.gpa }} / 4.0</span>
   </div>
   <hr class="print-header-divider">
 </header>

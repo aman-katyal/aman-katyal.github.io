@@ -2,6 +2,12 @@ theme: jekyll-theme-cayman
 title: Aman Katyal | Portfolio
 author: Aman Katyal
 email: itsamankatyal@gmail.com
+gpa: 3.91
+linkedin: https://linkedin.com/in/aman-katyal
+github: https://github.com/itsamankatyal
+resume: /assets/Aman_Katyal_Resume.pdf
+# Source doc for the hosted resume PDF (re-export on update):
+# https://docs.google.com/document/d/1Q_2PXr3RdMJTrLum_MNsarNbpxFvHKaCfchVLxuHGmk/edit?usp=sharing
 description: Computer Engineering Student at Purdue University | Hardware Design, UVM Verification, and Embedded Systems.
 show_downloads: false
 url: "https://aman-katyal.github.io"

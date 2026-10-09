@@ -3,47 +3,98 @@ layout: default
 title: Aman Katyal | Portfolio
 ---
 
-<!-- Profile Hero Section -->
-<div class="profile-hero">
-  <h1 class="profile-name">Aman Katyal</h1>
-  <p class="profile-tagline">Computer Engineering @ Purdue University</p>
-  
-  <div class="profile-meta-info">
-    <span class="profile-meta-item">
-      <i class="fa-solid fa-graduation-cap"></i> GPA: 3.91 / 4.0
-    </span>
-    <span class="profile-meta-item">
-      <i class="fa-solid fa-location-dot"></i> Fremont, CA
-    </span>
-  </div>
+<!-- Hero Section (name + education card) -->
+<div class="hero-grid">
+  <div class="hero-left">
+    <h1 class="profile-name hero-name">Aman Katyal</h1>
+    <p class="profile-tagline hero-tagline">Computer Engineering @ Purdue University · Fremont, CA</p>
 
-  <div class="profile-links">
-    <span class="email-display-group">
-      <a href="mailto:{{ site.email }}" class="profile-link-btn email-address" title="Send an email">
-        <i class="fa-solid fa-envelope"></i> <span class="email-address-text">{{ site.email }}</span>
+    <div class="hero-ctas">
+      <a href="#projects" class="hero-cta">view work →</a>
+      <a href="mailto:{{ site.email }}" class="hero-cta">get in touch</a>
+    </div>
+
+    <div class="profile-links">
+      <span class="email-display-group">
+        <a href="mailto:{{ site.email }}" class="profile-link-btn email-address" title="Send an email">
+          <i class="fa-solid fa-envelope"></i> <span class="email-address-text">{{ site.email }}</span>
+        </a>
+        <button type="button" class="email-copy-icon-btn" data-copy-email="{{ site.email }}" title="Copy email address" aria-label="Copy email address to clipboard">
+          <i class="fa-regular fa-copy"></i>
+        </button>
+      </span>
+      <a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="LinkedIn">
+        <i class="fa-brands fa-linkedin"></i> LinkedIn
       </a>
-      <button type="button" class="email-copy-icon-btn" data-copy-email="{{ site.email }}" title="Copy email address" aria-label="Copy email address to clipboard">
-        <i class="fa-regular fa-copy"></i>
-      </button>
-    </span>
-    <a href="https://linkedin.com/in/aman-katyal" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="LinkedIn">
-      <i class="fa-brands fa-linkedin"></i> LinkedIn
-    </a>
-    <a href="https://github.com/itsamankatyal" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="GitHub">
-      <i class="fa-brands fa-github"></i> GitHub
-    </a>
-    <a href="{{ '/assets/Aman_Katyal_Resume.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="Resume (PDF)">
-      <i class="fa-solid fa-file-lines"></i> Resume
-    </a>
-    <a href="{{ '/print-portfolio/' | relative_url }}" class="profile-link-btn" title="PDF Portfolio">
-      <i class="fa-solid fa-file-pdf"></i> PDF Portfolio
-    </a>
+      <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="GitHub">
+        <i class="fa-brands fa-github"></i> GitHub
+      </a>
+      <a href="{{ site.resume | relative_url }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="Resume (PDF)">
+        <i class="fa-solid fa-file-lines"></i> Resume
+      </a>
+      <a href="{{ '/print-portfolio/' | relative_url }}" class="profile-link-btn" title="PDF Portfolio">
+        <i class="fa-solid fa-file-pdf"></i> PDF Portfolio
+      </a>
+    </div>
   </div>
 
-  <div class="profile-bio-card">
-    <p>
-      I am a Computer Engineering student at Purdue University specializing in the intersection of hardware architecture and verification. My experience ranges from UVM-based silicon verification for tape-out ready chips to high-speed PCB design and low-latency embedded firmware for robotic control systems. I am passionate about constructing robust, highly optimized, and mathematically verified hardware systems.
-    </p>
+  <aside class="edu-card" aria-label="Education">
+    <span class="edu-eyebrow">Education</span>
+    <h2 class="edu-school">Purdue University</h2>
+    <p class="edu-degree">B.S. Computer Engineering</p>
+    <p class="edu-years">Expected May 2027</p>
+    <p class="edu-degree">M.S. Electrical & Computer Engineering</p>
+    <p class="edu-years">Expected May 2028</p>
+    <dl class="edu-rows">
+      <div class="edu-row">
+        <dt>gpa</dt>
+        <dd>{{ site.gpa }}</dd>
+      </div>
+      <div class="edu-row">
+        <dt>coursework</dt>
+        <dd>RISC-V Microarchitecture, ASIC Design Flow, Embedded Microprocessor Systems</dd>
+      </div>
+      <div class="edu-row">
+        <dt>honors</dt>
+        <dd>Dean's List, Semester Honors</dd>
+      </div>
+    </dl>
+  </aside>
+</div>
+
+<!-- Skills Section (aggregated across all projects) -->
+{% assign lang_list = "" | split: "" %}
+{% assign tech_list = "" | split: "" %}
+{% assign proto_list = "" | split: "" %}
+{% for p in site.data.projects %}
+  {% for l in p.skills.languages %}{% assign lang_list = lang_list | push: l %}{% endfor %}
+  {% for t in p.skills.technologies %}{% assign tech_list = tech_list | push: t %}{% endfor %}
+  {% for r in p.skills.protocols %}{% assign proto_list = proto_list | push: r %}{% endfor %}
+{% endfor %}
+<div class="skills-section">
+  <span class="skills-eyebrow">Skills</span>
+  <div class="skills-grid">
+    <div class="skills-col">
+      <h3>languages</h3>
+      <div class="skills-pills">
+        {% assign langs = lang_list | uniq | sort %}
+        {% for lang in langs %}<span class="skill-pill">{{ lang }}</span>{% endfor %}
+      </div>
+    </div>
+    <div class="skills-col">
+      <h3>technologies</h3>
+      <div class="skills-pills">
+        {% assign techs = tech_list | uniq | sort %}
+        {% for tech in techs %}<span class="skill-pill">{{ tech }}</span>{% endfor %}
+      </div>
+    </div>
+    <div class="skills-col">
+      <h3>protocols / peripherals</h3>
+      <div class="skills-pills">
+        {% assign protos = proto_list | uniq | sort %}
+        {% for proto in protos %}<span class="skill-pill">{{ proto }}</span>{% endfor %}
+      </div>
+    </div>
   </div>
 </div>
 
