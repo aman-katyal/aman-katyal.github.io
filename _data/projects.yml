@@ -1,84 +1,6 @@
 # Project Showcase Viewer Data Model
 # Consumed by Jekyll templates, modal dialog viewer, and terminal cards
 
-- id: "asic-design"
-  title: "ASIC & Digital Design Portfolio"
-  subtitle: "Full-Cycle Digital IC Design, APB/AHB-Lite Peripherals & 400MHz Timing Closure"
-  category: "Digital IC Design"
-  badge_type: "silicon / asic"
-  role: "Digital Design & Backend"
-  year: "2024"
-  github: "https://github.com/itsamankatyal"
-  live: "/projects/asic-design"
-  summary: "Full digital IC design cycle from architectural specification and RTL implementation to physical synthesis, place-and-route, and timing closure. Features custom APB UART peripherals, AHB-Lite FIR accelerators with dynamic hazard mitigation, and 400MHz timing closure using Cadence Innovus."
-  highlights:
-    - "Engineered an APB UART SoC peripheral supporting 5–8 bit frames, programmable bit periods (10–16,383 clock cycles), and psaterr transaction error feedback at 50MHz."
-    - "Developed an AHB-Lite FIR filter hardware accelerator with pipelined address/data phases, dynamic RAW hazard mitigation, and a 17-bit fixed-point convolution datapath."
-    - "Implemented USB 1.1 Full-Speed transceiver logic with NRZI encoding/decoding, clock domain crossing (CDC), and a 64-byte dual-port FIFO buffer for 12MHz serial data handling."
-    - "Achieved physical design timing closure at 400MHz using Synopsys Design Compiler and Cadence Innovus, including custom I/O pad-frame configuration and metal density dummy fills."
-  skills:
-    languages:
-      - "SystemVerilog"
-      - "Verilog"
-      - "Tcl"
-    technologies:
-      - "Synopsys Design Compiler"
-      - "Cadence Innovus"
-      - "ModelSim"
-      - "OpenLane"
-    protocols:
-      - "AHB-Lite"
-      - "APB"
-      - "USB 1.1"
-      - "UART"
-  images:
-    - src: "/assets/images/asic_preview.jpg"
-      label: "ASIC Physical Design & Chip Layout Preview"
-      featured: true
-    - src: "/assets/images/ahb_rtl.png"
-      label: "AHB Subordinate & FIR Accelerator RTL Architecture"
-      featured: false
-    - src: "/assets/images/ahb_fsm.png"
-      label: "Coefficient Loader State Transition Diagram"
-      featured: false
-
-- id: "risc-v-verification"
-  title: "RISC-V FPU Verification (UVM/DPI-C)"
-  subtitle: "Tape-Out Verification for AFTx SoC with C++ Golden Reference & CRV"
-  category: "Silicon Verification"
-  badge_type: "verification / uvm"
-  role: "Verification Architect"
-  year: "2024"
-  github: "https://github.com/itsamankatyal"
-  live: "/projects/risc-v-verification"
-  summary: "Tape-out verification architecture for the AFTx SoC Floating Point Unit at Purdue SoCET. Architected a modular UVM environment integrating a C++ IEEE 754 DPI-C golden reference model, achieving 100% functional coverage before foundry fabrication."
-  highlights:
-    - "Architected a modular UVM testbench applying Constrained Random Verification (CRV) across millions of randomized cycles to mathematically validate tape-out readiness."
-    - "Integrated a C++ DPI-C golden reference predictor utilizing fenv.h for dynamic IEEE 754 rounding mode switching (RDN, RNE, RTZ, RUP) and bit-accurate prediction."
-    - "Engineered a custom UVM Scoreboard with IEEE 754 signed-zero equivalence detection (+0.0 vs -0.0) preventing false mismatch flags."
-    - "Identified and resolved a critical RTL bug in NaN propagation during division operations prior to SkyWater/TSMC fabrication."
-    - "Developed Tcl automation scripts for one-command Vivado project generation and automated regression testing across the team."
-  skills:
-    languages:
-      - "SystemVerilog"
-      - "C/C++"
-      - "Tcl"
-      - "Python"
-    technologies:
-      - "UVM"
-      - "DPI-C"
-      - "Vivado"
-      - "ModelSim"
-      - "Git"
-    protocols:
-      - "IEEE 754"
-      - "RISC-V ISA"
-      - "AXI / AHB"
-  images:
-    - src: "/assets/images/riscv_preview.jpg"
-      label: "RISC-V FPU Architecture & Verification Hierarchy"
-      featured: true
-
 - id: "rov-hil-testbench"
   title: "ROV HIL Testbench & Control Board"
   subtitle: "Surface Hardware-in-the-Loop Carrier Board for MATE ROV Architecture Migration"
@@ -201,49 +123,12 @@
       - "PIO / DMA"
       - "SPI"
   images:
-    - src: "/assets/images/dueling_preview.jpg"
-      label: "ML Gesture Dueling Hardware & Wand Prototype"
-      featured: true
     - src: "/assets/images/wand_pcb_1.jpg"
       label: "Custom Handheld Wand PCB Assembly (Component View)"
-      featured: false
+      featured: true
     - src: "/assets/images/wand_pcb_2.jpg"
       label: "Custom Handheld Wand PCB Assembly (Trace & Connector View)"
       featured: false
-
-- id: "esp32-bridge"
-  title: "ESP32 Game Controller Bridge"
-  subtitle: "Low-Latency Nintendo Switch Pro Controller Emulation via TinyUSB"
-  category: "Embedded Software & Systems"
-  badge_type: "embedded / usb"
-  role: "Embedded Software"
-  year: "2024"
-  github: "https://github.com/itsamankatyal"
-  live: "/projects/esp32-bridge"
-  summary: "Low-latency hardware translation bridge built on ESP32-S3 and TinyUSB stack. Intercepts Bluetooth HID packets from third-party controllers and emulates a bit-accurate Nintendo Switch Pro Controller with sub-30ms latency."
-  highlights:
-    - "Configured TinyUSB USB descriptors to spoof Nintendo Vendor ID (0x0F0D) and Product ID (0x00C1) for native console peripheral recognition."
-    - "Architected packed 8-byte HID report bitmask matching Nintendo Switch Pro Controller specifications (14 buttons, 4-bit D-pad, 4 analog axes)."
-    - "Implemented dual-core task segregation: Core 0 runs Bluedroid Bluetooth stack; Core 1 runs high-frequency HID translation and USB report dispatch."
-    - "Applied ESP-IDF heap tracing and static buffer allocation to eliminate memory fragmentation and guarantee zero allocation latency during play."
-    - "Achieved sub-30ms end-to-end controller conversion latency using non-blocking FreeRTOS queues."
-  skills:
-    languages:
-      - "C++"
-      - "C"
-    technologies:
-      - "ESP32-S3"
-      - "ESP-IDF"
-      - "TinyUSB"
-      - "FreeRTOS"
-    protocols:
-      - "USB 2.0 HID"
-      - "Bluetooth Classic (Bluedroid)"
-      - "UART"
-  images:
-    - src: "/assets/images/esp32_preview.jpg"
-      label: "ESP32-S3 Hardware Bridge & USB Controller Interface"
-      featured: true
 
 - id: "posture-pet"
   title: "Posture Pet (StarkHacks)"

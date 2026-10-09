@@ -7,7 +7,7 @@ description: "Autonomous underwater profiling float powered by RP2040 bare-metal
 technologies: ["RP2040 (Bare-Metal C)", "LittleFS", "LoRa SX1276", "PID Control", "OTA Bootloader (bsdiff)", "Python / Streamlit", "HIL Simulation", "MS5837 Depth Sensor"]
 image: "/assets/images/buoyancy_preview.jpg"
 printable: true
-order: 4
+order: 2
 ---
 
 **Context:** Purdue IEEE ROV Team | **MATE ROV Competition**

@@ -5,7 +5,7 @@
  * 1. Project YAML data model, schemas, highlights, and asset image paths on disk.
  * 2. User-provided wand photos in ml-dueling.
  * 3. Client-side JS controller (assets/js/project-modal.js):
- *    - openProjectModal for all 6 projects
+ *    - openProjectModal for all 4 projects
  *    - setProjectImage image switching logic
  *    - nextProject and prevProject cyclic traversal
  *    - openLightbox and closeLightbox
@@ -385,17 +385,14 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
   // =========================================================================
   describe('1. Data Model & Schema (_data/projects.yml)', () => {
     it('should contain all project entries', () => {
-      assert.strictEqual(projects.length, 7, `Expected 7 projects, found ${projects.length}`);
+      assert.strictEqual(projects.length, 4, `Expected 4 projects, found ${projects.length}`);
     });
 
     it('should contain all required project IDs', () => {
       const expectedIds = [
-        'asic-design',
-        'risc-v-verification',
         'rov-hil-testbench',
         'rov-buoyancy-float',
         'ml-dueling',
-        'esp32-bridge',
         'posture-pet'
       ];
       const actualIds = projects.map(p => p.id);
@@ -523,7 +520,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       });
     });
 
-    it('should open modal for all 6 projects and accurately populate all fields', () => {
+    it('should open modal for all 4 projects and accurately populate all fields', () => {
       const { doc, sandbox } = createDOMSandbox(projects);
 
       projects.forEach((proj, idx) => {
@@ -567,25 +564,30 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
 
     it('should support switching images via setProjectImage and update thumbnails', () => {
       const { doc, sandbox } = createDOMSandbox(projects);
-      const proj = projects.find(p => p.id === 'ml-dueling'); // Has 3 images
+      const proj = projects.find(p => p.id === 'ml-dueling'); // Has 2 real-photo images
       sandbox.window.openProjectModal(proj.id);
 
       // Verify thumbnails count
       const thumbs = doc.getElementById('modal-thumbnails').children;
-      assert.strictEqual(thumbs.length, 3, 'ml-dueling should render 3 thumbnails');
+      assert.strictEqual(thumbs.length, 2, 'ml-dueling should render 2 thumbnails');
 
-      // Switch to image 1 (wand_pcb_1.jpg)
-      sandbox.window.setProjectImage(1);
+      // Featured image is wand_pcb_1.jpg (index 0)
       assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.jpg');
+      assert.ok(thumbs[0].classList.contains('is-active'));
+      assert.strictEqual(thumbs[0].getAttribute('aria-selected'), 'true');
+
+      // Switch to image 1 (wand_pcb_2.jpg)
+      sandbox.window.setProjectImage(1);
+      assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_2.jpg');
       assert.ok(thumbs[1].classList.contains('is-active'));
       assert.strictEqual(thumbs[1].getAttribute('aria-selected'), 'true');
       assert.ok(!thumbs[0].classList.contains('is-active'));
 
-      // Switch to image 2 (wand_pcb_2.jpg)
-      sandbox.window.setProjectImage(2);
-      assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_2.jpg');
-      assert.ok(thumbs[2].classList.contains('is-active'));
-      assert.strictEqual(thumbs[2].getAttribute('aria-selected'), 'true');
+      // Switch back to image 0 (wand_pcb_1.jpg)
+      sandbox.window.setProjectImage(0);
+      assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.jpg');
+      assert.ok(thumbs[0].classList.contains('is-active'));
+      assert.strictEqual(thumbs[0].getAttribute('aria-selected'), 'true');
     });
 
     it('should perform cyclic nextProject and prevProject navigation', () => {
@@ -614,14 +616,14 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
     it('should open and close lightbox and sync image', () => {
       const { doc, sandbox } = createDOMSandbox(projects);
       sandbox.window.openProjectModal('ml-dueling');
-      sandbox.window.setProjectImage(1); // wand_pcb_1.jpg
+      sandbox.window.setProjectImage(1); // wand_pcb_2.jpg
 
       // Open lightbox
       sandbox.window.openLightbox();
       const lightbox = doc.getElementById('modal-lightbox');
       assert.ok(lightbox.classList.contains('is-active'));
       assert.strictEqual(lightbox.getAttribute('aria-hidden'), 'false');
-      assert.strictEqual(doc.getElementById('lightbox-img').src, '/assets/images/wand_pcb_1.jpg');
+      assert.strictEqual(doc.getElementById('lightbox-img').src, '/assets/images/wand_pcb_2.jpg');
       assert.strictEqual(doc.activeElement, doc.getElementById('lightbox-close-btn'));
 
       // Close lightbox
@@ -651,7 +653,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       doc.dispatchEvent(enterEvt);
       assert.ok(doc.getElementById('project-modal').classList.contains('is-active'));
 
-      // ArrowRight advances image in ml-dueling (3 images)
+      // ArrowRight advances image in ml-dueling (2 images, starts at featured index 0)
       let arrowRightEvt = {
         type: 'keydown',
         key: 'ArrowRight',
@@ -660,7 +662,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
         preventDefault: () => {}
       };
       doc.dispatchEvent(arrowRightEvt);
-      assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.jpg');
+      assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_2.jpg');
 
       // ArrowLeft retreats image
       let arrowLeftEvt = {
@@ -671,7 +673,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
         preventDefault: () => {}
       };
       doc.dispatchEvent(arrowLeftEvt);
-      assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/dueling_preview.jpg');
+      assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.jpg');
 
       // Shift+ArrowRight advances project
       let shiftRightEvt = {
@@ -682,7 +684,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
         preventDefault: () => {}
       };
       doc.dispatchEvent(shiftRightEvt);
-      assert.strictEqual(doc.getElementById('modal-project-title').textContent, 'ESP32 Game Controller Bridge');
+      assert.strictEqual(doc.getElementById('modal-project-title').textContent, 'Posture Pet (StarkHacks)');
 
       // Open Lightbox, then Escape closes lightbox without closing modal
       sandbox.window.openLightbox();
@@ -704,7 +706,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       assert.ok(!doc.body.classList.contains('modal-open'));
 
       // Tab trap test:
-      sandbox.window.openProjectModal('asic-design');
+      sandbox.window.openProjectModal('rov-hil-testbench');
       const focusables = doc.getElementById('project-modal').querySelectorAll('button:not([disabled]), [href]');
       assert.ok(focusables.length >= 2, 'Modal should contain multiple focusable elements');
 
@@ -809,14 +811,11 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       assert.ok(content.includes('window.print()'), 'print-portfolio.html missing print trigger');
     });
 
-    it('should verify all 6 project markdown reports are intact with correct frontmatter', () => {
+    it('should verify all 3 project markdown reports are intact with correct frontmatter', () => {
       const expectedFiles = [
-        { file: 'asic-design.md', permalink: '/projects/asic-design', order: 1 },
-        { file: 'risc-v-verification.md', permalink: '/projects/risc-v-verification', order: 2 },
-        { file: 'rov-hil-testbench.md', permalink: '/projects/rov-hil-testbench', order: 3 },
-        { file: 'rov-buoyancy-float.md', permalink: '/projects/rov-buoyancy-float', order: 4 },
-        { file: 'ml-dueling.md', permalink: '/projects/ml-dueling', order: 5 },
-        { file: 'esp32-bridge.md', permalink: '/projects/esp32-bridge', order: 6 }
+        { file: 'rov-hil-testbench.md', permalink: '/projects/rov-hil-testbench', order: 1 },
+        { file: 'rov-buoyancy-float.md', permalink: '/projects/rov-buoyancy-float', order: 2 },
+        { file: 'ml-dueling.md', permalink: '/projects/ml-dueling', order: 3 }
       ];
 
       expectedFiles.forEach(({ file, permalink, order }) => {

@@ -7,7 +7,7 @@ description: "Hardware-in-the-Loop (HIL) carrier board and testbench for MATE RO
 technologies: ["STM32", "RP2350B", "Raspberry Pi 5", "SPI/I2C/UART", "FreeRTOS", "KiCad"]
 image: "/assets/images/rov_hil_carrier.png"
 printable: true
-order: 3
+order: 1
 ---
 
 **Context:** Purdue IEEE ROV Team | **MATE ROV Competition**

@@ -22,17 +22,11 @@ permalink: /print-portfolio/
 
   <!-- Presets and Filter Bar -->
   <div class="pdf-filter-toolbar">
-    <div class="pdf-filter-left">
-      <span class="filter-label">Quick Presets:</span>
-      <button type="button" class="preset-btn active" data-preset="all">All Projects</button>
-      <button type="button" class="preset-btn" data-preset="hardware">Hardware & Verification</button>
-      <button type="button" class="preset-btn" data-preset="embedded">Embedded & Robotics</button>
-    </div>
     <div class="pdf-filter-right">
       <button type="button" class="text-action-btn" id="btn-select-all">Select All</button>
       <span class="btn-divider">•</span>
       <button type="button" class="text-action-btn" id="btn-clear-all">Clear All</button>
-      <span class="selected-badge" id="selected-counter-badge">6 of 6 Selected</span>
+      <span class="selected-badge" id="selected-counter-badge">3 of 3 Selected</span>
     </div>
   </div>
 
@@ -151,12 +145,7 @@ permalink: /print-portfolio/
     const counterBadge = document.getElementById('selected-counter-badge');
     const selectAllBtn = document.getElementById('btn-select-all');
     const clearAllBtn = document.getElementById('btn-clear-all');
-    const presetBtns = document.querySelectorAll('.preset-btn');
     const totalCount = checkboxes.length;
-
-    // Mapping for presets
-    const hardwareSlugs = ['asic-design', 'risc-v-verification'];
-    const embeddedSlugs = ['rov-hil-testbench', 'rov-buoyancy-float', 'esp32-bridge', 'ml-dueling'];
 
     function updateState() {
       let selectedCount = 0;
@@ -194,20 +183,13 @@ permalink: /print-portfolio/
 
     // Toggle on checkbox click or card click
     checkboxes.forEach(cb => {
-      cb.addEventListener('change', () => {
-        // Clear active preset highlight when manual toggles occur
-        presetBtns.forEach(b => b.classList.remove('active'));
-        updateState();
-      });
+      cb.addEventListener('change', updateState);
     });
 
     // Select All
     if (selectAllBtn) {
       selectAllBtn.addEventListener('click', () => {
         checkboxes.forEach(cb => cb.checked = true);
-        presetBtns.forEach(b => b.classList.remove('active'));
-        const allPreset = document.querySelector('.preset-btn[data-preset="all"]');
-        if (allPreset) allPreset.classList.add('active');
         updateState();
       });
     }
@@ -220,29 +202,6 @@ permalink: /print-portfolio/
         updateState();
       });
     }
-
-    // Preset Buttons
-    presetBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        presetBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const preset = btn.getAttribute('data-preset');
-        checkboxes.forEach(cb => {
-          const card = cb.closest('.pdf-checkbox-card');
-          const slug = card.getAttribute('data-project-slug');
-
-          if (preset === 'all') {
-            cb.checked = true;
-          } else if (preset === 'hardware') {
-            cb.checked = hardwareSlugs.includes(slug);
-          } else if (preset === 'embedded') {
-            cb.checked = embeddedSlugs.includes(slug);
-          }
-        });
-        updateState();
-      });
-    });
 
     // Restore saved selections if available
     try {
