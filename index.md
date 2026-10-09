@@ -18,14 +18,14 @@ title: Aman Katyal | Portfolio
   </div>
 
   <div class="profile-links">
-    <button type="button" class="profile-link-btn email-copy-btn" data-copy-email="{{ site.email }}" title="Click to copy email" aria-label="Copy email address to clipboard">
-      <i class="fa-solid fa-envelope"></i> <span class="email-copy-label">Email</span>
-    </button>
-    <noscript>
-      <a href="mailto:{{ site.email }}" class="profile-link-btn" title="Email">
-        <i class="fa-solid fa-envelope"></i> Email
+    <span class="email-display-group">
+      <a href="mailto:{{ site.email }}" class="profile-link-btn email-address" title="Send an email">
+        <i class="fa-solid fa-envelope"></i> <span class="email-address-text">{{ site.email }}</span>
       </a>
-    </noscript>
+      <button type="button" class="email-copy-icon-btn" data-copy-email="{{ site.email }}" title="Copy email address" aria-label="Copy email address to clipboard">
+        <i class="fa-regular fa-copy"></i>
+      </button>
+    </span>
     <a href="https://linkedin.com/in/aman-katyal" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="LinkedIn">
       <i class="fa-brands fa-linkedin"></i> LinkedIn
     </a>
@@ -54,8 +54,8 @@ title: Aman Katyal | Portfolio
       <article class="project-card" data-project-trigger="{{ project.id }}" aria-label="Open details for {{ project.title }}">
         <!-- Terminal Header Bar (thavlik.dev style) -->
         <div class="termbar">
-          <span class="termbar-title">{{ project.title }}</span>
-          <span class="termbar-badge">{{ project.badge_type | default: project.category }}</span>
+          <span class="termbar-title" title="{{ project.title }}">{{ project.title }}</span>
+          <span class="termbar-badge" title="{{ project.badge_type | default: project.category }}">{{ project.badge_type | default: project.category }}</span>
         </div>
 
         <!-- Media Frame -->

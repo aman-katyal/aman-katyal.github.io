@@ -296,8 +296,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem 1.5rem;
   font-size: 1.1rem;
+  flex-wrap: wrap;
 }
 
 .profile-link-btn {
@@ -322,6 +323,51 @@ body {
 
 .email-copy-btn.is-copied {
   color: #16a34a;
+}
+
+/* Visible email address + separate copy button */
+.email-display-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.email-address .email-address-text {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.email-copy-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background-color: transparent;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.email-copy-icon-btn:hover {
+  color: var(--accent-interactive);
+  border-color: var(--accent-interactive);
+  background-color: var(--bg-secondary);
+  transform: translateY(-2px);
+}
+
+.email-copy-icon-btn.is-copied {
+  color: #16a34a;
+  border-color: #16a34a;
 }
 
 .profile-bio-card {
@@ -415,9 +461,9 @@ body {
   font-weight: 700;
   font-size: 0.85rem;
   color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
+  /* NOTE: must stay display:block — flex turns the text into an anonymous
+     flex item, which ignores text-overflow:ellipsis and hard-clips instead. */
+  display: block;
   flex: 1 1 auto;
   min-width: 0;
   max-width: 100%;
@@ -429,7 +475,7 @@ body {
     content: "❯";
     color: var(--accent-interactive);
     font-size: 0.8rem;
-    flex-shrink: 0;
+    margin-right: 0.45rem;
   }
 }
 
