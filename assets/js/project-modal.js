@@ -45,6 +45,8 @@
   let lightboxImgEl = null;
   let lightboxCaptionEl = null;
   let lightboxCloseBtnEl = null;
+  let lightboxPrevBtnEl = null;
+  let lightboxNextBtnEl = null;
 
   /**
    * Initializes the project data and DOM element references.
@@ -100,6 +102,8 @@
     lightboxImgEl = document.getElementById('lightbox-img');
     lightboxCaptionEl = document.getElementById('lightbox-caption');
     lightboxCloseBtnEl = document.getElementById('lightbox-close-btn');
+    lightboxPrevBtnEl = document.getElementById('lightbox-prev-btn');
+    lightboxNextBtnEl = document.getElementById('lightbox-next-btn');
   }
 
   /**
@@ -126,12 +130,10 @@
       });
     }
 
-    // Main image click or zoom button click triggers lightbox
+    // Clicking anywhere on the gallery viewport opens the dedicated
+    // full-screen viewer (thumbnail strip clicks excluded — separate element)
     if (galleryViewportEl) {
-      galleryViewportEl.addEventListener('click', function (e) {
-        if (!e.target.closest('#modal-zoom-btn') && e.target !== mainImgEl) {
-          return;
-        }
+      galleryViewportEl.addEventListener('click', function () {
         openLightbox();
       });
     }
@@ -139,6 +141,19 @@
     // Lightbox close button & backdrop
     if (lightboxCloseBtnEl) {
       lightboxCloseBtnEl.addEventListener('click', closeLightbox);
+    }
+    // Dedicated-viewer image navigation (mirrors ArrowLeft/ArrowRight keys)
+    if (lightboxPrevBtnEl) {
+      lightboxPrevBtnEl.addEventListener('click', function (e) {
+        e.stopPropagation();
+        stepImage(-1);
+      });
+    }
+    if (lightboxNextBtnEl) {
+      lightboxNextBtnEl.addEventListener('click', function (e) {
+        e.stopPropagation();
+        stepImage(1);
+      });
     }
     if (lightboxEl) {
       lightboxEl.addEventListener('click', function (e) {
@@ -182,6 +197,12 @@
     // If modal/lightbox is not open, handle Enter or Space on focused project triggers
     if (!isModalOpen && !isLightboxOpen) {
       if (e.key === 'Enter' || e.key === ' ') {
+        // Let native button/link activation handle keyboard interaction to
+        // avoid double-opening the modal (keydown + click). Only handle
+        // generic focusable triggers (e.g. div[tabindex]) here.
+        if (e.target.closest && e.target.closest('button, a')) {
+          return;
+        }
         const trigger = e.target.closest('[data-project-trigger], [data-project-id]');
         if (trigger && !e.target.closest('a:not([data-project-trigger])')) {
           e.preventDefault();
@@ -305,6 +326,10 @@
     if (modalEl) {
       modalEl.classList.add('is-active');
       modalEl.scrollTop = 0;
+      const modalBody = modalEl.querySelector ? modalEl.querySelector('.modal-body') : null;
+      if (modalBody) {
+        modalBody.scrollTop = 0;
+      }
     }
 
     // Lock body scroll
@@ -401,6 +426,17 @@
         lightboxCaptionEl.textContent = item.label || '';
       }
     }
+  }
+
+  /**
+   * Steps the active gallery image by delta (used by lightbox arrows).
+   * @param {number} delta +1 for next, -1 for previous
+   */
+  function stepImage(delta) {
+    const project = getCurrentProject();
+    if (!project || !project.images || project.images.length < 2) return;
+    const next = (currentImageIndex + delta + project.images.length) % project.images.length;
+    setProjectImage(next);
   }
 
   /**
@@ -560,6 +596,11 @@
 
     if (galleryViewportEl) galleryViewportEl.style.display = 'block';
 
+    // Dedicated-viewer arrows only make sense with 2+ images
+    const multiImage = images.length > 1;
+    if (lightboxPrevBtnEl) lightboxPrevBtnEl.style.display = multiImage ? 'flex' : 'none';
+    if (lightboxNextBtnEl) lightboxNextBtnEl.style.display = multiImage ? 'flex' : 'none';
+
     if (images.length > 1) {
       if (thumbnailsEl) thumbnailsEl.style.display = 'flex';
       images.forEach((img, idx) => {
@@ -608,6 +649,7 @@
   window.openProjectModal = openProjectModal;
   window.closeProjectModal = closeProjectModal;
   window.setProjectImage = setProjectImage;
+  window.stepImage = stepImage;
   window.openLightbox = openLightbox;
   window.closeLightbox = closeLightbox;
   window.nextProject = nextProject;

@@ -53,6 +53,7 @@
       </a>
       <div class="nav-links">
         <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
+        <a href="{{ '/' | relative_url }}#projects" class="nav-link">Projects</a>
         <a href="{{ '/print-portfolio/' | relative_url }}" class="nav-link {% if page.url == '/print-portfolio/' %}active{% endif %}">PDF Portfolio</a>
         
         <!-- Theme Toggle Button -->
@@ -194,7 +195,7 @@
       </div>
       <div class="footer-right">
         <div class="social-links">
-          <a href="mailto:{{ site.email }}" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+          <button type="button" data-copy-email="{{ site.email }}" aria-label="Copy email address to clipboard" title="Click to copy email"><i class="fa-solid fa-envelope"></i></button>
           <a href="https://linkedin.com/in/aman-katyal" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
           <a href="https://github.com/itsamankatyal" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
         </div>
@@ -206,6 +207,9 @@
   <button id="scroll-to-top" class="scroll-to-top-btn no-print" aria-label="Scroll to top">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
+
+  <!-- Copy-to-clipboard toast (email button feedback) -->
+  <div id="copy-toast" class="copy-toast" role="status" aria-live="polite"></div>
 
   <!-- Custom Scripts -->
   <script>
@@ -281,6 +285,71 @@
         window.scrollTo({
           top: 0,
           behavior: 'smooth'
+        });
+      });
+
+      // Email Copy Buttons (hero + footer) — click to copy, no mailto navigation
+      const emailCopyBtns = document.querySelectorAll('[data-copy-email]');
+      const copyToast = document.getElementById('copy-toast');
+      const showCopyToast = (message) => {
+        if (!copyToast) return;
+        copyToast.textContent = message;
+        copyToast.classList.add('is-visible');
+        clearTimeout(copyToast._hideTimeout);
+        copyToast._hideTimeout = setTimeout(() => {
+          copyToast.classList.remove('is-visible');
+        }, 2200);
+      };
+      emailCopyBtns.forEach((btn) => {
+        btn.addEventListener('click', async () => {
+          const email = btn.getAttribute('data-copy-email');
+          if (!email) return;
+
+          // Preserve original content for restore
+          if (!btn.dataset.originalHtml) {
+            btn.dataset.originalHtml = btn.innerHTML;
+          }
+          const showCopied = () => {
+            btn.classList.add('is-copied');
+            const label = btn.querySelector('.email-copy-label');
+            if (label) {
+              label.textContent = 'Copied!';
+            } else {
+              btn.innerHTML = '<i class="fa-solid fa-check"></i>';
+            }
+            btn.setAttribute('aria-label', 'Email address copied to clipboard');
+            btn.title = email + ' (copied!)';
+            showCopyToast('Email copied: ' + email);
+            clearTimeout(btn._copyTimeout);
+            btn._copyTimeout = setTimeout(() => {
+              btn.classList.remove('is-copied');
+              btn.innerHTML = btn.dataset.originalHtml;
+              btn.setAttribute('aria-label', 'Copy email address to clipboard');
+              btn.title = 'Click to copy email';
+            }, 2000);
+          };
+
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(email);
+              showCopied();
+            } else {
+              // Fallback for non-secure contexts / older browsers
+              const ta = document.createElement('textarea');
+              ta.value = email;
+              ta.style.position = 'fixed';
+              ta.style.opacity = '0';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+              showCopied();
+            }
+          } catch (err) {
+            console.error('Failed to copy email: ', err);
+            // Still show the address so the user can copy manually
+            window.prompt('Copy email address:', email);
+          }
         });
       });
     });

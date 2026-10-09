@@ -18,9 +18,14 @@ title: Aman Katyal | Portfolio
   </div>
 
   <div class="profile-links">
-    <a href="mailto:itsamankatyal@gmail.com" class="profile-link-btn" title="Email">
-      <i class="fa-solid fa-envelope"></i> Email
-    </a>
+    <button type="button" class="profile-link-btn email-copy-btn" data-copy-email="{{ site.email }}" title="Click to copy email" aria-label="Copy email address to clipboard">
+      <i class="fa-solid fa-envelope"></i> <span class="email-copy-label">Email</span>
+    </button>
+    <noscript>
+      <a href="mailto:{{ site.email }}" class="profile-link-btn" title="Email">
+        <i class="fa-solid fa-envelope"></i> Email
+      </a>
+    </noscript>
     <a href="https://linkedin.com/in/aman-katyal" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="LinkedIn">
       <i class="fa-brands fa-linkedin"></i> LinkedIn
     </a>
@@ -40,13 +45,13 @@ title: Aman Katyal | Portfolio
 </div>
 
 <!-- Projects Section -->
-<div class="projects-section">
+<div class="projects-section" id="projects">
   <h2 class="section-title">Featured Projects</h2>
   
   <div class="projects-grid">
     {% for project in site.data.projects %}
       {% assign featured_image = project.images | where: "featured", true | first | default: project.images.first %}
-      <article class="project-card" data-project-trigger="{{ project.id }}" role="button" tabindex="0" aria-label="Open details for {{ project.title }}">
+      <article class="project-card" data-project-trigger="{{ project.id }}" aria-label="Open details for {{ project.title }}">
         <!-- Terminal Header Bar (thavlik.dev style) -->
         <div class="termbar">
           <span class="termbar-title">{{ project.title }}</span>
@@ -55,7 +60,7 @@ title: Aman Katyal | Portfolio
 
         <!-- Media Frame -->
         {% if featured_image %}
-          <div class="project-card-media" data-project-trigger="{{ project.id }}">
+          <div class="project-card-media">
             <img src="{{ featured_image.src | relative_url }}" alt="{{ featured_image.label | default: project.title }}" loading="lazy">
           </div>
         {% endif %}
@@ -76,13 +81,17 @@ title: Aman Katyal | Portfolio
             {% for lang in project.skills.languages limit:2 %}
               <span class="tech-badge">{{ lang }}</span>
             {% endfor %}
+            {% assign tech_total = project.skills.technologies.size | plus: project.skills.languages.size %}
+            {% if tech_total > 5 %}
+              <span class="tech-badge tech-badge-more" title="{{ project.skills.technologies | join: ', ' }}; {{ project.skills.languages | join: ', ' }}">+{{ tech_total | minus: 5 }} more</span>
+            {% endif %}
           </div>
 
           <!-- Card Action Buttons -->
           <div class="project-card-actions">
             <button type="button" class="card-btn card-btn-primary" data-project-trigger="{{ project.id }}">
               <i class="fa-solid fa-arrow-up-right-from-square"></i>
-              <span>Preview & Gallery ↗</span>
+              <span>Preview & Gallery</span>
             </button>
             {% if project.github %}
               <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on GitHub">
