@@ -33,11 +33,11 @@
       - "UART"
       - "PWM"
   images:
+    - src: "/assets/images/rov_hil_render_iso.png"
+      label: "HIL Carrier Board 3D Render (Isometric, Pi Mated)"
+      featured: true
     - src: "/assets/images/rov_hil_render_top.png"
       label: "HIL Carrier Board 3D Render (Top, Fully Populated)"
-      featured: true
-    - src: "/assets/images/rov_hil_render_iso.png"
-      label: "HIL Carrier Board 3D Render (Isometric)"
       featured: false
     - src: "/assets/images/rov_hil_render_bottom.png"
       label: "HIL Carrier Board 3D Render (Bottom)"
