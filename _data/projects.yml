@@ -42,6 +42,18 @@
     - src: "/assets/images/rov_hil_render_bottom.png"
       label: "HIL Carrier Board 3D Render (Bottom)"
       featured: false
+    - src: "/assets/images/rov_hil_layer_ftop.svg"
+      label: "Layout: Top Copper (Power + Signals)"
+      featured: false
+    - src: "/assets/images/rov_hil_layer_in1.svg"
+      label: "Layout: Inner 1 Copper (GND)"
+      featured: false
+    - src: "/assets/images/rov_hil_layer_in2.svg"
+      label: "Layout: Inner 2 Copper (GND Solid)"
+      featured: false
+    - src: "/assets/images/rov_hil_layer_bbot.svg"
+      label: "Layout: Bottom Copper (Signals)"
+      featured: false
     - src: "/assets/images/rov_hil_schematic.svg"
       label: "HIL Carrier Board Schematic (Root Sheet)"
       featured: false
@@ -62,9 +74,6 @@
       featured: false
     - src: "/assets/images/rov_hil_sch_servo_esc.svg"
       label: "Schematic: Servo & ESC Control"
-      featured: false
-    - src: "/assets/images/rov_hil_carrier.png"
-      label: "ROV HIL Carrier Board with Raspberry Pi 5 and Dual MCU"
       featured: false
 
 - id: "rov-buoyancy-float"
@@ -152,16 +161,17 @@
       - "I2C"
       - "PWM"
   images:
+    - src: "/assets/images/posture_pet_demo.jpg"
+      label: "Posture Pet demo station at StarkHacks"
+      featured: true
+      position: "50% 15%"
     - src: "/assets/images/posture_pet_real.jpg"
       label: "Posture Pet 3D-printed companion at StarkHacks"
-      featured: true
+      featured: false
     - src: "/assets/images/posture_pet_demo.mp4"
       label: "Posture Pet live posture-mirroring demo"
       featured: false
       type: "video"
-    - src: "/assets/images/posture_pet_demo.jpg"
-      label: "Posture Pet demo station at StarkHacks"
-      featured: false
     - src: "/assets/images/posture_pet_preview.jpg"
       label: "Posture Pet Robotic Companion & Hackathon Hardware Setup"
       featured: false

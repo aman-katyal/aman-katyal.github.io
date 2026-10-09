@@ -137,7 +137,7 @@ title: Aman Katyal | Portfolio
         <!-- Media Frame -->
         {% if featured_image %}
           <div class="project-card-media">
-            <img src="{{ featured_image.src | relative_url }}" alt="{{ featured_image.label | default: project.title }}" loading="lazy">
+            <img src="{{ featured_image.src | relative_url }}" alt="{{ featured_image.label | default: project.title }}" loading="lazy"{% if featured_image.position %} style="object-position: {{ featured_image.position }}"{% endif %}>
           </div>
         {% endif %}
 

@@ -421,6 +421,7 @@
       if (!video) {
         imgEl.src = item.src;
         imgEl.alt = item.label || project.title;
+        imgEl.style.objectPosition = item.position || '';
       }
     }
     if (videoEl) {
