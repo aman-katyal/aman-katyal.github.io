@@ -10,7 +10,7 @@ title: Aman Katyal | Portfolio
   
   <div class="profile-meta-info">
     <span class="profile-meta-item">
-      <i class="fa-solid fa-graduation-cap"></i> GPA: 3.94 / 4.0
+      <i class="fa-solid fa-graduation-cap"></i> GPA: 3.91 / 4.0
     </span>
     <span class="profile-meta-item">
       <i class="fa-solid fa-location-dot"></i> Fremont, CA
@@ -31,6 +31,9 @@ title: Aman Katyal | Portfolio
     </a>
     <a href="https://github.com/itsamankatyal" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="GitHub">
       <i class="fa-brands fa-github"></i> GitHub
+    </a>
+    <a href="{{ '/assets/Aman_Katyal_Resume.pdf' | relative_url }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="Resume (PDF)">
+      <i class="fa-solid fa-file-lines"></i> Resume
     </a>
     <a href="{{ '/print-portfolio/' | relative_url }}" class="profile-link-btn" title="PDF Portfolio">
       <i class="fa-solid fa-file-pdf"></i> PDF Portfolio
