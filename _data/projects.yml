@@ -33,11 +33,20 @@
       - "UART"
       - "PWM"
   images:
+    - src: "/assets/images/rov_hil_render_iso.png"
+      label: "HIL Carrier Board 3D Render (Isometric)"
+      featured: true
+    - src: "/assets/images/rov_hil_render_top.png"
+      label: "HIL Carrier Board 3D Render (Top)"
+      featured: false
+    - src: "/assets/images/rov_hil_render_bottom.png"
+      label: "HIL Carrier Board 3D Render (Bottom)"
+      featured: false
+    - src: "/assets/images/rov_hil_schematic.svg"
+      label: "HIL Carrier Board Schematic (Root Sheet)"
+      featured: false
     - src: "/assets/images/rov_hil_carrier.png"
       label: "ROV HIL Carrier Board with Raspberry Pi 5 and Dual MCU"
-      featured: true
-    - src: "/assets/images/rov_hil_schematic.png"
-      label: "ROV HIL Carrier Board KiCad PCB Routing and Layer Stack"
       featured: false
 
 - id: "rov-buoyancy-float"
