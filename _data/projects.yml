@@ -45,6 +45,24 @@
     - src: "/assets/images/rov_hil_schematic.svg"
       label: "HIL Carrier Board Schematic (Root Sheet)"
       featured: false
+    - src: "/assets/images/rov_hil_sch_mcu.svg"
+      label: "Schematic: STM32 MCU Sheet"
+      featured: false
+    - src: "/assets/images/rov_hil_sch_pi.svg"
+      label: "Schematic: Raspberry Pi Sheet"
+      featured: false
+    - src: "/assets/images/rov_hil_sch_power.svg"
+      label: "Schematic: Power Distribution"
+      featured: false
+    - src: "/assets/images/rov_hil_sch_servo_power.svg"
+      label: "Schematic: Servo Power"
+      featured: false
+    - src: "/assets/images/rov_hil_sch_sensors.svg"
+      label: "Schematic: Sensors & Telemetry"
+      featured: false
+    - src: "/assets/images/rov_hil_sch_servo_esc.svg"
+      label: "Schematic: Servo & ESC Control"
+      featured: false
     - src: "/assets/images/rov_hil_carrier.png"
       label: "ROV HIL Carrier Board with Raspberry Pi 5 and Dual MCU"
       featured: false
@@ -141,6 +159,9 @@
       label: "Posture Pet live posture-mirroring demo"
       featured: false
       type: "video"
+    - src: "/assets/images/posture_pet_demo.jpg"
+      label: "Posture Pet demo station at StarkHacks"
+      featured: false
     - src: "/assets/images/posture_pet_preview.jpg"
       label: "Posture Pet Robotic Companion & Hackathon Hardware Setup"
       featured: false

@@ -667,6 +667,8 @@
           const thumbImg = document.createElement('img');
           thumbImg.src = img.src;
           thumbImg.alt = img.label || `${project.title} thumbnail ${idx + 1}`;
+          thumbImg.loading = 'lazy';
+          thumbImg.decoding = 'async';
           thumbBtn.appendChild(thumbImg);
         }
 
