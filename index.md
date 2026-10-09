@@ -11,7 +11,6 @@ title: Aman Katyal | Portfolio
 
     <div class="hero-ctas">
       <a href="#projects" class="hero-cta">view work →</a>
-      <a href="mailto:{{ site.email }}" class="hero-cta">get in touch</a>
     </div>
 
     <div class="profile-links">
@@ -31,9 +30,6 @@ title: Aman Katyal | Portfolio
       </a>
       <a href="{{ site.resume | relative_url }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="Resume (PDF)">
         <i class="fa-solid fa-file-lines"></i> Resume
-      </a>
-      <a href="{{ '/print-portfolio/' | relative_url }}" class="profile-link-btn" title="PDF Portfolio">
-        <i class="fa-solid fa-file-pdf"></i> PDF Portfolio
       </a>
     </div>
   </div>
@@ -98,6 +94,63 @@ title: Aman Katyal | Portfolio
   </div>
 </div>
 
+<!-- Experience Section (follows resume) -->
+<div class="exp-section" id="experience">
+  <span class="skills-eyebrow">Experience</span>
+  <div class="exp-list">
+    <div class="exp-entry">
+      <div class="exp-head">
+        <span class="exp-role">ASIC Intern — Hewlett Packard Enterprise</span>
+        <span class="exp-meta">Roseville, CA · May 2026 – Aug 2026</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><span class="highlight-bullet">▹</span><span>Rebuilt an internal microcode compilation pipeline in Python with a defined grammar, AST validator, and CLI toolchain targeting on-chip instructions.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Built a pre-silicon log ingestion engine that parses 10 GB of simulation traces in under 2 minutes, plus a dashboard tracking RTL commits to speed up post-failure triage.</span></li>
+      </ul>
+    </div>
+    <div class="exp-entry">
+      <div class="exp-head">
+        <span class="exp-role">Undergraduate ASIC Researcher — Purdue SoCET</span>
+        <span class="exp-meta">Aug 2025 – Present</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><span class="highlight-bullet">▹</span><span>Profile compiler-generated kernel assembly against hand-written benchmarks for an AI accelerator; develop VLIW packetization and software pipelining passes.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Ported TinyUSB to a custom RISC-V SoC as a bare-metal USB host controller driver, validated through Verilator co-simulation.</span></li>
+      </ul>
+    </div>
+    <div class="exp-entry">
+      <div class="exp-head">
+        <span class="exp-role">Embedded Lead, Multi-Node Vehicle Network — Purdue IEEE ROV Team</span>
+        <span class="exp-meta">May 2026 – Present</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><span class="highlight-bullet">▹</span><span>Migrated vehicle communication from point-to-point SPI to a multi-node CAN FD bus across 3 STM32 microcontrollers.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Designed a 4-layer KiCad carrier for HIL validation and RP2350B vs. STM32 benchmarking.</span></li>
+      </ul>
+    </div>
+    <div class="exp-entry">
+      <div class="exp-head">
+        <span class="exp-role">Autonomous Profiling Module — Purdue IEEE ROV Team</span>
+        <span class="exp-meta">Jan 2026 – May 2026</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><span class="highlight-bullet">▹</span><span>Wrote bare-metal C firmware on RP2040 with a 10 Hz depth PID loop holding depth within 5 cm.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Designed a compact binary telemetry protocol over LoRa for wireless PID tuning without opening the sealed hull.</span></li>
+      </ul>
+    </div>
+    <div class="exp-entry">
+      <div class="exp-head">
+        <span class="exp-role">Harry Potter Wand Duel — Gesture Gaming Hardware</span>
+        <span class="exp-meta">Aug 2025 – Dec 2025</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><span class="highlight-bullet">▹</span><span>Programmed an RP2350B wand to classify spell gestures with a quantized TensorFlow Lite Micro model at 96% accuracy under 5 ms latency.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Engineered a wearable chestpiece with custom NEC infrared transceiver and haptic feedback for real-time hit validation.</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <!-- Projects Section -->
 <div class="projects-section" id="projects">
   <h2 class="section-title">Featured Projects</h2>
@@ -106,9 +159,8 @@ title: Aman Katyal | Portfolio
     {% for project in site.data.projects %}
       {% assign featured_image = project.images | where: "featured", true | first | default: project.images.first %}
       <article class="project-card" data-project-trigger="{{ project.id }}" aria-label="Open details for {{ project.title }}">
-        <!-- Terminal Header Bar (thavlik.dev style) -->
+        <!-- Terminal Header Bar: badge only (full title lives in the card heading) -->
         <div class="termbar">
-          <span class="termbar-title" title="{{ project.title }}">{{ project.title }}</span>
           <span class="termbar-badge" title="{{ project.badge_type | default: project.category }}">{{ project.badge_type | default: project.category }}</span>
         </div>
 

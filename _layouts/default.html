@@ -54,7 +54,7 @@
       <div class="nav-links">
         <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
         <a href="{{ '/' | relative_url }}#projects" class="nav-link">Projects</a>
-        <a href="{{ '/print-portfolio/' | relative_url }}" class="nav-link {% if page.url == '/print-portfolio/' %}active{% endif %}">PDF Portfolio</a>
+        <a href="{{ '/' | relative_url }}#experience" class="nav-link">Experience</a>
         
         <!-- Theme Toggle Button -->
         <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
@@ -196,8 +196,8 @@
       <div class="footer-right">
         <div class="social-links">
           <button type="button" data-copy-email="{{ site.email }}" aria-label="Copy email address to clipboard" title="Click to copy email"><i class="fa-solid fa-envelope"></i></button>
-          <a href="https://linkedin.com/in/aman-katyal" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="https://github.com/itsamankatyal" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
         </div>
       </div>
     </div>
