@@ -23,10 +23,8 @@
       - "Python"
     technologies:
       - "STM32"
-      - "RP2350B"
-      - "Raspberry Pi 5"
+      - "Raspberry Pi 4B"
       - "KiCad"
-      - "FreeRTOS"
     protocols:
       - "SPI"
       - "I2C"
@@ -99,7 +97,7 @@
       - "Python"
       - "ARM Assembly"
     technologies:
-      - "RP2040 (Raspberry Pi Pico)"
+      - "RP2040"
       - "LittleFS"
       - "SX1276 LoRa"
       - "MS5837 Sensor"
@@ -203,9 +201,9 @@
       - "Edge Impulse"
       - "KiCad"
       - "FreeRTOS"
-      - "3D Printing (ABS)"
+      - "3D Printing"
     protocols:
-      - "I2C (400 kHz)"
+      - "I2C"
       - "NEC IR (38 kHz)"
       - "PIO / DMA"
       - "SPI"
