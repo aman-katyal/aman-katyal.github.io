@@ -392,8 +392,8 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       const expectedIds = [
         'rov-hil-testbench',
         'rov-buoyancy-float',
-        'ml-dueling',
-        'posture-pet'
+        'posture-pet',
+        'ml-dueling'
       ];
       const actualIds = projects.map(p => p.id);
       assert.deepStrictEqual(actualIds, expectedIds);
@@ -675,7 +675,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       doc.dispatchEvent(arrowLeftEvt);
       assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.jpg');
 
-      // Shift+ArrowRight advances project
+      // Shift+ArrowRight advances project (ml-dueling is last, wraps to first)
       let shiftRightEvt = {
         type: 'keydown',
         key: 'ArrowRight',
@@ -684,7 +684,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
         preventDefault: () => {}
       };
       doc.dispatchEvent(shiftRightEvt);
-      assert.strictEqual(doc.getElementById('modal-project-title').textContent, 'Posture Pet (StarkHacks)');
+      assert.strictEqual(doc.getElementById('modal-project-title').textContent, 'ROV HIL Testbench & Control Board');
 
       // Open Lightbox, then Escape closes lightbox without closing modal
       sandbox.window.openLightbox();
