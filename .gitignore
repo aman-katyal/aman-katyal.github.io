@@ -4,6 +4,10 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 
+# Bundler (local preview)
+.bundle/
+vendor/bundle/
+
 # Python
 __pycache__/
 *.py[cod]
