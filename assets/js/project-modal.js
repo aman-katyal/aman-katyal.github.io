@@ -26,6 +26,7 @@
   let liveLinkEl = null;
   let galleryViewportEl = null;
   let mainImgEl = null;
+  let mainVideoEl = null;
   let imgCaptionEl = null;
   let zoomBtnEl = null;
   let thumbnailsEl = null;
@@ -43,6 +44,7 @@
   let navIndicatorEl = null;
   let lightboxEl = null;
   let lightboxImgEl = null;
+  let lightboxVideoEl = null;
   let lightboxCaptionEl = null;
   let lightboxCloseBtnEl = null;
   let lightboxPrevBtnEl = null;
@@ -83,6 +85,7 @@
     liveLinkEl = document.getElementById('modal-project-live');
     galleryViewportEl = document.getElementById('modal-gallery-viewport');
     mainImgEl = document.getElementById('modal-main-img');
+    mainVideoEl = document.getElementById('modal-main-video');
     imgCaptionEl = document.getElementById('modal-img-caption');
     zoomBtnEl = document.getElementById('modal-zoom-btn');
     thumbnailsEl = document.getElementById('modal-thumbnails');
@@ -100,6 +103,7 @@
     navIndicatorEl = document.getElementById('modal-nav-indicator');
     lightboxEl = document.getElementById('modal-lightbox');
     lightboxImgEl = document.getElementById('lightbox-img');
+    lightboxVideoEl = document.getElementById('lightbox-video');
     lightboxCaptionEl = document.getElementById('lightbox-caption');
     lightboxCloseBtnEl = document.getElementById('lightbox-close-btn');
     lightboxPrevBtnEl = document.getElementById('lightbox-prev-btn');
@@ -131,9 +135,13 @@
     }
 
     // Clicking anywhere on the gallery viewport opens the dedicated
-    // full-screen viewer (thumbnail strip clicks excluded — separate element)
+    // full-screen viewer (thumbnail strip clicks excluded — separate element).
+    // Clicks on video controls are left alone so play/pause keeps working.
     if (galleryViewportEl) {
-      galleryViewportEl.addEventListener('click', function () {
+      galleryViewportEl.addEventListener('click', function (e) {
+        if (e.target && e.target.closest && e.target.closest('video')) {
+          return;
+        }
         openLightbox();
       });
     }
@@ -360,6 +368,7 @@
 
     document.body.classList.remove('modal-open');
     isModalOpen = false;
+    pauseVideos();
 
     if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
       lastActiveElement.focus();
@@ -385,6 +394,49 @@
   }
 
   /**
+   * Returns true when a gallery entry is a video rather than an image.
+   */
+  function isVideo(item) {
+    return !!item && item.type === 'video';
+  }
+
+  /**
+   * Pauses every gallery video element (called on navigate/close).
+   */
+  function pauseVideos() {
+    [mainVideoEl, lightboxVideoEl].forEach(function (videoEl) {
+      if (videoEl && typeof videoEl.pause === 'function') {
+        try { videoEl.pause(); } catch (err) { /* not yet playable */ }
+      }
+    });
+  }
+
+  /**
+   * Shows the right element (img or video) inside a viewport pair.
+   */
+  function showMedia(imgEl, videoEl, item, project) {
+    const video = isVideo(item);
+    if (imgEl) {
+      imgEl.style.display = video ? 'none' : 'block';
+      if (!video) {
+        imgEl.src = item.src;
+        imgEl.alt = item.label || project.title;
+      }
+    }
+    if (videoEl) {
+      videoEl.style.display = video ? 'block' : 'none';
+      if (video) {
+        if (videoEl.getAttribute('src') !== item.src) {
+          videoEl.setAttribute('src', item.src);
+        }
+        videoEl.setAttribute('aria-label', item.label || project.title);
+      } else if (typeof videoEl.pause === 'function') {
+        try { videoEl.pause(); } catch (err) { /* not yet playable */ }
+      }
+    }
+  }
+
+  /**
    * Sets the active image inside the project gallery.
    * @param {number} index
    */
@@ -395,10 +447,7 @@
     currentImageIndex = index;
     const item = project.images[index];
 
-    if (mainImgEl) {
-      mainImgEl.src = item.src;
-      mainImgEl.alt = item.label || project.title;
-    }
+    showMedia(mainImgEl, mainVideoEl, item, project);
     if (imgCaptionEl) {
       imgCaptionEl.textContent = item.label || project.title;
       imgCaptionEl.style.display = item.label ? 'block' : 'none';
@@ -418,10 +467,9 @@
       });
     }
 
-    // Update lightbox image if currently open
-    if (isLightboxOpen && lightboxImgEl) {
-      lightboxImgEl.src = item.src;
-      lightboxImgEl.alt = item.label || project.title;
+    // Update lightbox media if currently open
+    if (isLightboxOpen) {
+      showMedia(lightboxImgEl, lightboxVideoEl, item, project);
       if (lightboxCaptionEl) {
         lightboxCaptionEl.textContent = item.label || '';
       }
@@ -447,10 +495,7 @@
     if (!project || !project.images || !project.images[currentImageIndex]) return;
 
     const item = project.images[currentImageIndex];
-    if (lightboxImgEl) {
-      lightboxImgEl.src = item.src;
-      lightboxImgEl.alt = item.label || project.title;
-    }
+    showMedia(lightboxImgEl, lightboxVideoEl, item, project);
     if (lightboxCaptionEl) {
       lightboxCaptionEl.textContent = item.label || '';
     }
@@ -469,6 +514,7 @@
    * Closes the full-viewport lightbox overlay.
    */
   function closeLightbox() {
+    pauseVideos();
     if (lightboxEl) {
       lightboxEl.classList.remove('is-active');
       lightboxEl.setAttribute('aria-hidden', 'true');
@@ -611,10 +657,18 @@
         thumbBtn.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
         thumbBtn.setAttribute('aria-label', img.label || `View image ${idx + 1}`);
 
-        const thumbImg = document.createElement('img');
-        thumbImg.src = img.src;
-        thumbImg.alt = img.label || `${project.title} thumbnail ${idx + 1}`;
-        thumbBtn.appendChild(thumbImg);
+        if (img.type === 'video') {
+          thumbBtn.classList.add('modal-thumb-video');
+          const thumbIcon = document.createElement('i');
+          thumbIcon.className = 'fa-solid fa-circle-play';
+          thumbIcon.setAttribute('aria-hidden', 'true');
+          thumbBtn.appendChild(thumbIcon);
+        } else {
+          const thumbImg = document.createElement('img');
+          thumbImg.src = img.src;
+          thumbImg.alt = img.label || `${project.title} thumbnail ${idx + 1}`;
+          thumbBtn.appendChild(thumbImg);
+        }
 
         thumbBtn.addEventListener('click', function () {
           setProjectImage(idx);

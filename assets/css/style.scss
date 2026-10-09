@@ -2643,6 +2643,14 @@ body.modal-open {
   }
 }
 
+.modal-main-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background-color: #000;
+}
+
 .modal-img-caption {
   position: absolute;
   bottom: 0.85rem;
@@ -2992,6 +3000,22 @@ body.modal-open {
   object-fit: contain;
   border-radius: var(--radius-md);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-video {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: var(--radius-md);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background-color: #000;
+}
+
+.modal-thumb-video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-interactive);
+  font-size: 1.1rem;
 }
 
 .lightbox-caption {

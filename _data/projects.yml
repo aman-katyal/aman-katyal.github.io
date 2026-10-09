@@ -134,9 +134,16 @@
       - "I2C"
       - "PWM"
   images:
+    - src: "/assets/images/posture_pet_real.jpg"
+      label: "Posture Pet 3D-printed companion at StarkHacks"
+      featured: true
+    - src: "/assets/images/posture_pet_demo.mp4"
+      label: "Posture Pet live posture-mirroring demo"
+      featured: false
+      type: "video"
     - src: "/assets/images/posture_pet_preview.jpg"
       label: "Posture Pet Robotic Companion & Hackathon Hardware Setup"
-      featured: true
+      featured: false
 
 - id: "ml-dueling"
   title: "Harry Potter Gesture Dueling Wand"
