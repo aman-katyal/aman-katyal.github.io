@@ -118,7 +118,6 @@ title: Aman Katyal | Portfolio
         <li><span class="highlight-bullet">▹</span><span>Ported TinyUSB to a custom RISC-V SoC as a bare-metal USB host controller driver, validated through Verilator co-simulation.</span></li>
       </ul>
     </div>
-    </div>
   </div>
 </div>
 
