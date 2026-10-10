@@ -814,9 +814,9 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
 
     it('should verify all 3 project markdown reports are intact with correct frontmatter', () => {
       const expectedFiles = [
-        { file: 'rov-hil-testbench.md', permalink: '/projects/rov-hil-testbench', order: 1 },
-        { file: 'rov-buoyancy-float.md', permalink: '/projects/rov-buoyancy-float', order: 2 },
-        { file: 'ml-dueling.md', permalink: '/projects/ml-dueling', order: 3 }
+        { file: 'rov-hil-testbench.md', permalink: '/projects/rov-hil-testbench/', order: 1 },
+        { file: 'rov-buoyancy-float.md', permalink: '/projects/rov-buoyancy-float/', order: 2 },
+        { file: 'ml-dueling.md', permalink: '/projects/ml-dueling/', order: 3 }
       ];
 
       expectedFiles.forEach(({ file, permalink, order }) => {

@@ -8,7 +8,6 @@ title: Aman Katyal | Portfolio
   <div class="hero-left">
     <h1 class="profile-name hero-name">Aman Katyal</h1>
     <p class="profile-tagline hero-tagline">Computer Engineering @ Purdue University · Fremont, CA</p>
-    <p class="hero-about">Purdue Computer Engineering junior building verified silicon and subsea robots — HPE ASIC intern, SoCET researcher, IEEE ROV embedded lead.</p>
 
     <div class="hero-ctas">
       <a href="#projects" class="hero-cta">view work →</a>

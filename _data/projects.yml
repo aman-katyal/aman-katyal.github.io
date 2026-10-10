@@ -9,7 +9,7 @@
   role: "Embedded Firmware & Electrical"
   year: "2024 - 2025"
   github: "https://github.com/purduerov/X18-ROV-Test-Bench"
-  live: "/projects/rov-hil-testbench"
+  live: "/projects/rov-hil-testbench/"
   summary: "Surface-level Hardware-in-the-Loop carrier board for the Purdue IEEE ROV team. Mates a Raspberry Pi 4B compute module with an STM32F091 over a servo/ESC backplane, so thrusters and sensors validate topside without the vehicle in the water."
   highlights:
     - "Engineered an MCU + Pi carrier board (STM32F091, Molex-mated Raspberry Pi 4B) with servo/ESC backplane and multi-rail power for topside HIL validation."
@@ -82,7 +82,7 @@
   role: "Embedded Systems & Firmware Architecture"
   year: "2024 - 2025"
   github: "https://github.com/aman-katyal"
-  live: "/projects/rov-buoyancy-float"
+  live: "/projects/rov-buoyancy-float/"
   summary: "Autonomous subsea profiling buoyancy float engineered for automated water column data collection. Features deterministic bare-metal C firmware on RP2040, 10Hz neutral-buoyancy feedforward PID holding depth within 5 cm, 915MHz LoRa telemetry, and bsdiff differential OTA updates that cut firmware refreshes from 8 minutes to under 20 seconds."
   highlights:
     - "Architected deterministic dual-rate bare-metal C firmware on RP2040 (50Hz inner actuator loop, 10Hz outer depth control loop) replacing legacy CircuitPython scripts."
@@ -182,7 +182,7 @@
   role: "Lead Embedded Engineer"
   year: "2024 - 2025"
   github: "https://github.com/aman-katyal/harry-potter-wand-duel"
-  live: "/projects/ml-dueling"
+  live: "/projects/ml-dueling/"
 
   summary: "Real-time competitive gesture dueling system combining custom handheld wand and chest-mounted hardware. Utilizes asymmetric dual-core RP2350 architecture to run TensorFlow Lite Micro inference at 96% accuracy while maintaining a jitter-free 74Hz sensor and IR combat loop."
   highlights:
