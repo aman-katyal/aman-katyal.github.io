@@ -81,7 +81,7 @@
   badge_type: "robotics / firmware"
   role: "Embedded Systems & Firmware Architecture"
   year: "2024 - 2025"
-  github: "https://github.com/itsamankatyal"
+  github: "https://github.com/aman-katyal"
   live: "/projects/rov-buoyancy-float"
   summary: "Autonomous subsea profiling buoyancy float engineered for automated water column data collection. Features deterministic bare-metal C firmware on RP2040, 10Hz neutral-buoyancy feedforward PID holding depth within 5 cm, 915MHz LoRa telemetry, and bsdiff differential OTA updates that cut firmware refreshes from 8 minutes to under 20 seconds."
   highlights:
