@@ -23,7 +23,7 @@ title: Aman Katyal | Portfolio
           <i class="fa-regular fa-copy"></i>
         </button>
       </span>
-      <a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="LinkedIn">
+      <a href="{{ site.linkedin }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="LinkedIn" data-proofer-ignore>
         <i class="fa-brands fa-linkedin"></i> LinkedIn
       </a>
       <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="GitHub">
