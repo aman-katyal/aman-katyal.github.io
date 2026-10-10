@@ -128,26 +128,6 @@ title: Aman Katyal | Portfolio
         <li><span class="highlight-bullet">▹</span><span>Built a software-in-the-loop simulation dashboard to validate multi-node firmware telemetry and pilot controls before vehicle assembly.</span></li>
       </ul>
     </div>
-    <div class="exp-entry">
-      <div class="exp-head">
-        <span class="exp-role">Autonomous Profiling Module — Purdue IEEE ROV Team</span>
-        <span class="exp-meta">Jan 2026 – May 2026</span>
-      </div>
-      <ul class="exp-bullets">
-        <li><span class="highlight-bullet">▹</span><span>Wrote bare-metal C firmware on RP2040 with a 10 Hz depth PID loop holding depth within 5 cm.</span></li>
-        <li><span class="highlight-bullet">▹</span><span>Designed a compact binary telemetry protocol over LoRa for wireless PID tuning without opening the sealed hull.</span></li>
-      </ul>
-    </div>
-    <div class="exp-entry">
-      <div class="exp-head">
-        <span class="exp-role">Harry Potter Wand Duel — Gesture Gaming Hardware</span>
-        <span class="exp-meta">Aug 2025 – Dec 2025</span>
-      </div>
-      <ul class="exp-bullets">
-        <li><span class="highlight-bullet">▹</span><span>Programmed an RP2350B wand to classify spell gestures with a quantized TensorFlow Lite Micro model at 96% accuracy under 5 ms latency.</span></li>
-        <li><span class="highlight-bullet">▹</span><span>Engineered a wearable chestpiece with custom NEC infrared transceiver and haptic feedback for real-time hit validation.</span></li>
-      </ul>
-    </div>
   </div>
 </div>
 
