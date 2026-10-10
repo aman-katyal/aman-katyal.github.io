@@ -36,6 +36,6 @@ I engineered the power section to step down the incoming 12V rail to 6V specific
 
 ---
 
-![ROV HIL Carrier Board with Raspberry Pi 5 and Dual MCU](/assets/images/rov_hil_carrier.png)
+![HIL Carrier Board 3D render, Raspberry Pi mated](/assets/images/rov_hil_render_iso.png)
 
-![ROV HIL Carrier Board KiCad PCB Routing and Layer Stack](/assets/images/rov_hil_schematic.png)
+![Top copper layer: power and signals](/assets/images/rov_hil_layer_ftop.svg)

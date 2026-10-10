@@ -23,7 +23,7 @@ While the mechanical cylinder—incorporating a 90 mL syringe-driven variable bu
 <div class="image-grid-2col">
   <figure class="figure-card contain-fit">
     <div class="figure-image-container">
-      <img src="{{ '/assets/images/rov_buoyancy_cad.png' | relative_url }}" alt="CAD Assembly Model of Autonomous Buoyancy Float Cylinder">
+      <img src="/assets/images/rov_buoyancy_cad.png" alt="CAD Assembly Model of Autonomous Buoyancy Float Cylinder">
     </div>
     <figcaption class="figure-caption">
       <i class="fa-solid fa-cube"></i>
@@ -33,7 +33,7 @@ While the mechanical cylinder—incorporating a 90 mL syringe-driven variable bu
 
   <figure class="figure-card">
     <div class="figure-image-container">
-      <img src="{{ '/assets/images/rov_buoyancy_pcb.jpg' | relative_url }}" alt="Physical Internal Electronics Stack and Custom Carrier PCB">
+      <img src="/assets/images/rov_buoyancy_pcb.jpg" alt="Physical Internal Electronics Stack and Custom Carrier PCB">
     </div>
     <figcaption class="figure-caption">
       <i class="fa-solid fa-microchip"></i>
@@ -220,7 +220,7 @@ RP2040 2MB Internal Flash Memory Layout:
 
 <figure class="figure-card">
   <div class="figure-image-container">
-    <img src="{{ '/assets/images/rov_buoyancy_dashboard.png' | relative_url }}" alt="X18 Mission Control Dashboard showing real-time 10Hz closed-loop depth profiling and telemetry">
+    <img src="/assets/images/rov_buoyancy_dashboard.png" alt="X18 Mission Control Dashboard showing real-time 10Hz closed-loop depth profiling and telemetry">
   </div>
   <figcaption class="figure-caption">
     <i class="fa-solid fa-chart-line"></i>
