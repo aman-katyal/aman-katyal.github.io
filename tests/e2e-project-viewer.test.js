@@ -853,6 +853,13 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       assert.ok(compiledCss.includes('table-layout: fixed'), 'Narrow-screen tables must use fixed layout');
     });
 
+    it('should normalize project card action buttons', () => {
+      assert.ok(compiledCss.includes('font: inherit'), 'Form controls must inherit the page typeface');
+      assert.ok(compiledCss.includes('line-height: 1.2'), 'Action buttons must share the same line height');
+      assert.ok(compiledCss.includes('flex: 1 1 100%'), 'The primary action should span its row');
+      assert.ok(compiledCss.includes('flex: 1 1 calc(50% - 0.3rem)'), 'Secondary actions should share a row evenly');
+    });
+
     it('should contain all required modal and terminal card classes', () => {
       const requiredSelectors = [
         '.project-modal',

@@ -75,6 +75,16 @@
   padding: 0;
 }
 
+/* Form controls do not inherit the page font by default, which made
+   <button> elements render smaller and in a different typeface than links. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
 html {
   scroll-behavior: smooth;
   background-color: var(--bg-primary);
@@ -821,6 +831,7 @@ body {
     gap: 0.4rem;
     font-size: 0.8rem;
     font-weight: 600;
+    line-height: 1.2;
     padding: 0.45rem 0.85rem;
     border-radius: var(--radius-sm);
     text-decoration: none;
@@ -841,7 +852,8 @@ body {
   .card-btn-primary {
     background-color: var(--accent);
     color: #ffffff;
-    flex: 1 1 auto;
+    /* Primary action gets its own row so secondary actions stay balanced. */
+    flex: 1 1 100%;
     min-width: 0;
 
     /* Stretched link: the whole card activates Preview (keyboard users
@@ -872,6 +884,8 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     border-color: var(--border);
+    /* Share the second row evenly; a lone secondary action fills the row. */
+    flex: 1 1 calc(50% - 0.3rem);
     /* Sit above the stretched Preview overlay so Docs/GitHub stay clickable */
     position: relative;
     z-index: 1;
@@ -2566,6 +2580,7 @@ body.modal-open {
     gap: 0.45rem;
     font-size: 0.8rem;
     font-weight: 600;
+    line-height: 1.2;
     padding: 0.5rem 0.85rem;
     border-radius: var(--radius-sm);
     text-decoration: none;
