@@ -100,32 +100,32 @@ title: Aman Katyal | Portfolio
   <div class="exp-list">
     <div class="exp-entry">
       <div class="exp-head">
-        <span class="exp-role">ASIC Intern — Hewlett Packard Enterprise</span>
+        <span class="exp-role">ASIC and Firmware Design Intern — Hewlett Packard Enterprise</span>
         <span class="exp-meta">Roseville, CA · May 2026 – Aug 2026</span>
       </div>
       <ul class="exp-bullets">
-        <li><span class="highlight-bullet">▹</span><span>Rebuilt an internal microcode compilation pipeline in Python with a defined grammar, AST validator, and CLI toolchain targeting on-chip instructions.</span></li>
-        <li><span class="highlight-bullet">▹</span><span>Built a pre-silicon log ingestion engine that parses 10 GB of simulation traces in under 2 minutes, plus a dashboard tracking RTL commits to speed up post-failure triage.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Rebuilt an internal microcode compilation pipeline in Python (grammar, AST validator, CLI toolchain) and a disassembler that converts compiled output into readable assembly, cutting manual debug turnaround for architecture and RTL teams.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Parsed 10 GB of pre-silicon simulation traces in under 2 minutes into cycle-indexed DuckDB schemas, isolating pipeline stalls and buffer bottlenecks.</span></li>
       </ul>
     </div>
     <div class="exp-entry">
       <div class="exp-head">
-        <span class="exp-role">Undergraduate ASIC Researcher — Purdue SoCET</span>
-        <span class="exp-meta">Aug 2025 – Present</span>
-      </div>
-      <ul class="exp-bullets">
-        <li><span class="highlight-bullet">▹</span><span>Profile compiler-generated kernel assembly against hand-written benchmarks for an AI accelerator; develop VLIW packetization and software pipelining passes.</span></li>
-        <li><span class="highlight-bullet">▹</span><span>Ported TinyUSB to a custom RISC-V SoC as a bare-metal USB host controller driver, validated through Verilator co-simulation.</span></li>
-      </ul>
-    </div>
-    <div class="exp-entry">
-      <div class="exp-head">
-        <span class="exp-role">Embedded Lead, Multi-Node Vehicle Network — Purdue IEEE ROV Team</span>
+        <span class="exp-role">Firmware and Hardware Lead — Purdue IEEE ROV Team</span>
         <span class="exp-meta">May 2026 – Present</span>
       </div>
       <ul class="exp-bullets">
-        <li><span class="highlight-bullet">▹</span><span>Migrated vehicle communication from point-to-point SPI to a multi-node CAN FD bus across 3 STM32 microcontrollers.</span></li>
-        <li><span class="highlight-bullet">▹</span><span>Built a software-in-the-loop simulation dashboard to validate multi-node firmware telemetry and pilot controls before vehicle assembly.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Migrated vehicle communication from point-to-point SPI to a multi-node CAN FD bus across 3 STM32 microcontrollers and led firmware bring-up across a multi-board stack.</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Built a software-in-the-loop harness (mocked CAN FD bus with fault injection) spanning 25 CTest suites on the HAL/BSP, enforced as a blocking GitHub Actions CI gate.</span></li>
+      </ul>
+    </div>
+    <div class="exp-entry">
+      <div class="exp-head">
+        <span class="exp-role">Embedded Software Engineer — Purdue SoCET</span>
+        <span class="exp-meta">Aug 2025 – Present</span>
+      </div>
+      <ul class="exp-bullets">
+        <li><span class="highlight-bullet">▹</span><span>Cut dynamic stack memory traffic 87.9% and benchmark execution 13.8% across 12 AI kernels via mem2reg fixes, loop-depth-weighted register allocation, and redundant-load elimination; compiled kernels now beat hand-written assembly (92 vs 103 cycles).</span></li>
+        <li><span class="highlight-bullet">▹</span><span>Ported TinyUSB to a custom RISC-V SoC as a bare-metal USB 1.1 host controller driver with a PLIC-driven ISR and DMA data paths.</span></li>
       </ul>
     </div>
   </div>
