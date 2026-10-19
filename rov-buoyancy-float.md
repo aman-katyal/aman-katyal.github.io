@@ -6,6 +6,7 @@ role: "Embedded Systems & Firmware Architecture"
 description: "Autonomous underwater profiling float powered by RP2040 bare-metal C firmware, featuring multi-rate closed-loop depth PID with neutral baseline feedforward, SX1276 LoRa telemetry, LittleFS persistent storage, and an in-situ bsdiff OTA secondary bootloader."
 technologies: ["RP2040 (Bare-Metal C)", "LittleFS", "LoRa SX1276", "PID Control", "OTA Bootloader (bsdiff)", "Python / Streamlit", "HIL Simulation", "MS5837 Depth Sensor"]
 image: "/assets/images/buoyancy_preview.jpg"
+math: true
 printable: true
 order: 2
 ---

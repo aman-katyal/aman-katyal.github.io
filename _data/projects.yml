@@ -10,11 +10,11 @@
   year: "2024 - 2025"
   github: "https://github.com/purduerov/X18-ROV-Test-Bench"
   live: "/projects/rov-hil-testbench/"
-  summary: "Surface-level Hardware-in-the-Loop carrier board for the Purdue IEEE ROV team. Mates a Raspberry Pi 4B compute module with an STM32F091 over a servo/ESC backplane, so thrusters and sensors validate topside without the vehicle in the water."
+  summary: "Surface-level Hardware-in-the-Loop carrier board for the Purdue IEEE ROV team. Mates a Raspberry Pi 5 with an STM32F091 and an RP2350B over a servo/ESC backplane, so thrusters and sensors validate topside without the vehicle in the water."
   highlights:
-    - "Engineered an MCU + Pi carrier board (STM32F091, Molex-mated Raspberry Pi 4B) with servo/ESC backplane and multi-rail power for topside HIL validation."
+    - "Engineered a dual-MCU carrier board (STM32F091 + RP2350B, Molex-mated Raspberry Pi 5) on a 4-layer PCB with servo/ESC backplane and multi-rail power for topside HIL validation."
     - "Implemented hardware signal muxing allowing seamless toggling of thruster ESCs and servos without rewiring."
-    - "Integrated SPI host communication from the Raspberry Pi 4B and multi-channel I2C sensor bus over JST-GH for IMU, depth, and leak detection modules."
+    - "Integrated SPI host communication from the Raspberry Pi 5 and multi-channel I2C sensor bus over JST-GH for IMU, depth, and leak detection modules."
     - "Designed dedicated UART telemetry channels capturing real-time motor current draw and RPM feedback from Electronic Speed Controllers."
     - "Engineered multi-rail power regulation stepping 12V down to 6V for high-torque servos and 5V down to 3.3V for microcontrollers and sensors."
   skills:
@@ -22,8 +22,9 @@
       - "C/C++"
       - "Python"
     technologies:
-      - "STM32"
-      - "Raspberry Pi 4B"
+      - "STM32F091"
+      - "RP2350B"
+      - "Raspberry Pi 5"
       - "KiCad"
     protocols:
       - "SPI"

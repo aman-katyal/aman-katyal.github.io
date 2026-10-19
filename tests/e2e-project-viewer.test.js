@@ -248,6 +248,18 @@ class MockDocument {
     return el;
   }
 
+  querySelectorAll(selector) {
+    const results = [];
+    const walk = (node) => {
+      for (const child of node.children) {
+        if (child.matches(selector)) results.push(child);
+        walk(child);
+      }
+    };
+    walk(this.body);
+    return results;
+  }
+
   addEventListener(event, handler) {
     if (!this.listeners[event]) this.listeners[event] = [];
     this.listeners[event].push(handler);
@@ -627,11 +639,44 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       assert.strictEqual(doc.getElementById('lightbox-img').src, '/assets/images/wand_pcb_2.jpg');
       assert.strictEqual(doc.activeElement, doc.getElementById('lightbox-close-btn'));
 
+      // The modal behind the lightbox must be inert.
+      assert.strictEqual(doc.getElementById('project-modal').getAttribute('inert'), '');
+
       // Close lightbox
       sandbox.window.closeLightbox();
       assert.ok(!lightbox.classList.contains('is-active'));
       assert.strictEqual(lightbox.getAttribute('aria-hidden'), 'true');
+      assert.strictEqual(doc.getElementById('project-modal').getAttribute('inert'), null);
       assert.strictEqual(doc.activeElement, doc.getElementById('modal-zoom-btn'));
+    });
+
+    it('should restore focus to the originating trigger after project navigation and inert the page shell', () => {
+      const { doc, sandbox } = createDOMSandbox(projects);
+
+      const navbar = doc.createElement('nav');
+      navbar.className = 'navbar';
+      doc.body.appendChild(navbar);
+
+      const wrapper = doc.createElement('div');
+      wrapper.className = 'content-wrapper';
+      doc.body.appendChild(wrapper);
+
+      const trigger = doc.createElement('button');
+      trigger.setAttribute('data-project-trigger', projects[0].id);
+      wrapper.appendChild(trigger);
+      trigger.focus();
+
+      sandbox.window.openProjectModal(projects[0].id, trigger);
+      assert.strictEqual(navbar.getAttribute('inert'), '');
+      assert.strictEqual(wrapper.getAttribute('inert'), '');
+
+      // nextProject reopens the dialog internally; it must not overwrite the trigger.
+      sandbox.window.nextProject();
+      sandbox.window.closeProjectModal();
+
+      assert.strictEqual(doc.activeElement, trigger, 'Focus must return to the originating button');
+      assert.strictEqual(navbar.getAttribute('inert'), null);
+      assert.strictEqual(wrapper.getAttribute('inert'), null);
     });
 
     it('should handle keyboard events: Escape, ArrowRight, ArrowLeft, and Tab trap', () => {
@@ -705,6 +750,7 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       doc.dispatchEvent(escEvt);
       assert.ok(!doc.getElementById('project-modal').classList.contains('is-active'));
       assert.ok(!doc.body.classList.contains('modal-open'));
+      assert.strictEqual(doc.activeElement, dummyTrigger, 'Focus must return to the originating trigger');
 
       // Tab trap test:
       sandbox.window.openProjectModal('rov-hil-testbench');
@@ -775,6 +821,30 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       assert.ok(compiledCss.includes('--accent: #38bdf8'), 'Missing dark mode --accent');
     });
 
+    it('should keep dark CTA overrides at root level and reset tokens for print', () => {
+      assert.ok(compiledCss.includes('[data-theme=dark] .card-btn-primary'), 'Card CTA dark override is not root-level');
+      assert.ok(compiledCss.includes('[data-theme=dark] .modal-btn-primary'), 'Modal CTA dark override is not root-level');
+      assert.ok(!compiledCss.includes('.project-card-actions [data-theme=dark] .card-btn-primary'), 'Dead nested card CTA override remains');
+      assert.ok(!compiledCss.includes('.modal-header-actions [data-theme=dark] .modal-btn-primary'), 'Dead nested modal CTA override remains');
+
+      const printCss = compiledCss.slice(compiledCss.indexOf('@media print'));
+      assert.ok(printCss.includes('--bg-primary: #ffffff'), 'Print tokens do not force a light background');
+      assert.ok(printCss.includes('--bg-secondary: #ffffff'), 'Print tokens do not reset the secondary background');
+      assert.ok(printCss.includes('.figure-caption'), 'Print CSS does not reset figure captions');
+    });
+
+    it('should keep mobile modal rules after the base modal rules and allow touch panning', () => {
+      const baseModalIndex = compiledCss.indexOf('.project-modal {');
+      assert.ok(baseModalIndex !== -1, 'Missing base .project-modal rule');
+      const mobileIndex = compiledCss.indexOf('@media (max-width: 768px)', baseModalIndex);
+      assert.ok(mobileIndex > baseModalIndex, 'Mobile modal rules must come after the base modal rules');
+
+      const nextMediaIndex = compiledCss.indexOf('@media', mobileIndex + 10);
+      const mobileBlock = compiledCss.slice(mobileIndex, nextMediaIndex === -1 ? undefined : nextMediaIndex);
+      assert.ok(mobileBlock.includes('touch-action: pan-y'), 'Mobile modal body must allow touch panning');
+      assert.ok(!compiledCss.includes('touch-action: none'), 'touch-action:none must not remain on the body');
+    });
+
     it('should contain all required modal and terminal card classes', () => {
       const requiredSelectors = [
         '.project-modal',
@@ -810,6 +880,29 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       );
       assert.ok(content.includes('pdf-builder-panel'), 'print-portfolio.html missing control panel');
       assert.ok(content.includes('window.print()'), 'print-portfolio.html missing print trigger');
+    });
+
+    it('should keep the PDF builder selection state in sync on Clear All and empty restore', () => {
+      const content = fs.readFileSync(path.join(__dirname, '..', 'print-portfolio.html'), 'utf8');
+      assert.ok(!content.includes('presetBtns.forEach'), 'Clear All still references the undefined presetBtns variable');
+      assert.ok(content.includes("document.querySelectorAll('.preset-btn')"), 'Clear All must clear preset buttons via a live query');
+      assert.ok(content.includes('Array.isArray(saved)'), 'Saved selections must restore an intentionally empty array');
+      assert.ok(!content.includes('saved.length > 0'), 'Empty selections must not be skipped on restore');
+    });
+
+    it('should load KaTeX only for math pages and expose the lightbox as a modal', () => {
+      const layout = fs.readFileSync(path.join(__dirname, '..', '_layouts', 'default.html'), 'utf8');
+      const buoyancy = fs.readFileSync(path.join(__dirname, '..', 'rov-buoyancy-float.md'), 'utf8');
+      const printBuilder = fs.readFileSync(path.join(__dirname, '..', 'print-portfolio.html'), 'utf8');
+      const modal = fs.readFileSync(path.join(__dirname, '..', '_includes', 'project_modal.html'), 'utf8');
+
+      assert.ok(layout.includes('{% if page.math %}'), 'Layout must gate math assets behind page.math');
+      assert.ok(layout.includes('katex.min.js'), 'Layout is missing the KaTeX runtime');
+      assert.ok(layout.includes('renderMathInElement'), 'Layout is missing KaTeX auto-rendering');
+      assert.ok(layout.includes("querySelectorAll('.markdown-body')"), 'Math rendering must cover every project section');
+      assert.ok(buoyancy.includes('math: true'), 'Buoyancy case study must opt into math rendering');
+      assert.ok(printBuilder.includes('math: true'), 'PDF builder must load math rendering');
+      assert.match(modal, /id="modal-lightbox"[^>]*aria-modal="true"/, 'Lightbox is missing aria-modal="true"');
     });
 
     it('should verify all 3 project markdown reports are intact with correct frontmatter', () => {

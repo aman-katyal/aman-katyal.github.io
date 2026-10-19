@@ -111,6 +111,42 @@
   }
 
   /**
+   * Toggles the inert attribute on an element.
+   */
+  function setInert(el, inert) {
+    if (!el) return;
+    if (inert) {
+      el.setAttribute('inert', '');
+    } else {
+      el.removeAttribute('inert');
+    }
+  }
+
+  /**
+   * Makes the page shell inert while a dialog is open.
+   */
+  function setPageInert(inert) {
+    if (typeof document.querySelectorAll !== 'function') return;
+    document.querySelectorAll('.navbar, .content-wrapper, .footer, .scroll-to-top-btn').forEach(function (el) {
+      setInert(el, inert);
+    });
+  }
+
+  /**
+   * Returns true when node is inside container (works with the test mock).
+   */
+  function isWithin(container, node) {
+    if (!container || !node) return false;
+    if (typeof container.contains === 'function') return container.contains(node);
+    let current = node;
+    while (current) {
+      if (current === container) return true;
+      current = current.parentElement;
+    }
+    return false;
+  }
+
+  /**
    * Binds global and component event listeners.
    */
   function bindEvents() {
@@ -193,7 +229,10 @@
       e.preventDefault();
       const projectId = trigger.getAttribute('data-project-trigger') || trigger.getAttribute('data-project-id');
       if (projectId) {
-        openProjectModal(projectId);
+        const focusTarget = trigger.matches('button, a, [tabindex]')
+          ? trigger
+          : trigger.querySelector('[data-project-trigger]') || trigger;
+        openProjectModal(projectId, focusTarget);
       }
     }
   }
@@ -216,7 +255,10 @@
           e.preventDefault();
           const projectId = trigger.getAttribute('data-project-trigger') || trigger.getAttribute('data-project-id');
           if (projectId) {
-            openProjectModal(projectId);
+            const focusTarget = trigger.matches('button, a, [tabindex]')
+              ? trigger
+              : trigger.querySelector('[data-project-trigger]') || trigger;
+            openProjectModal(projectId, focusTarget);
           }
         }
       }
@@ -234,6 +276,13 @@
 
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
+
+      // Recover the trap if focus escaped the dialog (e.g. after a re-render).
+      if (!isWithin(container, document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+        return;
+      }
 
       if (e.shiftKey) {
         if (document.activeElement === first) {
@@ -310,7 +359,7 @@
    * Opens the modal dialog for the requested project ID.
    * @param {string} projectId
    */
-  function openProjectModal(projectId) {
+  function openProjectModal(projectId, triggerEl) {
     if (isLightboxOpen) {
       closeLightbox();
     }
@@ -321,7 +370,12 @@
       return;
     }
 
-    lastActiveElement = document.activeElement;
+    // Capture the original trigger once; next/prev reopen the modal and must
+    // not overwrite it with a control inside the dialog.
+    if (!isModalOpen) {
+      lastActiveElement = triggerEl || document.activeElement;
+      setPageInert(true);
+    }
     currentProjectIndex = index;
     currentImageIndex = 0;
 
@@ -369,6 +423,7 @@
     document.body.classList.remove('modal-open');
     isModalOpen = false;
     pauseVideos();
+    setPageInert(false);
 
     if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
       lastActiveElement.focus();
@@ -505,6 +560,7 @@
       lightboxEl.setAttribute('aria-hidden', 'false');
     }
     isLightboxOpen = true;
+    setInert(modalEl, true);
 
     if (lightboxCloseBtnEl) {
       lightboxCloseBtnEl.focus();
@@ -521,6 +577,7 @@
       lightboxEl.setAttribute('aria-hidden', 'true');
     }
     isLightboxOpen = false;
+    setInert(modalEl, false);
 
     if (zoomBtnEl) {
       zoomBtnEl.focus();

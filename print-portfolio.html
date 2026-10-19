@@ -2,6 +2,7 @@
 layout: default
 title: "Custom PDF Portfolio Builder | Aman Katyal"
 permalink: /print-portfolio/
+math: true
 ---
 
 <!-- ==========================================================================
@@ -198,7 +199,7 @@ permalink: /print-portfolio/
     if (clearAllBtn) {
       clearAllBtn.addEventListener('click', () => {
         checkboxes.forEach(cb => cb.checked = false);
-        presetBtns.forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
         updateState();
       });
     }
@@ -206,7 +207,7 @@ permalink: /print-portfolio/
     // Restore saved selections if available
     try {
       const saved = JSON.parse(localStorage.getItem('pdf_selected_projects'));
-      if (saved && Array.isArray(saved) && saved.length > 0) {
+      if (Array.isArray(saved)) {
         checkboxes.forEach(cb => {
           const card = cb.closest('.pdf-checkbox-card');
           const slug = card.getAttribute('data-project-slug');

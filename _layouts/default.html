@@ -35,6 +35,11 @@
   <!-- FontAwesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  {% if page.math %}
+  <!-- KaTeX for project pages with equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" data-proofer-ignore>
+  {% endif %}
+
   <!-- Inline script to set theme early to prevent flash of light/dark -->
   <script>
     (function () {
@@ -360,6 +365,34 @@
       });
     });
   </script>
+
+  {% if page.math %}
+  <!-- KaTeX math rendering (only on pages that opt in with `math: true`) -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous" data-proofer-ignore></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" data-proofer-ignore></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof renderMathInElement !== 'function') return;
+      var targets = document.querySelectorAll('.markdown-body');
+      if (!targets.length) targets = [document.body];
+
+      var options = {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '$', right: '$', display: false }
+        ],
+        throwOnError: false
+      };
+
+      // The PDF builder contains one .markdown-body per selected project.
+      targets.forEach(function (target) {
+        renderMathInElement(target, options);
+      });
+    });
+  </script>
+  {% endif %}
 
   <!-- Project Showcase Modal & Gallery Overlay -->
   {% include project_modal.html %}

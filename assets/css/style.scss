@@ -858,7 +858,7 @@ body {
     }
   }
 
-  [data-theme="dark"] .card-btn-primary {
+  @at-root [data-theme="dark"] .card-btn-primary {
     background-color: var(--accent);
     color: #0f172a;
 
@@ -1321,6 +1321,18 @@ body {
   border: 1px solid var(--border);
   display: block;
   margin: 1.5rem auto;
+}
+
+/* KaTeX equations (loaded only on project pages with `math: true`) */
+.katex {
+  font-size: 1.05em;
+  color: var(--text-primary);
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.35rem 0;
 }
 
 /* Hardware & Technical Media Framing */
@@ -2008,6 +2020,15 @@ body {
   flex-shrink: 0;
 }
 
+/* Dark mode: the accent-interactive token is a light blue, so use dark text
+   for controls that fill with it (white would be ~2.5:1). */
+[data-theme="dark"] .print-primary-btn,
+[data-theme="dark"] .preset-btn.active,
+[data-theme="dark"] .project-toggle-checkbox:checked + .custom-checkmark,
+[data-theme="dark"] .step-num {
+  color: #0f172a;
+}
+
 /* Excluded Project Section Rule */
 .print-project-section.is-excluded {
   display: none !important;
@@ -2058,6 +2079,63 @@ body {
 @media print {
   .only-print {
     display: block !important;
+  }
+
+  /* Force the light palette even when the page is in dark mode. */
+  :root,
+  [data-theme="light"],
+  [data-theme="dark"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #475569;
+    --accent: #1e3a8a;
+    --accent-light: #eff6ff;
+    --accent-interactive: #1e3a8a;
+    --border: #cbd5e1;
+    --border-hover: #94a3b8;
+    --badge-bg: #f1f5f9;
+    --badge-text: #334155;
+    --badge-border: #cbd5e1;
+  }
+
+  /* Components that used dark surfaces/captions in the dark theme. */
+  .sidebar-card,
+  .figure-card,
+  .figure-caption,
+  .figure-image-padded,
+  .markdown-body pre,
+  .highlight,
+  .highlight pre,
+  .code-container-wrapper,
+  .print-project-section {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: none !important;
+  }
+
+  .sidebar-card *,
+  .figure-card *,
+  .figure-caption * {
+    color: #0f172a !important;
+  }
+
+  [data-theme="dark"] .figure-card .figure-image-padded {
+    background-color: #ffffff !important;
+  }
+
+  /* Monochrome code in print: readable regardless of the active theme. */
+  .highlight span {
+    color: inherit !important;
+    background-color: transparent !important;
+  }
+
+  .katex,
+  .katex * {
+    color: #000000 !important;
   }
 
   /* Hide all non-printable UI elements */
@@ -2312,63 +2390,33 @@ body {
   .content-wrapper {
     padding: 1.5rem 1rem;
   }
+}
 
-  /* Modal Mobile Adaptations (Bottom Sheet style) */
-  .project-modal {
-    max-width: 100%;
-    max-height: 94vh;
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    align-self: flex-end;
-    margin-bottom: 0;
+/* Keep the navbar on two rows on narrow phones instead of overflowing. */
+@media (max-width: 480px) {
+  .nav-container {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+    padding: 0.6rem 0.875rem;
   }
 
-  .modal-header {
-    padding: 1.25rem 1.25rem 1rem;
+  .logo-name {
+    font-size: 1.1rem;
   }
 
-  .modal-title {
-    font-size: 1.35rem;
+  .logo-title {
+    font-size: 0.68rem;
   }
 
-  .modal-header-actions {
-    .modal-btn span {
-      display: none;
-    }
-    .modal-btn {
-      padding: 0.5rem;
-      border-radius: 50%;
-    }
+  .nav-links {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    gap: 0.9rem;
   }
 
-  .modal-zoom-btn span {
-    display: none;
-  }
-
-  .modal-zoom-btn {
-    width: 34px;
-    padding: 0;
-    border-radius: 50%;
-  }
-
-  .modal-body {
-    padding: 1.25rem;
-    gap: 1.5rem;
-  }
-
-  .modal-footer {
-    padding: 0.85rem 1rem;
-    gap: 0.5rem;
-
-    .modal-nav-btn span {
-      display: none;
-    }
-    .modal-nav-btn {
-      padding: 0.5rem 0.75rem;
-    }
-  }
-
-  .skills-cluster {
-    gap: 1rem;
+  .nav-link {
+    font-size: 0.85rem;
   }
 }
 
@@ -2379,7 +2427,7 @@ body {
 /* Body scroll lock when modal is open */
 body.modal-open {
   overflow: hidden !important;
-  touch-action: none;
+  overscroll-behavior: none;
 }
 
 /* Modal Backdrop */
@@ -2524,7 +2572,7 @@ body.modal-open {
     }
   }
 
-  [data-theme="dark"] .modal-btn-primary {
+  @at-root [data-theme="dark"] .modal-btn-primary {
     background-color: var(--accent);
     color: #0f172a;
 
@@ -3064,6 +3112,70 @@ body.modal-open {
 
   .lightbox-next-btn {
     right: 0.5rem;
+  }
+}
+
+/* Modal mobile adaptations — kept after the base modal rules so the
+   cascade actually applies (see issue #11). */
+@media (max-width: 768px) {
+  .project-modal {
+    max-width: 100%;
+    max-height: 94vh;
+    max-height: 94dvh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    align-self: flex-end;
+    margin-bottom: 0;
+  }
+
+  .modal-header {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+
+  .modal-title {
+    font-size: 1.35rem;
+  }
+
+  .modal-header-actions {
+    .modal-btn span {
+      display: none;
+    }
+    .modal-btn {
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+  }
+
+  .modal-zoom-btn span {
+    display: none;
+  }
+
+  .modal-zoom-btn {
+    width: 34px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .modal-body {
+    padding: 1.25rem;
+    gap: 1.5rem;
+    touch-action: pan-y pinch-zoom;
+    overscroll-behavior: contain;
+  }
+
+  .modal-footer {
+    padding: 0.85rem 1rem;
+    gap: 0.5rem;
+
+    .modal-nav-btn span {
+      display: none;
+    }
+    .modal-nav-btn {
+      padding: 0.5rem 0.75rem;
+    }
+  }
+
+  .skills-cluster {
+    gap: 1rem;
   }
 }
 
