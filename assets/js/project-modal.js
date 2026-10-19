@@ -153,14 +153,24 @@
    */
   function focusDialogControl(container, target, isOpen) {
     if (!target) return;
-    target.focus();
 
-    if (typeof requestAnimationFrame !== 'function') return;
-    requestAnimationFrame(function () {
+    var attempt = function () {
       if (isOpen() && !isWithin(container, document.activeElement)) {
         target.focus();
       }
-    });
+    };
+
+    target.focus();
+
+    // The dialog's visibility transition can still be in flight on the first
+    // frame, so retry shortly after the trigger loses focus to <body>.
+    if (typeof setTimeout === 'function') {
+      setTimeout(attempt, 50);
+      setTimeout(attempt, 300);
+    }
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(attempt);
+    }
   }
 
   /**
