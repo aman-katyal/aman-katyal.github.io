@@ -147,6 +147,23 @@
   }
 
   /**
+   * Focuses a dialog control and reasserts focus on the next frame. Inerting
+   * the clicked trigger can make the browser drop focus to <body> after the
+   * click handler returns.
+   */
+  function focusDialogControl(container, target, isOpen) {
+    if (!target) return;
+    target.focus();
+
+    if (typeof requestAnimationFrame !== 'function') return;
+    requestAnimationFrame(function () {
+      if (isOpen() && !isWithin(container, document.activeElement)) {
+        target.focus();
+      }
+    });
+  }
+
+  /**
    * Binds global and component event listeners.
    */
   function bindEvents() {
@@ -399,9 +416,7 @@
     isModalOpen = true;
 
     // Focus close button or modal
-    if (closeBtnEl) {
-      closeBtnEl.focus();
-    }
+    focusDialogControl(modalEl, closeBtnEl, function () { return isModalOpen; });
   }
 
   /**
@@ -562,9 +577,7 @@
     isLightboxOpen = true;
     setInert(modalEl, true);
 
-    if (lightboxCloseBtnEl) {
-      lightboxCloseBtnEl.focus();
-    }
+    focusDialogControl(lightboxEl, lightboxCloseBtnEl, function () { return isLightboxOpen; });
   }
 
   /**
