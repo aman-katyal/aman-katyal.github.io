@@ -845,6 +845,14 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       assert.ok(!compiledCss.includes('touch-action: none'), 'touch-action:none must not remain on the body');
     });
 
+    it('should keep wide project content from stretching the page', () => {
+      assert.ok(compiledCss.includes('grid-template-columns: 280px minmax(0, 1fr)'), 'Project grid must let the content column shrink');
+      assert.ok(compiledCss.includes('.project-content'), 'Missing .project-content rule');
+      assert.ok(compiledCss.includes('grid-template-columns: minmax(0, 1fr)'), 'Single-column project grid must be shrinkable');
+      assert.ok(compiledCss.includes('repeat(2, minmax(0, 1fr))'), 'Image grid columns must be shrinkable');
+      assert.ok(compiledCss.includes('table-layout: fixed'), 'Narrow-screen tables must use fixed layout');
+    });
+
     it('should contain all required modal and terminal card classes', () => {
       const requiredSelectors = [
         '.project-modal',
@@ -880,6 +888,17 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       );
       assert.ok(content.includes('pdf-builder-panel'), 'print-portfolio.html missing control panel');
       assert.ok(content.includes('window.print()'), 'print-portfolio.html missing print trigger');
+    });
+
+    it('should order nav links to match the page sections', () => {
+      const layout = fs.readFileSync(path.join(__dirname, '..', '_layouts', 'default.html'), 'utf8');
+      const navMatch = layout.match(/<div class="nav-links">([\s\S]*?)<\/div>/);
+      assert.ok(navMatch, 'Could not find the nav-links block');
+      const navLinks = navMatch[1];
+      assert.ok(
+        navLinks.indexOf('#experience') < navLinks.indexOf('#projects'),
+        'Experience must appear before Projects in the navbar'
+      );
     });
 
     it('should keep the PDF builder selection state in sync on Clear All and empty restore', () => {
