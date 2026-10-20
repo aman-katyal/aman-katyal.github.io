@@ -51,7 +51,8 @@ export function createModalController(doc = document) {
 
     doc.body.classList.add('modal-open');
     state.isModalOpen = true;
-    focusDialogControl(doc, els.modalEl, els.closeBtnEl, () => state.isModalOpen);
+    // Stop retrying once the lightbox becomes the topmost dialog.
+    focusDialogControl(doc, els.modalEl, els.closeBtnEl, () => state.isModalOpen && !state.isLightboxOpen);
   }
 
   function closeProjectModal() {

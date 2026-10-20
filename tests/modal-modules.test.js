@@ -7,7 +7,7 @@ const assert = require('node:assert/strict');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
 const { readRepoFile, repoPath } = require('./helpers/project-data');
-const { MockDocument, MockElement } = require('./helpers/mock-dom');
+const { MockDocument, MockElement, createDOMSandbox } = require('./helpers/mock-dom');
 
 const load = (name) => import(pathToFileURL(repoPath('assets', 'js', 'modal', name)).href);
 
@@ -169,9 +169,23 @@ describe('Project modal modules', () => {
     assert.ok(!card.includes('<button type="button" class="card-btn card-btn-primary"'), 'Preview action is still a JS-only button');
   });
 
+  it('should keep lightbox focus when a modal focus retry is pending', async () => {
+    const { loadProjects } = require('./helpers/project-data');
+    const projects = loadProjects();
+    const { doc, api } = await createDOMSandbox(projects);
+
+    api.openProjectModal(projects[0].id);
+    api.openLightbox();
+    await new Promise((resolve) => setTimeout(resolve, 350));
+
+    assert.strictEqual(doc.activeElement.id, 'lightbox-close-btn');
+
+    api.closeLightbox();
+    api.closeProjectModal();
+  });
+
   it('should not share open state between controller instances', async () => {
     const { createModalController } = await load('index.js');
-    const { createDOMSandbox } = require('./helpers/mock-dom');
     const projects = require('./helpers/project-data').loadProjects();
     const first = await createDOMSandbox(projects);
     const second = await createDOMSandbox(projects);
