@@ -6,8 +6,15 @@
 import { cacheElements } from './dom.js';
 import { bindControls } from './events.js';
 import { focusDialogControl, setPageInert } from './focus.js';
-import { pauseVideos, setProjectImage as setGalleryImage, stepImage as stepGalleryImage } from './gallery.js';
-import { closeLightbox as closeLightboxView, openLightbox as openLightboxView } from './lightbox.js';
+import {
+  pauseVideos,
+  setProjectImage as setGalleryImage,
+  stepImage as stepGalleryImage
+} from './gallery.js';
+import {
+  closeLightbox as closeLightboxView,
+  openLightbox as openLightboxView
+} from './lightbox.js';
 import { bindKeyboard } from './keyboard.js';
 import { renderProject } from './render.js';
 import { createState, loadProjects } from './state.js';
@@ -43,16 +50,22 @@ export function createModalController(doc = document) {
     if (els.modalEl) {
       els.modalEl.classList.add('is-active');
       els.modalEl.scrollTop = 0;
-      const modalBody = typeof els.modalEl.querySelector === 'function'
-        ? els.modalEl.querySelector('.modal-body')
-        : null;
+      const modalBody =
+        typeof els.modalEl.querySelector === 'function'
+          ? els.modalEl.querySelector('.modal-body')
+          : null;
       if (modalBody) modalBody.scrollTop = 0;
     }
 
     doc.body.classList.add('modal-open');
     state.isModalOpen = true;
     // Stop retrying once the lightbox becomes the topmost dialog.
-    focusDialogControl(doc, els.modalEl, els.closeBtnEl, () => state.isModalOpen && !state.isLightboxOpen);
+    focusDialogControl(
+      doc,
+      els.modalEl,
+      els.closeBtnEl,
+      () => state.isModalOpen && !state.isLightboxOpen
+    );
   }
 
   function closeProjectModal() {
@@ -82,7 +95,8 @@ export function createModalController(doc = document) {
 
   function prevProject() {
     if (state.projects.length <= 1) return;
-    const prevIndex = (state.currentProjectIndex - 1 + state.projects.length) % state.projects.length;
+    const prevIndex =
+      (state.currentProjectIndex - 1 + state.projects.length) % state.projects.length;
     openProjectModal(state.projects[prevIndex].id);
   }
 

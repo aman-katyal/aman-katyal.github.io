@@ -170,7 +170,10 @@
   color: var(--text-primary);
   border: 1px solid var(--border);
   cursor: pointer;
-  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
 
   &:hover {
     background-color: var(--bg-tertiary);

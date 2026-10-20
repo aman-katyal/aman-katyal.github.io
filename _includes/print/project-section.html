@@ -2,7 +2,11 @@
 {% assign proj_slug = project.permalink | remove: "/projects/" | remove: "/" %}
 {% assign proj_data = site.data.projects[proj_slug] %}
 {% assign proj_technologies = proj_data.skills.technologies | concat: proj_data.skills.protocols %}
-<section class="print-project-section" id="proj-sec-{{ proj_slug }}" data-project-slug="{{ proj_slug }}">
+<section
+  class="print-project-section"
+  id="proj-sec-{{ proj_slug }}"
+  data-project-slug="{{ proj_slug }}"
+>
   <div class="print-project-meta-header">
     <div class="print-title-group">
       <h2 class="print-project-title">{{ proj_data.title }}</h2>
@@ -13,9 +17,7 @@
         {% endif %}
       </div>
     </div>
-    <div class="print-tech-stack">
-      <strong>Technologies:</strong> {{ proj_technologies | join: ", " }}
-    </div>
+    <div class="print-tech-stack"><strong>Technologies:</strong> {{ proj_technologies | join: ", " }}</div>
   </div>
 
   <div class="markdown-body print-markdown-body">

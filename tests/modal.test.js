@@ -12,8 +12,20 @@ const projects = loadProjects();
 
 describe('Project modal controller', () => {
   it('should pass a Node syntax compilation check for every module', async () => {
-    ['state.js', 'dom.js', 'focus.js', 'gallery.js', 'render.js', 'lightbox.js', 'keyboard.js', 'triggers.js', 'index.js'].forEach((file) => {
-      const output = execSync(`node -c "${repoPath('assets', 'js', 'modal', file)}"`, { encoding: 'utf8' });
+    [
+      'state.js',
+      'dom.js',
+      'focus.js',
+      'gallery.js',
+      'render.js',
+      'lightbox.js',
+      'keyboard.js',
+      'triggers.js',
+      'index.js'
+    ].forEach((file) => {
+      const output = execSync(`node -c "${repoPath('assets', 'js', 'modal', file)}"`, {
+        encoding: 'utf8'
+      });
       assert.strictEqual(output.trim(), '');
     });
   });
@@ -29,7 +41,11 @@ describe('Project modal controller', () => {
       'nextProject',
       'prevProject'
     ].forEach((functionName) => {
-      assert.strictEqual(typeof sandbox.window[functionName], 'function', `api.${functionName} must be a function`);
+      assert.strictEqual(
+        typeof sandbox.window[functionName],
+        'function',
+        `api.${functionName} must be a function`
+      );
     });
   });
 
@@ -42,19 +58,40 @@ describe('Project modal controller', () => {
       assert.ok(doc.getElementById('project-modal').classList.contains('is-active'));
       assert.ok(doc.getElementById('project-modal-backdrop').classList.contains('is-active'));
       assert.ok(doc.body.classList.contains('modal-open'));
-      assert.strictEqual(doc.getElementById('project-modal-backdrop').getAttribute('aria-hidden'), 'false');
+      assert.strictEqual(
+        doc.getElementById('project-modal-backdrop').getAttribute('aria-hidden'),
+        'false'
+      );
 
       assert.strictEqual(doc.getElementById('modal-project-title').textContent, project.title);
-      assert.strictEqual(doc.getElementById('modal-project-category').textContent, project.category);
+      assert.strictEqual(
+        doc.getElementById('modal-project-category').textContent,
+        project.category
+      );
       assert.strictEqual(doc.getElementById('modal-project-year').textContent, project.year);
       assert.strictEqual(doc.getElementById('modal-project-role').textContent, project.role);
       assert.strictEqual(doc.getElementById('modal-project-summary').textContent, project.summary);
-      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${index + 1} / ${projects.length}`);
+      assert.strictEqual(
+        doc.getElementById('modal-nav-indicator').textContent,
+        `${index + 1} / ${projects.length}`
+      );
 
-      assert.strictEqual(doc.getElementById('modal-highlights-list').children.length, project.highlights.length);
-      assert.strictEqual(doc.getElementById('modal-pills-languages').children.length, project.skills.languages.length);
-      assert.strictEqual(doc.getElementById('modal-pills-technologies').children.length, project.skills.technologies.length);
-      assert.strictEqual(doc.getElementById('modal-pills-protocols').children.length, project.skills.protocols.length);
+      assert.strictEqual(
+        doc.getElementById('modal-highlights-list').children.length,
+        project.highlights.length
+      );
+      assert.strictEqual(
+        doc.getElementById('modal-pills-languages').children.length,
+        project.skills.languages.length
+      );
+      assert.strictEqual(
+        doc.getElementById('modal-pills-technologies').children.length,
+        project.skills.technologies.length
+      );
+      assert.strictEqual(
+        doc.getElementById('modal-pills-protocols').children.length,
+        project.skills.protocols.length
+      );
 
       const featured = project.images.find((image) => image.featured) || project.images[0];
       assert.strictEqual(doc.getElementById('modal-main-img').src, featured.src);
@@ -88,20 +125,38 @@ describe('Project modal controller', () => {
     const { doc, sandbox } = await createDOMSandbox(projects);
 
     sandbox.window.openProjectModal(projects[0].id);
-    assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `1 / ${projects.length}`);
+    assert.strictEqual(
+      doc.getElementById('modal-nav-indicator').textContent,
+      `1 / ${projects.length}`
+    );
 
     for (let index = 1; index < projects.length; index++) {
       sandbox.window.nextProject();
-      assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${index + 1} / ${projects.length}`);
-      assert.strictEqual(doc.getElementById('modal-project-title').textContent, projects[index].title);
+      assert.strictEqual(
+        doc.getElementById('modal-nav-indicator').textContent,
+        `${index + 1} / ${projects.length}`
+      );
+      assert.strictEqual(
+        doc.getElementById('modal-project-title').textContent,
+        projects[index].title
+      );
     }
     sandbox.window.nextProject();
-    assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `1 / ${projects.length}`);
+    assert.strictEqual(
+      doc.getElementById('modal-nav-indicator').textContent,
+      `1 / ${projects.length}`
+    );
 
     sandbox.window.prevProject();
-    assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${projects.length} / ${projects.length}`);
+    assert.strictEqual(
+      doc.getElementById('modal-nav-indicator').textContent,
+      `${projects.length} / ${projects.length}`
+    );
     sandbox.window.prevProject();
-    assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${projects.length - 1} / ${projects.length}`);
+    assert.strictEqual(
+      doc.getElementById('modal-nav-indicator').textContent,
+      `${projects.length - 1} / ${projects.length}`
+    );
   });
 
   it('should open and close the lightbox while syncing the current image', async () => {

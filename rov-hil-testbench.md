@@ -1,7 +1,7 @@
 ---
 layout: default
 permalink: /projects/rov-hil-testbench/
-description: "Hardware-in-the-Loop (HIL) carrier board and testbench for MATE ROV, enabling firmware development and real-time comparison of STM32/RP2350."
+description: 'Hardware-in-the-Loop (HIL) carrier board and testbench for MATE ROV, enabling firmware development and real-time comparison of STM32/RP2350.'
 printable: true
 order: 1
 ---
@@ -46,18 +46,18 @@ I engineered the power section to step down the incoming 12V rail to 6V specific
 
 ## Hardware Specifications
 
-| Subsystem | Implementation |
-| --- | --- |
-| Compute | Raspberry Pi 5, Molex-mated to the carrier as the high-level autonomy host |
+| Subsystem        | Implementation                                                                     |
+| ---------------- | ---------------------------------------------------------------------------------- |
+| Compute          | Raspberry Pi 5, Molex-mated to the carrier as the high-level autonomy host         |
 | Microcontrollers | STM32F091CCT6 and RP2350B, both populated for side-by-side architecture evaluation |
-| Host link | SPI from the Raspberry Pi 5 to the microcontroller layer |
-| Sensor bus | I2C bus aggregating IMU, depth, and leak-detection modules over JST-GH connectors |
-| ESC telemetry | Dedicated UART channels for real-time motor current and RPM feedback |
-| Servo rail | Regulated 6V rail for high-torque servo operation |
-| Logic rail | Regulated 3.3V rail for both MCUs and the I2C sensor suite |
-| Input rails | 12V and 5V supplied by an external topside power distribution board |
-| PCB | Custom 4-layer carrier board designed in KiCad |
-| Debug access | Unused GPIO from both MCUs broken out to headers for scope probing and peripherals |
+| Host link        | SPI from the Raspberry Pi 5 to the microcontroller layer                           |
+| Sensor bus       | I2C bus aggregating IMU, depth, and leak-detection modules over JST-GH connectors  |
+| ESC telemetry    | Dedicated UART channels for real-time motor current and RPM feedback               |
+| Servo rail       | Regulated 6V rail for high-torque servo operation                                  |
+| Logic rail       | Regulated 3.3V rail for both MCUs and the I2C sensor suite                         |
+| Input rails      | 12V and 5V supplied by an external topside power distribution board                |
+| PCB              | Custom 4-layer carrier board designed in KiCad                                     |
+| Debug access     | Unused GPIO from both MCUs broken out to headers for scope probing and peripherals |
 
 ## Validation & Bring-Up
 

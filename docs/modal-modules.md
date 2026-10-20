@@ -13,18 +13,18 @@ Card and button triggers continue to work through event delegation on
 
 ## Modules
 
-| Module | Responsibility |
-| --- | --- |
-| `modal/state.js` | Per-controller state and project-data loading. |
-| `modal/dom.js` | Cached element references and HTML escaping. |
-| `modal/focus.js` | Inert backgrounds, focus containment, focus restoration. |
-| `modal/render.js` | Header, links, summary, highlights, and skill pills. |
-| `modal/gallery.js` | Media switching, thumbnails, image stepping. |
-| `modal/lightbox.js` | Full-screen lightbox open/close. |
-| `modal/keyboard.js` | Escape, arrows, trigger activation, Tab trap. |
-| `modal/triggers.js` | Click delegation for project triggers. |
-| `modal/events.js` | Wires close, backdrop, gallery, and navigation controls. |
-| `modal/index.js` | Controller factory and public API. |
+| Module              | Responsibility                                           |
+| ------------------- | -------------------------------------------------------- |
+| `modal/state.js`    | Per-controller state and project-data loading.           |
+| `modal/dom.js`      | Cached element references and HTML escaping.             |
+| `modal/focus.js`    | Inert backgrounds, focus containment, focus restoration. |
+| `modal/render.js`   | Header, links, summary, highlights, and skill pills.     |
+| `modal/gallery.js`  | Media switching, thumbnails, image stepping.             |
+| `modal/lightbox.js` | Full-screen lightbox open/close.                         |
+| `modal/keyboard.js` | Escape, arrows, trigger activation, Tab trap.            |
+| `modal/triggers.js` | Click delegation for project triggers.                   |
+| `modal/events.js`   | Wires close, backdrop, gallery, and navigation controls. |
+| `modal/index.js`    | Controller factory and public API.                       |
 
 ## No-JS fallback
 

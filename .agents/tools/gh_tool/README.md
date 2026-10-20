@@ -3,6 +3,7 @@
 Deterministic, zero-LLM CLI for GitHub issue and PR lifecycle management on `aman-katyal.github.io`.
 
 ## Features
+
 - **Deterministic taxonomy classification** (type, area, priority, status)
 - **Validation & linting** against strict body structures and title conventions
 - **Duplicate detection** using TF-IDF cosine similarity scoring
@@ -10,6 +11,7 @@ Deterministic, zero-LLM CLI for GitHub issue and PR lifecycle management on `ama
 - **Label synchronization**
 
 ## Usage
+
 ```bash
 # Sync labels to GitHub
 python -m gh_tool label sync

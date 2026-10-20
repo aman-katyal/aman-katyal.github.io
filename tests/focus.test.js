@@ -80,7 +80,10 @@ describe('Modal focus and keyboard behavior', () => {
       target: doc.getElementById('modal-close-btn'),
       preventDefault: () => {}
     });
-    assert.strictEqual(doc.getElementById('modal-project-title').textContent, 'ROV HIL Testbench & Control Board');
+    assert.strictEqual(
+      doc.getElementById('modal-project-title').textContent,
+      'ROV HIL Testbench & Control Board'
+    );
 
     sandbox.window.openLightbox();
     assert.ok(doc.getElementById('modal-lightbox').classList.contains('is-active'));
@@ -98,10 +101,16 @@ describe('Modal focus and keyboard behavior', () => {
     doc.dispatchEvent(escapeEvent);
     assert.ok(!doc.getElementById('project-modal').classList.contains('is-active'));
     assert.ok(!doc.body.classList.contains('modal-open'));
-    assert.strictEqual(doc.activeElement, dummyTrigger, 'Focus must return to the originating trigger');
+    assert.strictEqual(
+      doc.activeElement,
+      dummyTrigger,
+      'Focus must return to the originating trigger'
+    );
 
     sandbox.window.openProjectModal('rov-hil-testbench');
-    const focusables = doc.getElementById('project-modal').querySelectorAll('button:not([disabled]), [href]');
+    const focusables = doc
+      .getElementById('project-modal')
+      .querySelectorAll('button:not([disabled]), [href]');
     assert.ok(focusables.length >= 2, 'Modal should contain multiple focusable elements');
 
     const firstElement = focusables[0];

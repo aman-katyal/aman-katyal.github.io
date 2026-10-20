@@ -22,22 +22,26 @@
 ### Task 1: Asset Preparation & Project Data (`_data/projects.yml`)
 
 **Files:**
+
 - Create: `assets/images/wand_pcb_1.jpg` (copied from `C:\Users\aman\Downloads\PXL_20251213_200656652.jpg`)
 - Create: `assets/images/wand_pcb_2.jpg` (copied from `C:\Users\aman\Downloads\PXL_20251213_200640646.jpg`)
 - Create: `_data/projects.yml`
 
 **Interfaces:**
+
 - Produces: `site.data.projects` available in Jekyll Liquid templates containing 6 complete project definitions.
 
 - [ ] **Step 1: Copy wand photos to `assets/images/`**
 
 Copy the two user-provided images:
+
 - Source: `C:\Users\aman\Downloads\PXL_20251213_200656652.jpg` -> Target: `assets/images/wand_pcb_1.jpg`
 - Source: `C:\Users\aman\Downloads\PXL_20251213_200640646.jpg` -> Target: `assets/images/wand_pcb_2.jpg`
 
 - [ ] **Step 2: Create `_data/projects.yml` with all 6 projects**
 
 Create `_data/projects.yml` with detailed entries for:
+
 1. `asic-design` (ASIC & Digital Design Portfolio)
 2. `risc-v-verification` (RISC-V FPU Verification UVM/DPI-C)
 3. `rov-hil-testbench` (ROV HIL Testbench & Control Board)
@@ -63,16 +67,19 @@ git commit -m "feat(data): add wand images and create _data/projects.yml"
 ### Task 2: Modal Markup & Client-Side Controller (`_includes/project_modal.html` & `assets/js/project-modal.js`)
 
 **Files:**
+
 - Create: `_includes/project_modal.html`
 - Create: `assets/js/project-modal.js`
 
 **Interfaces:**
+
 - Consumes: `site.data.projects` passed as JSON via Liquid.
 - Produces: `window.openProjectModal(id)`, `window.closeProjectModal()`, keyboard handlers, and lightbox zoom.
 
 - [ ] **Step 1: Create `_includes/project_modal.html`**
 
 Construct the accessible modal DOM structure:
+
 - Backdrop `.project-modal-backdrop`
 - Modal container `.project-modal` with ARIA role `dialog`
 - Header: Category eyebrow, project title, metadata line (year, role), source/live buttons, close button (`✕`)
@@ -86,6 +93,7 @@ Construct the accessible modal DOM structure:
 - [ ] **Step 2: Create `assets/js/project-modal.js`**
 
 Implement the interactive logic:
+
 - Parse `projectsData` from `#portfolio-projects-data`.
 - Maintain state: `currentProjectId`, `currentImageIndex`, `lightboxOpen`.
 - `openProjectModal(projectId)`: sets state, populates DOM elements, enables body scroll lock, sets focus.
@@ -111,15 +119,18 @@ git commit -m "feat(modal): create project modal markup and interactive JS contr
 ### Task 3: SCSS Styling for Terminal Cards & Modal Viewer (`assets/css/style.scss`)
 
 **Files:**
+
 - Modify: `assets/css/style.scss`
 
 **Interfaces:**
+
 - Consumes: Existing CSS custom variables (`--bg-color`, `--card-bg`, `--text-color`, `--accent-color`, `--border-color`).
 - Produces: Styles for `.termbar`, updated `.project-card`, `.project-modal`, `.modal-gallery`, `.skills-cluster`, and `.modal-lightbox`.
 
 - [ ] **Step 1: Add Terminal Card (`thavlik.dev` style) styling**
 
 Add styles for:
+
 - `.termbar`: Flexbox bar at the top of cards with monospace font, border-bottom, subtle contrasting background.
 - `.termbar-title`: Monospace bold title.
 - `.termbar-badge`: Capsule pill badge (e.g. `open-source`, `embedded hardware`) with distinctive tint.
@@ -129,6 +140,7 @@ Add styles for:
 - [ ] **Step 2: Add Modal & Gallery (`snadol.com` style) styling**
 
 Add styles for:
+
 - `.project-modal-backdrop`: Fixed, full-bleed, blurred backdrop (`backdrop-filter: blur(8px)`).
 - `.project-modal`: Centered card, max-width 880px, max-height 90vh, overflow-y auto, smooth entry animation.
 - `.modal-gallery`: Responsive layout with main image frame (`aspect-ratio: 16/10` or `16/9`), caption badge, and horizontal thumbnail strip with active border indicator.
@@ -153,16 +165,19 @@ git commit -m "style: add terminal cards, modal gallery, and skills cluster styl
 ### Task 4: Homepage & Layout Integration (`index.md` & `_layouts/default.html`)
 
 **Files:**
+
 - Modify: `index.md`
 - Modify: `_layouts/default.html`
 
 **Interfaces:**
+
 - Consumes: `site.data.projects`, `_includes/project_modal.html`, and `assets/js/project-modal.js`.
 - Produces: Rendered homepage with terminal cards and integrated modal viewer.
 
 - [ ] **Step 1: Update `index.md` to render from `site.data.projects`**
 
 Refactor the projects section in `index.md`:
+
 - Loop through `site.data.projects`.
 - Render `.termbar` with title and badge.
 - Render `.project-card-media` with preview image.
@@ -192,6 +207,7 @@ git commit -m "feat: integrate projects data, terminal cards, and modal into hom
 ### Task 5: End-to-End Verification
 
 **Files:**
+
 - Verify: `index.md`, `_layouts/default.html`, `assets/css/style.scss`, `_data/projects.yml`, `print-portfolio.html`.
 
 - [ ] **Step 1: Verify all 6 project entries load in the modal**

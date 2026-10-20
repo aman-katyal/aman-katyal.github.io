@@ -37,10 +37,10 @@ class MockElement {
   get classList() {
     return {
       add: (...classes) => {
-        classes.forEach(c => this._classList.add(c));
+        classes.forEach((c) => this._classList.add(c));
       },
       remove: (...classes) => {
-        classes.forEach(c => this._classList.delete(c));
+        classes.forEach((c) => this._classList.delete(c));
       },
       contains: (c) => this._classList.has(c),
       toggle: (c, force) => {
@@ -100,13 +100,13 @@ class MockElement {
 
   removeEventListener(event, handler) {
     if (!this.listeners[event]) return;
-    this.listeners[event] = this.listeners[event].filter(h => h !== handler);
+    this.listeners[event] = this.listeners[event].filter((h) => h !== handler);
   }
 
   dispatchEvent(event) {
     if (!event.target) event.target = this;
     if (this.listeners[event.type]) {
-      this.listeners[event.type].forEach(fn => fn(event));
+      this.listeners[event.type].forEach((fn) => fn(event));
     }
     if (this.parentElement) {
       this.parentElement.dispatchEvent(event);
@@ -132,7 +132,7 @@ class MockElement {
 
   matches(selector) {
     if (selector.includes(',')) {
-      return selector.split(',').some(s => this.matches(s.trim()));
+      return selector.split(',').some((s) => this.matches(s.trim()));
     }
     if (selector.startsWith('#') && this.id === selector.slice(1)) return true;
     if (selector.startsWith('.') && this._classList.has(selector.slice(1))) return true;
@@ -252,7 +252,7 @@ class MockDocument {
 
   dispatchEvent(event) {
     if (this.listeners[event.type]) {
-      this.listeners[event.type].forEach(fn => fn(event));
+      this.listeners[event.type].forEach((fn) => fn(event));
     }
   }
 }
@@ -273,7 +273,11 @@ async function createDOMSandbox(projectsData) {
   const role = new MockElement('span', 'modal-project-role', 'modal-meta-item modal-role');
   const githubLink = new MockElement('a', 'modal-project-github', 'modal-btn modal-btn-secondary');
   const liveLink = new MockElement('a', 'modal-project-live', 'modal-btn modal-btn-primary');
-  const galleryViewport = new MockElement('div', 'modal-gallery-viewport', 'modal-gallery-viewport');
+  const galleryViewport = new MockElement(
+    'div',
+    'modal-gallery-viewport',
+    'modal-gallery-viewport'
+  );
   const mainImg = new MockElement('img', 'modal-main-img', 'modal-main-img');
   const imgCaption = new MockElement('div', 'modal-img-caption', 'modal-img-caption');
   const zoomBtn = new MockElement('button', 'modal-zoom-btn', 'modal-zoom-btn');
@@ -338,14 +342,38 @@ async function createDOMSandbox(projectsData) {
   doc.body.appendChild(dataScript);
 
   [
-    backdrop, modal, closeBtn, category, title, year, role,
-    githubLink, liveLink, galleryViewport, mainImg, imgCaption,
-    zoomBtn, thumbnails, summary, highlightsList, skillsCluster,
-    pillsLanguages, pillsTechnologies, pillsProtocols,
-    groupLanguages, groupTechnologies, groupProtocols,
-    prevBtn, nextBtn, navIndicator, lightbox, lightboxImg,
-    lightboxCaption, lightboxCloseBtn, dataScript
-  ].forEach(el => doc.registerElement(el));
+    backdrop,
+    modal,
+    closeBtn,
+    category,
+    title,
+    year,
+    role,
+    githubLink,
+    liveLink,
+    galleryViewport,
+    mainImg,
+    imgCaption,
+    zoomBtn,
+    thumbnails,
+    summary,
+    highlightsList,
+    skillsCluster,
+    pillsLanguages,
+    pillsTechnologies,
+    pillsProtocols,
+    groupLanguages,
+    groupTechnologies,
+    groupProtocols,
+    prevBtn,
+    nextBtn,
+    navIndicator,
+    lightbox,
+    lightboxImg,
+    lightboxCaption,
+    lightboxCloseBtn,
+    dataScript
+  ].forEach((el) => doc.registerElement(el));
 
   const module = await import(pathToFileURL(repoPath('assets', 'js', 'modal', 'index.js')).href);
   const controller = module.createModalController(doc);

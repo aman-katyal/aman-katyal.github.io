@@ -16,7 +16,8 @@ export function handleTriggerClick(event, openProjectModal) {
   if (event.target.closest('a:not([data-project-trigger])')) return;
 
   event.preventDefault();
-  const projectId = trigger.getAttribute('data-project-trigger') || trigger.getAttribute('data-project-id');
+  const projectId =
+    trigger.getAttribute('data-project-trigger') || trigger.getAttribute('data-project-id');
   if (!projectId) return;
 
   const focusTarget = trigger.matches('button, a, [tabindex]')

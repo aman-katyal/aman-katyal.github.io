@@ -1,77 +1,77 @@
 # Project data: rov-hil-testbench
 # Self-contained record consumed by Jekyll, the modal, and tests.
 
-id: "rov-hil-testbench"
+id: 'rov-hil-testbench'
 order: 1
-title: "ROV HIL Testbench & Control Board"
-subtitle: "Surface Hardware-in-the-Loop Carrier Board for Topside ROV Validation"
-category: "Embedded Hardware"
-badge_type: "hardware / pcb"
-role: "Embedded Firmware & Electrical"
-year: "2024–2025"
-github: "https://github.com/purduerov/X18-ROV-Test-Bench"
-live: "/projects/rov-hil-testbench/"
-summary: "Surface-level Hardware-in-the-Loop carrier board for the Purdue IEEE ROV team. Mates a Raspberry Pi 5 with an STM32F091 and an RP2350B over a servo/ESC backplane, so thrusters and sensors validate topside without the vehicle in the water."
+title: 'ROV HIL Testbench & Control Board'
+subtitle: 'Surface Hardware-in-the-Loop Carrier Board for Topside ROV Validation'
+category: 'Embedded Hardware'
+badge_type: 'hardware / pcb'
+role: 'Embedded Firmware & Electrical'
+year: '2024–2025'
+github: 'https://github.com/purduerov/X18-ROV-Test-Bench'
+live: '/projects/rov-hil-testbench/'
+summary: 'Surface-level Hardware-in-the-Loop carrier board for the Purdue IEEE ROV team. Mates a Raspberry Pi 5 with an STM32F091 and an RP2350B over a servo/ESC backplane, so thrusters and sensors validate topside without the vehicle in the water.'
 highlights:
-  - "Engineered a dual-MCU carrier board (STM32F091 + RP2350B, Molex-mated Raspberry Pi 5) on a 4-layer PCB with servo/ESC backplane and multi-rail power for topside HIL validation."
-  - "Implemented hardware signal muxing allowing seamless toggling of thruster ESCs and servos without rewiring."
-  - "Integrated SPI host communication from the Raspberry Pi 5 and multi-channel I2C sensor bus over JST-GH for IMU, depth, and leak detection modules."
-  - "Designed dedicated UART telemetry channels capturing real-time motor current draw and RPM feedback from Electronic Speed Controllers."
-  - "Engineered multi-rail power regulation stepping 12V down to 6V for high-torque servos and 5V down to 3.3V for microcontrollers and sensors."
+  - 'Engineered a dual-MCU carrier board (STM32F091 + RP2350B, Molex-mated Raspberry Pi 5) on a 4-layer PCB with servo/ESC backplane and multi-rail power for topside HIL validation.'
+  - 'Implemented hardware signal muxing allowing seamless toggling of thruster ESCs and servos without rewiring.'
+  - 'Integrated SPI host communication from the Raspberry Pi 5 and multi-channel I2C sensor bus over JST-GH for IMU, depth, and leak detection modules.'
+  - 'Designed dedicated UART telemetry channels capturing real-time motor current draw and RPM feedback from Electronic Speed Controllers.'
+  - 'Engineered multi-rail power regulation stepping 12V down to 6V for high-torque servos and 5V down to 3.3V for microcontrollers and sensors.'
 skills:
   languages:
-    - "C/C++"
-    - "Python"
+    - 'C/C++'
+    - 'Python'
   technologies:
-    - "STM32F091"
-    - "RP2350B"
-    - "Raspberry Pi 5"
-    - "KiCad"
+    - 'STM32F091'
+    - 'RP2350B'
+    - 'Raspberry Pi 5'
+    - 'KiCad'
   protocols:
-    - "SPI"
-    - "I2C"
-    - "UART"
-    - "PWM"
+    - 'SPI'
+    - 'I2C'
+    - 'UART'
+    - 'PWM'
 images:
-  - src: "/assets/images/rov_hil_render_iso.png"
-    label: "HIL Carrier Board 3D Render (Isometric, Pi Mated)"
+  - src: '/assets/images/rov_hil_render_iso.png'
+    label: 'HIL Carrier Board 3D Render (Isometric, Pi Mated)'
     featured: true
-  - src: "/assets/images/rov_hil_render_top.png"
-    label: "HIL Carrier Board 3D Render (Top, Fully Populated)"
+  - src: '/assets/images/rov_hil_render_top.png'
+    label: 'HIL Carrier Board 3D Render (Top, Fully Populated)'
     featured: false
-  - src: "/assets/images/rov_hil_render_bottom.png"
-    label: "HIL Carrier Board 3D Render (Bottom)"
+  - src: '/assets/images/rov_hil_render_bottom.png'
+    label: 'HIL Carrier Board 3D Render (Bottom)'
     featured: false
-  - src: "/assets/images/rov_hil_layer_ftop.svg"
-    label: "Layout: Top Copper (Power + Signals)"
+  - src: '/assets/images/rov_hil_layer_ftop.svg'
+    label: 'Layout: Top Copper (Power + Signals)'
     featured: false
-  - src: "/assets/images/rov_hil_layer_in1.svg"
-    label: "Layout: Inner 1 Copper (GND)"
+  - src: '/assets/images/rov_hil_layer_in1.svg'
+    label: 'Layout: Inner 1 Copper (GND)'
     featured: false
-  - src: "/assets/images/rov_hil_layer_in2.svg"
-    label: "Layout: Inner 2 Copper (GND Solid)"
+  - src: '/assets/images/rov_hil_layer_in2.svg'
+    label: 'Layout: Inner 2 Copper (GND Solid)'
     featured: false
-  - src: "/assets/images/rov_hil_layer_bbot.svg"
-    label: "Layout: Bottom Copper (Signals)"
+  - src: '/assets/images/rov_hil_layer_bbot.svg'
+    label: 'Layout: Bottom Copper (Signals)'
     featured: false
-  - src: "/assets/images/rov_hil_schematic.svg"
-    label: "HIL Carrier Board Schematic (Root Sheet)"
+  - src: '/assets/images/rov_hil_schematic.svg'
+    label: 'HIL Carrier Board Schematic (Root Sheet)'
     featured: false
-  - src: "/assets/images/rov_hil_sch_mcu.svg"
-    label: "Schematic: STM32 MCU Sheet"
+  - src: '/assets/images/rov_hil_sch_mcu.svg'
+    label: 'Schematic: STM32 MCU Sheet'
     featured: false
-  - src: "/assets/images/rov_hil_sch_pi.svg"
-    label: "Schematic: Raspberry Pi Sheet"
+  - src: '/assets/images/rov_hil_sch_pi.svg'
+    label: 'Schematic: Raspberry Pi Sheet'
     featured: false
-  - src: "/assets/images/rov_hil_sch_power.svg"
-    label: "Schematic: Power Distribution"
+  - src: '/assets/images/rov_hil_sch_power.svg'
+    label: 'Schematic: Power Distribution'
     featured: false
-  - src: "/assets/images/rov_hil_sch_servo_power.svg"
-    label: "Schematic: Servo Power"
+  - src: '/assets/images/rov_hil_sch_servo_power.svg'
+    label: 'Schematic: Servo Power'
     featured: false
-  - src: "/assets/images/rov_hil_sch_sensors.svg"
-    label: "Schematic: Sensors & Telemetry"
+  - src: '/assets/images/rov_hil_sch_sensors.svg'
+    label: 'Schematic: Sensors & Telemetry'
     featured: false
-  - src: "/assets/images/rov_hil_sch_servo_esc.svg"
-    label: "Schematic: Servo & ESC Control"
+  - src: '/assets/images/rov_hil_sch_servo_esc.svg'
+    label: 'Schematic: Servo & ESC Control'
     featured: false

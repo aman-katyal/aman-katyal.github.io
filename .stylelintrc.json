@@ -1,8 +1,6 @@
 {
   "customSyntax": "postcss-scss",
-  "ignoreFiles": [
-    "assets/css/style.scss"
-  ],
+  "ignoreFiles": ["assets/css/style.scss"],
   "rules": {
     "at-rule-no-unknown": [
       true,
@@ -33,9 +31,7 @@
     "declaration-block-no-duplicate-properties": [
       true,
       {
-        "ignore": [
-          "consecutive-duplicates-with-different-values"
-        ]
+        "ignore": ["consecutive-duplicates-with-different-values"]
       }
     ],
     "font-family-no-duplicate-names": true,
@@ -45,10 +41,7 @@
     "selector-pseudo-class-no-unknown": [
       true,
       {
-        "ignorePseudoClasses": [
-          "global",
-          "local"
-        ]
+        "ignorePseudoClasses": ["global", "local"]
       }
     ],
     "selector-pseudo-element-no-unknown": true,

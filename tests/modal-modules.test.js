@@ -13,7 +13,8 @@ const load = (name) => import(pathToFileURL(repoPath('assets', 'js', 'modal', na
 
 describe('Project modal modules', () => {
   it('should keep every module under 150 lines', async () => {
-    const files = fs.readdirSync(repoPath('assets', 'js', 'modal'))
+    const files = fs
+      .readdirSync(repoPath('assets', 'js', 'modal'))
       .filter((file) => file.endsWith('.js'));
 
     files.forEach((file) => {
@@ -63,7 +64,6 @@ describe('Project modal modules', () => {
 
   it('should switch gallery media and wrap image navigation', async () => {
     const { setProjectImage, stepImage, isVideo } = await load('gallery.js');
-    const doc = new MockDocument();
     const els = {
       mainImgEl: new MockElement('img', 'modal-main-img'),
       mainVideoEl: new MockElement('video', 'modal-main-video'),
@@ -73,14 +73,16 @@ describe('Project modal modules', () => {
       lightboxVideoEl: new MockElement('video', 'lightbox-video'),
       lightboxCaptionEl: new MockElement('div', 'lightbox-caption')
     };
-    const state = (await load('state.js')).createState([{
-      id: 'demo',
-      title: 'Demo',
-      images: [
-        { src: '/one.jpg', label: 'One' },
-        { src: '/two.jpg', label: 'Two', type: 'video' }
-      ]
-    }]);
+    const state = (await load('state.js')).createState([
+      {
+        id: 'demo',
+        title: 'Demo',
+        images: [
+          { src: '/one.jpg', label: 'One' },
+          { src: '/two.jpg', label: 'Two', type: 'video' }
+        ]
+      }
+    ]);
     state.currentProjectIndex = 0;
 
     assert.ok(isVideo({ type: 'video' }));
@@ -122,32 +124,41 @@ describe('Project modal modules', () => {
     lightbox.appendChild(video);
     lightbox.appendChild(caption);
 
-    const state = createState([{ id: 'demo', title: 'Demo', images: [{ src: '/one.jpg', label: 'One' }] }]);
+    const state = createState([
+      { id: 'demo', title: 'Demo', images: [{ src: '/one.jpg', label: 'One' }] }
+    ]);
     state.currentProjectIndex = 0;
 
-    openLightbox(doc, {
-      modalEl: modal,
-      lightboxEl: lightbox,
-      lightboxCloseBtnEl: closeBtn,
-      lightboxImgEl: img,
-      lightboxVideoEl: video,
-      lightboxCaptionEl: caption,
-      zoomBtnEl: zoomBtn
-    }, state);
+    openLightbox(
+      doc,
+      {
+        modalEl: modal,
+        lightboxEl: lightbox,
+        lightboxCloseBtnEl: closeBtn,
+        lightboxImgEl: img,
+        lightboxVideoEl: video,
+        lightboxCaptionEl: caption,
+        zoomBtnEl: zoomBtn
+      },
+      state
+    );
 
     assert.ok(lightbox.classList.contains('is-active'));
     assert.strictEqual(lightbox.getAttribute('aria-hidden'), 'false');
     assert.strictEqual(modal.getAttribute('inert'), '');
     assert.strictEqual(doc.activeElement, closeBtn);
 
-    closeLightbox({
-      modalEl: modal,
-      lightboxEl: lightbox,
-      lightboxImgEl: img,
-      lightboxVideoEl: video,
-      lightboxCaptionEl: caption,
-      zoomBtnEl: zoomBtn
-    }, state);
+    closeLightbox(
+      {
+        modalEl: modal,
+        lightboxEl: lightbox,
+        lightboxImgEl: img,
+        lightboxVideoEl: video,
+        lightboxCaptionEl: caption,
+        zoomBtnEl: zoomBtn
+      },
+      state
+    );
 
     assert.ok(!lightbox.classList.contains('is-active'));
     assert.strictEqual(lightbox.getAttribute('aria-hidden'), 'true');
@@ -160,13 +171,33 @@ describe('Project modal modules', () => {
     const card = readRepoFile('_includes/home/project-card.html');
     const scripts = readRepoFile('_includes/scripts.html');
 
-    assert.ok(entry.includes("from './modal/index.js'"), 'Entry point does not import the module controller');
-    assert.ok(entry.includes('window.PortfolioModal = controller.api'), 'Entry point does not expose the documented API');
-    assert.ok(scripts.includes('type="module" defer src="{{ \'/assets/js/project-modal.js\' | relative_url }}"'), 'Script tag is not a deferred ES module');
+    assert.ok(
+      entry.includes("from './modal/index.js'"),
+      'Entry point does not import the module controller'
+    );
+    assert.ok(
+      entry.includes('window.PortfolioModal = controller.api'),
+      'Entry point does not expose the documented API'
+    );
+    assert.ok(
+      scripts.includes(
+        'type="module" defer src="{{ \'/assets/js/project-modal.js\' | relative_url }}"'
+      ),
+      'Script tag is not a deferred ES module'
+    );
     assert.ok(!entry.includes('window.openProjectModal'), 'Legacy global API still leaks');
-    assert.ok(card.includes('<a href="{{ project.live | relative_url }}"'), 'Preview action is not a no-JS link');
-    assert.ok(card.includes('data-project-trigger="{{ project.id }}"'), 'Preview link lost its modal trigger');
-    assert.ok(!card.includes('<button type="button" class="card-btn card-btn-primary"'), 'Preview action is still a JS-only button');
+    assert.ok(
+      /href="\{\{ project\.live \| relative_url \}\}"/.test(card),
+      'Preview action is not a no-JS link'
+    );
+    assert.ok(
+      card.includes('data-project-trigger="{{ project.id }}"'),
+      'Preview link lost its modal trigger'
+    );
+    assert.ok(
+      !card.includes('<button type="button" class="card-btn card-btn-primary"'),
+      'Preview action is still a JS-only button'
+    );
   });
 
   it('should keep lightbox focus when a modal focus retry is pending', async () => {

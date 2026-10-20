@@ -41,9 +41,7 @@ function renderLinks(els, project) {
       els.liveLinkEl.href = project.live;
       els.liveLinkEl.setAttribute(
         'aria-label',
-        project.link_label
-          ? 'View ' + project.title + ' on ' + liveLabel
-          : 'View ' + project.title
+        project.link_label ? 'View ' + project.title + ' on ' + liveLabel : 'View ' + project.title
       );
       const liveLabelEl = els.liveLinkEl.querySelector('span');
       if (liveLabelEl) liveLabelEl.textContent = liveLabel;

@@ -5,7 +5,7 @@ title: Aman Katyal | Portfolio
 
 {% assign projects = "" | split: "" %}
 {% for project_pair in site.data.projects %}
-  {% assign projects = projects | push: project_pair[1] %}
+{% assign projects = projects | push: project_pair[1] %}
 {% endfor %}
 {% assign projects = projects | sort: "order" %}
 

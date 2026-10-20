@@ -76,7 +76,9 @@ describe('Print builder controller', () => {
   });
 
   it('should restore a saved subset and start pagination at the first visible project', () => {
-    const { instance, checkboxes, sections, counter } = createPrintSandbox({ saved: ['ml-dueling'] });
+    const { instance, checkboxes, sections, counter } = createPrintSandbox({
+      saved: ['ml-dueling']
+    });
 
     assert.deepStrictEqual(plain(instance.getState()), {
       selected: 1,
@@ -113,6 +115,9 @@ describe('Print builder controller', () => {
     assert.strictEqual(instance.getState().selected, 2);
     assert.deepStrictEqual(plain(instance.getState().slugs), ['rov-hil-testbench', 'ml-dueling']);
     assert.strictEqual(counter.textContent, '2 of 3 Selected');
-    assert.strictEqual(storage.getItem('pdf_selected_projects'), JSON.stringify(['rov-hil-testbench', 'ml-dueling']));
+    assert.strictEqual(
+      storage.getItem('pdf_selected_projects'),
+      JSON.stringify(['rov-hil-testbench', 'ml-dueling'])
+    );
   });
 });

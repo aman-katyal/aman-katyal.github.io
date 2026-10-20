@@ -23,8 +23,9 @@ body.modal-open {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
   &.is-active {
     opacity: 1;
@@ -45,14 +46,17 @@ body.modal-open {
   background-color: var(--bg-primary);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px var(--border);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px var(--border);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transform: translateY(24px) scale(0.97);
   opacity: 0;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &.is-active {
     transform: translateY(0) scale(1);
@@ -126,7 +130,10 @@ body.modal-open {
     border-radius: var(--radius-sm);
     text-decoration: none;
     cursor: pointer;
-    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast),
+      border-color var(--transition-fast);
     border: 1px solid transparent;
   }
 
@@ -174,7 +181,10 @@ body.modal-open {
   color: var(--text-secondary);
   cursor: pointer;
   font-size: 0.95rem;
-  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
 
   &:hover {
     background-color: var(--bg-tertiary);
@@ -313,7 +323,9 @@ body.modal-open {
   cursor: pointer;
   font-size: 0.78rem;
   font-weight: 600;
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
 
   &:hover {
     background-color: var(--accent-interactive);
@@ -349,7 +361,10 @@ body.modal-open {
   background-color: var(--bg-secondary);
   cursor: pointer;
   opacity: 0.65;
-  transition: opacity var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    opacity var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
 
   img {
     width: 100%;

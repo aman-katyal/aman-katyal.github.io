@@ -3,17 +3,17 @@
   location: Roseville, CA
   dates: May 2026 – Aug 2026
   bullets:
-    - "Rebuilt an internal microcode compilation pipeline in Python (grammar, AST validator, CLI toolchain) and a disassembler that converts compiled output into readable assembly, cutting manual debug turnaround for architecture and RTL teams."
-    - "Parsed 10 GB of pre-silicon simulation traces in under 2 minutes into cycle-indexed DuckDB schemas, isolating pipeline stalls and buffer bottlenecks."
+    - 'Rebuilt an internal microcode compilation pipeline in Python (grammar, AST validator, CLI toolchain) and a disassembler that converts compiled output into readable assembly, cutting manual debug turnaround for architecture and RTL teams.'
+    - 'Parsed 10 GB of pre-silicon simulation traces in under 2 minutes into cycle-indexed DuckDB schemas, isolating pipeline stalls and buffer bottlenecks.'
 - role: Firmware and Hardware Lead
   company: Purdue IEEE ROV Team
   dates: May 2026 – Present
   bullets:
-    - "Migrated vehicle communication from point-to-point SPI to a multi-node CAN FD bus across 3 STM32 microcontrollers and led firmware bring-up across a multi-board stack."
-    - "Built a software-in-the-loop harness (mocked CAN FD bus with fault injection) spanning 25 CTest suites on the HAL/BSP, enforced as a blocking GitHub Actions CI gate."
+    - 'Migrated vehicle communication from point-to-point SPI to a multi-node CAN FD bus across 3 STM32 microcontrollers and led firmware bring-up across a multi-board stack.'
+    - 'Built a software-in-the-loop harness (mocked CAN FD bus with fault injection) spanning 25 CTest suites on the HAL/BSP, enforced as a blocking GitHub Actions CI gate.'
 - role: Embedded Software Engineer
   company: Purdue SoCET
   dates: Aug 2025 – Present
   bullets:
-    - "Cut dynamic stack memory traffic 87.9% and benchmark execution 13.8% across 12 AI kernels via mem2reg fixes, loop-depth-weighted register allocation, and redundant-load elimination; compiled kernels now beat hand-written assembly (92 vs 103 cycles)."
-    - "Ported TinyUSB to a custom RISC-V SoC as a bare-metal USB 1.1 host controller driver with a PLIC-driven ISR and DMA data paths."
+    - 'Cut dynamic stack memory traffic 87.9% and benchmark execution 13.8% across 12 AI kernels via mem2reg fixes, loop-depth-weighted register allocation, and redundant-load elimination; compiled kernels now beat hand-written assembly (92 vs 103 cycles).'
+    - 'Ported TinyUSB to a custom RISC-V SoC as a bare-metal USB 1.1 host controller driver with a PLIC-driven ISR and DMA data paths.'

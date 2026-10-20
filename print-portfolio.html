@@ -4,7 +4,6 @@ title: "Custom PDF Portfolio Builder | Aman Katyal"
 permalink: /print-portfolio/
 math: true
 ---
-
 {% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
 
 {% include print/builder.html print_pages=print_pages %}

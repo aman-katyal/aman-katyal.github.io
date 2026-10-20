@@ -16,13 +16,13 @@ jobs:
 
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.3"
+          ruby-version: '3.3'
           bundler-cache: true
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
-          cache: "npm"
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install test dependencies
         run: npm ci
@@ -30,8 +30,8 @@ jobs:
       - name: Run regression tests
         run: npm test
 
-      - name: Lint SCSS
-        run: npm run lint:css
+      - name: Lint CSS, JS, and formatting
+        run: npm run lint
 
       - name: Build with Jekyll (same engine Pages uses)
         run: bundle exec jekyll build --destination _site --trace

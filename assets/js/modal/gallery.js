@@ -11,7 +11,7 @@ export function pauseVideos(els) {
     if (videoEl && typeof videoEl.pause === 'function') {
       try {
         videoEl.pause();
-      } catch (error) {
+      } catch {
         /* not yet playable */
       }
     }
@@ -40,7 +40,7 @@ export function showMedia(imgEl, videoEl, item, project) {
     } else if (typeof videoEl.pause === 'function') {
       try {
         videoEl.pause();
-      } catch (error) {
+      } catch {
         /* not yet playable */
       }
     }

@@ -9,8 +9,8 @@ resume: /assets/Aman_Katyal_Resume.pdf
 # The hosted PDF is re-exported from the private LaTeX source
 # (Aman_Katyal_Firmware_Embedded_Resume.tex). Bump the version whenever the
 # PDF changes so returning visitors do not get a cached copy.
-resume_version: "2026-10"
+resume_version: '2026-10'
 description: Computer Engineering student at Purdue building embedded firmware, ASIC tooling, and custom hardware.
 show_downloads: false
-url: "https://aman-katyal.github.io"
+url: 'https://aman-katyal.github.io'
 og_image: /assets/images/og-portfolio.jpg

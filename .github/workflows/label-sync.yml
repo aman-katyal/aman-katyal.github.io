@@ -1,10 +1,10 @@
 name: Sync Canonical Labels
 
 on:
-  workflow_dispatch:  # manual trigger
+  workflow_dispatch: # manual trigger
   push:
     paths:
-      - ".agents/tools/gh_tool/config.py"  # re-sync whenever taxonomy changes
+      - '.agents/tools/gh_tool/config.py' # re-sync whenever taxonomy changes
 
 jobs:
   sync:
@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Sync labels
         env:

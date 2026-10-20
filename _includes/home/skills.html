@@ -3,9 +3,15 @@
 {% assign tech_list = "" | split: "" %}
 {% assign proto_list = "" | split: "" %}
 {% for p in projects %}
-  {% for l in p.skills.languages %}{% assign lang_list = lang_list | push: l %}{% endfor %}
-  {% for t in p.skills.technologies %}{% assign tech_list = tech_list | push: t %}{% endfor %}
-  {% for r in p.skills.protocols %}{% assign proto_list = proto_list | push: r %}{% endfor %}
+  {% for l in p.skills.languages -%}
+    {%- assign lang_list = lang_list | push: l -%}
+  {%- endfor %}
+  {% for t in p.skills.technologies -%}
+    {%- assign tech_list = tech_list | push: t -%}
+  {%- endfor %}
+  {% for r in p.skills.protocols -%}
+    {%- assign proto_list = proto_list | push: r -%}
+  {%- endfor %}
 {% endfor %}
 <div class="skills-section">
   <h2 class="skills-eyebrow">Skills</h2>
@@ -14,21 +20,27 @@
       <h3>languages</h3>
       <div class="skills-pills">
         {% assign langs = lang_list | uniq | sort %}
-        {% for lang in langs %}<span class="skill-pill">{{ lang }}</span>{% endfor %}
+        {% for lang in langs -%}
+          <span class="skill-pill">{{ lang }}</span>
+        {%- endfor %}
       </div>
     </div>
     <div class="skills-col">
       <h3>technologies</h3>
       <div class="skills-pills">
         {% assign techs = tech_list | uniq | sort %}
-        {% for tech in techs %}<span class="skill-pill">{{ tech }}</span>{% endfor %}
+        {% for tech in techs -%}
+          <span class="skill-pill">{{ tech }}</span>
+        {%- endfor %}
       </div>
     </div>
     <div class="skills-col">
       <h3>protocols / peripherals</h3>
       <div class="skills-pills">
         {% assign protos = proto_list | uniq | sort %}
-        {% for proto in protos %}<span class="skill-pill">{{ proto }}</span>{% endfor %}
+        {% for proto in protos -%}
+          <span class="skill-pill">{{ proto }}</span>
+        {%- endfor %}
       </div>
     </div>
   </div>

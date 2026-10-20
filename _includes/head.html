@@ -1,57 +1,98 @@
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ project_meta.title | default: page.title | default: site.title }}</title>
-  <meta name="description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
-  {% if page.url != '/404.html' %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ project_meta.title | default: page.title | default: site.title }}</title>
+<meta
+  name="description"
+  content="{{ page.description | default: project_meta.summary | default: site.description }}"
+>
+{% if page.url != "/404.html" %}
   <link rel="canonical" href="{{ page.url | absolute_url }}">
-  {% endif %}
-  <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+{% endif %}
+<meta name="theme-color" content="#ffffff" id="theme-color-meta">
 
-  <!-- SEO & Social Sharing Meta Tags -->
-  <meta property="og:title" content="{{ project_meta.title | default: page.title | default: site.title }}">
-  <meta property="og:description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
-  <meta property="og:type" content="{% if project_meta %}article{% else %}website{% endif %}">
-  <meta property="og:url" content="{{ page.url | absolute_url }}">
-  <meta property="og:site_name" content="{{ site.title }}">
-  <meta property="og:image" content="{{ page.image | default: project_image.src | default: site.og_image | absolute_url }}">
+<!-- SEO & Social Sharing Meta Tags -->
+<meta
+  property="og:title"
+  content="{{ project_meta.title | default: page.title | default: site.title }}"
+>
+<meta
+  property="og:description"
+  content="{{ page.description | default: project_meta.summary | default: site.description }}"
+>
+<meta property="og:type" content="{% if project_meta %}article{% else %}website{% endif %}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta
+  property="og:image"
+  content="{{ page.image | default: project_image.src | default: site.og_image | absolute_url }}"
+>
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ project_meta.title | default: page.title | default: site.title }}">
-  <meta name="twitter:description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
-  <meta name="twitter:image" content="{{ page.image | default: project_image.src | default: site.og_image | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta
+  name="twitter:title"
+  content="{{ project_meta.title | default: page.title | default: site.title }}"
+>
+<meta
+  name="twitter:description"
+  content="{{ page.description | default: project_meta.summary | default: site.description }}"
+>
+<meta
+  name="twitter:image"
+  content="{{ page.image | default: project_image.src | default: site.og_image | absolute_url }}"
+>
 
-  <!-- Fonts (proofer-ignore: font CDNs bot-block link checks) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" data-proofer-ignore>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-proofer-ignore>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" data-proofer-ignore>
+<!-- Fonts (proofer-ignore: font CDNs bot-block link checks) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" data-proofer-ignore>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-proofer-ignore>
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+  rel="stylesheet"
+  data-proofer-ignore
+>
 
-  <!-- Stylesheet -->
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-  <link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
+<!-- Stylesheet -->
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/favicon.svg' | relative_url }}">
 
-  <!-- Structured data: Person -->
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"Person","name":"{{ site.author }}","url":"{{ '/' | absolute_url }}","jobTitle":"Computer Engineering Student","affiliation":{"@type":"CollegeOrUniversity","name":"Purdue University"},"sameAs":["{{ site.linkedin }}","{{ site.github }}"]}
-  </script>
+<!-- Structured data: Person -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "{{ site.author }}",
+    "url": "{{ '/' | absolute_url }}",
+    "jobTitle": "Computer Engineering Student",
+    "affiliation": { "@type": "CollegeOrUniversity", "name": "Purdue University" },
+    "sameAs": ["{{ site.linkedin }}", "{{ site.github }}"]
+  }
+</script>
 
-  <!-- FontAwesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- FontAwesome for Icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+>
 
-  {% if page.math %}
+{% if page.math %}
   <!-- KaTeX for project pages with equations -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" data-proofer-ignore>
-  {% endif %}
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    crossorigin="anonymous"
+    data-proofer-ignore
+  >
+{% endif %}
 
-  <!-- Critical theme bootstrap: only inline script kept to avoid a flash -->
-  <script>
-    (function () {
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
-      if (themeColorMeta) {
-        themeColorMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
-      }
-    })();
-  </script>
+<!-- Critical theme bootstrap: only inline script kept to avoid a flash -->
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
+    }
+  })();
+</script>

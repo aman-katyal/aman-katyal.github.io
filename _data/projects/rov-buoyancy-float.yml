@@ -1,52 +1,52 @@
 # Project data: rov-buoyancy-float
 # Self-contained record consumed by Jekyll, the modal, and tests.
 
-id: "rov-buoyancy-float"
+id: 'rov-buoyancy-float'
 order: 2
-title: "Autonomous Buoyancy Float"
-subtitle: "RP2040 Bare-Metal Profiling Float with Multi-Rate Depth PID & bsdiff OTA"
-category: "Subsea Robotics & Firmware"
-badge_type: "robotics / firmware"
-role: "Embedded Systems & Firmware Architecture"
-year: "2026"
-github: "https://github.com/purduerov/X18-Float-Embedded"
-live: "/projects/rov-buoyancy-float/"
-summary: "Autonomous subsea profiling buoyancy float engineered for automated water column data collection. Features deterministic bare-metal C firmware on RP2040, 10Hz neutral-buoyancy feedforward PID holding depth within 5 cm, 915MHz LoRa telemetry, and bsdiff differential OTA updates that cut firmware refreshes from 8 minutes to under 20 seconds."
+title: 'Autonomous Buoyancy Float'
+subtitle: 'RP2040 Bare-Metal Profiling Float with Multi-Rate Depth PID & bsdiff OTA'
+category: 'Subsea Robotics & Firmware'
+badge_type: 'robotics / firmware'
+role: 'Embedded Systems & Firmware Architecture'
+year: '2026'
+github: 'https://github.com/purduerov/X18-Float-Embedded'
+live: '/projects/rov-buoyancy-float/'
+summary: 'Autonomous subsea profiling buoyancy float engineered for automated water column data collection. Features deterministic bare-metal C firmware on RP2040, 10Hz neutral-buoyancy feedforward PID holding depth within 5 cm, 915MHz LoRa telemetry, and bsdiff differential OTA updates that cut firmware refreshes from 8 minutes to under 20 seconds.'
 highlights:
-  - "Architected deterministic dual-rate bare-metal C firmware on RP2040 (50Hz inner actuator loop, 10Hz outer depth control loop) replacing legacy CircuitPython scripts."
-  - "Developed neutral-buoyancy ADC baseline feedforward control law eliminating steady-state depth hunting and vertical overshoot."
-  - "Implemented adaptive hover learning that calibrates buoyancy baseline in-situ and persists salinity/temperature compensation to LittleFS flash."
-  - "Constructed an in-situ secondary OTA bootloader with bsdiff differential patching over 915MHz SX1276 LoRa, reducing firmware update time from 8 minutes to under 20 seconds."
-  - "Designed 3-tier I2C sensor recovery matrix (soft reset, clock cycle toggle, emergency positive-buoyancy abort surface blow)."
-  - "Created Python/Streamlit mission control dashboard with thread-safe telemetry ingestion and UNESCO EOS-80 hydrodynamics HIL simulation."
+  - 'Architected deterministic dual-rate bare-metal C firmware on RP2040 (50Hz inner actuator loop, 10Hz outer depth control loop) replacing legacy CircuitPython scripts.'
+  - 'Developed neutral-buoyancy ADC baseline feedforward control law eliminating steady-state depth hunting and vertical overshoot.'
+  - 'Implemented adaptive hover learning that calibrates buoyancy baseline in-situ and persists salinity/temperature compensation to LittleFS flash.'
+  - 'Constructed an in-situ secondary OTA bootloader with bsdiff differential patching over 915MHz SX1276 LoRa, reducing firmware update time from 8 minutes to under 20 seconds.'
+  - 'Designed 3-tier I2C sensor recovery matrix (soft reset, clock cycle toggle, emergency positive-buoyancy abort surface blow).'
+  - 'Created Python/Streamlit mission control dashboard with thread-safe telemetry ingestion and UNESCO EOS-80 hydrodynamics HIL simulation.'
 skills:
   languages:
-    - "C (Bare-Metal)"
-    - "Python"
-    - "ARM Assembly"
+    - 'C (Bare-Metal)'
+    - 'Python'
+    - 'ARM Assembly'
   technologies:
-    - "RP2040"
-    - "LittleFS"
-    - "SX1276 LoRa"
-    - "MS5837 Sensor"
-    - "Streamlit / Plotly"
-    - "KiCad"
+    - 'RP2040'
+    - 'LittleFS'
+    - 'SX1276 LoRa'
+    - 'MS5837 Sensor'
+    - 'Streamlit / Plotly'
+    - 'KiCad'
   protocols:
-    - "LoRa (915 MHz)"
-    - "SPI"
-    - "I2C"
-    - "UART / USB CDC"
-    - "PIO (WS2812)"
+    - 'LoRa (915 MHz)'
+    - 'SPI'
+    - 'I2C'
+    - 'UART / USB CDC'
+    - 'PIO (WS2812)'
 images:
-  - src: "/assets/images/buoyancy_preview.jpg"
-    label: "Buoyancy Float Physical Electronics Stack & CAD Assembly"
+  - src: '/assets/images/buoyancy_preview.jpg'
+    label: 'Buoyancy Float Physical Electronics Stack & CAD Assembly'
     featured: true
-  - src: "/assets/images/rov_buoyancy_pcb.jpg"
-    label: "Custom Circular Carrier Board with RP2040 & LoRa RF"
+  - src: '/assets/images/rov_buoyancy_pcb.jpg'
+    label: 'Custom Circular Carrier Board with RP2040 & LoRa RF'
     featured: false
-  - src: "/assets/images/rov_buoyancy_cad.png"
-    label: "3D CAD Mechanical Assembly of Pressure Hull & Buoyancy Engine"
+  - src: '/assets/images/rov_buoyancy_cad.png'
+    label: '3D CAD Mechanical Assembly of Pressure Hull & Buoyancy Engine'
     featured: false
-  - src: "/assets/images/rov_buoyancy_dashboard.png"
-    label: "X18 Streamlit Mission Control & Telemetry Dashboard"
+  - src: '/assets/images/rov_buoyancy_dashboard.png'
+    label: 'X18 Streamlit Mission Control & Telemetry Dashboard'
     featured: false

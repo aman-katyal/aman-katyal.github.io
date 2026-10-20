@@ -59,7 +59,11 @@
   padding: 0.35rem 0.5rem;
   cursor: pointer;
   opacity: 0;
-  transition: opacity var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+  transition:
+    opacity var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
   font-size: 0.8rem;
   display: flex;
   align-items: center;

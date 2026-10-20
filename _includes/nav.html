@@ -1,22 +1,27 @@
-  <a class="skip-link no-print" href="#main-content">Skip to content</a>
+<a class="skip-link no-print" href="#main-content">Skip to content</a>
 
-  <!-- Navigation Bar -->
-  <nav class="navbar no-print">
-    <div class="nav-container">
-      <a href="{{ '/' | relative_url }}" class="nav-logo">
-        <span class="logo-name">Aman Katyal</span>
-        <span class="logo-title">Portfolio</span>
-      </a>
-      <div class="nav-links">
-        <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
-        <a href="{{ '/' | relative_url }}#experience" class="nav-link">Experience</a>
-        <a href="{{ '/' | relative_url }}#projects" class="nav-link">Projects</a>
+<!-- Navigation Bar -->
+<nav class="navbar no-print">
+  <div class="nav-container">
+    <a href="{{ '/' | relative_url }}" class="nav-logo">
+      <span class="logo-name">Aman Katyal</span>
+      <span class="logo-title">Portfolio</span>
+    </a>
+    <div class="nav-links">
+      <a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a>
+      <a href="{{ '/' | relative_url }}#experience" class="nav-link">Experience</a>
+      <a href="{{ '/' | relative_url }}#projects" class="nav-link">Projects</a>
 
-        <!-- Theme Toggle Button -->
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Dark mode" aria-pressed="false">
-          <i class="fa-solid fa-moon moon-icon"></i>
-          <i class="fa-solid fa-sun sun-icon"></i>
-        </button>
-      </div>
+      <!-- Theme Toggle Button -->
+      <button
+        id="theme-toggle"
+        class="theme-toggle-btn"
+        aria-label="Dark mode"
+        aria-pressed="false"
+      >
+        <i class="fa-solid fa-moon moon-icon"></i>
+        <i class="fa-solid fa-sun sun-icon"></i>
+      </button>
     </div>
-  </nav>
+  </div>
+</nav>

@@ -13,7 +13,8 @@ const ROOT = path.resolve(__dirname, '..', '..');
  */
 function loadProjectFiles() {
   const directory = path.join(ROOT, '_data', 'projects');
-  return fs.readdirSync(directory)
+  return fs
+    .readdirSync(directory)
     .filter((file) => /\.ya?ml$/.test(file))
     .map((file) => ({
       file,
@@ -42,7 +43,8 @@ function readRepoFile(relativePath) {
  */
 function readScss() {
   const entry = readRepoFile('assets/css/style.scss');
-  const files = fs.readdirSync(path.join(ROOT, '_sass'))
+  const files = fs
+    .readdirSync(path.join(ROOT, '_sass'))
     .filter((file) => file.endsWith('.scss'))
     .sort();
   return [entry, ...files.map((file) => readRepoFile(path.join('_sass', file)))].join('\n');
@@ -61,7 +63,9 @@ function readHome() {
     '_includes/home/experience.html',
     '_includes/home/projects.html',
     '_includes/home/project-card.html'
-  ].map(readRepoFile).join('\n');
+  ]
+    .map(readRepoFile)
+    .join('\n');
 }
 
 /**
@@ -78,7 +82,9 @@ function readLayout() {
     '_includes/scripts.html',
     'assets/js/theme.js',
     'assets/js/site.js'
-  ].map(readRepoFile).join('\n');
+  ]
+    .map(readRepoFile)
+    .join('\n');
 }
 
 /**

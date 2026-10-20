@@ -16,7 +16,7 @@
     if (store === undefined) {
       try {
         store = window.localStorage;
-      } catch (error) {
+      } catch {
         store = null;
       }
     }
@@ -38,19 +38,21 @@
     }
 
     function getSelectedSlugs() {
-      return checkboxes
-        .filter((checkbox) => checkbox.checked)
-        .map(slugFor);
+      return checkboxes.filter((checkbox) => checkbox.checked).map(slugFor);
     }
 
     function getState() {
       const sections = Array.from(doc.querySelectorAll('.print-project-section'));
-      const firstVisibleSection = sections.find((section) => section.classList.contains('is-first-visible'));
+      const firstVisibleSection = sections.find((section) =>
+        section.classList.contains('is-first-visible')
+      );
       return {
         selected: checkboxes.filter((checkbox) => checkbox.checked).length,
         total: totalCount,
         slugs: getSelectedSlugs(),
-        firstVisible: firstVisibleSection ? firstVisibleSection.getAttribute('data-project-slug') : null,
+        firstVisible: firstVisibleSection
+          ? firstVisibleSection.getAttribute('data-project-slug')
+          : null,
         excluded: sections.filter((section) => section.classList.contains('is-excluded')).length
       };
     }
@@ -123,7 +125,7 @@
       if (store) {
         try {
           saved = JSON.parse(store.getItem(STORAGE_KEY));
-        } catch (error) {
+        } catch {
           saved = null;
         }
       }
@@ -161,10 +163,10 @@
     };
   }
 
-  let initialStore = null;
+  let initialStore;
   try {
     initialStore = window.localStorage;
-  } catch (error) {
+  } catch {
     initialStore = null;
   }
 

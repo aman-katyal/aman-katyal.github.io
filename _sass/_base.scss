@@ -25,7 +25,9 @@ html {
   font-family: var(--font-sans);
   font-size: 100%;
   line-height: 1.6;
-  transition: background-color var(--transition-normal), color var(--transition-normal);
+  transition:
+    background-color var(--transition-normal),
+    color var(--transition-normal);
 }
 
 body {

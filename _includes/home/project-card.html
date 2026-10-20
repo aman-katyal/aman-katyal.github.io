@@ -3,13 +3,22 @@
 <article class="project-card" data-project-trigger="{{ project.id }}">
   <!-- Terminal Header Bar: badge only (full title lives in the card heading) -->
   <div class="termbar">
-    <span class="termbar-badge" title="{{ project.badge_type | default: project.category }}">{{ project.badge_type | default: project.category }}</span>
+    <span class="termbar-badge" title="{{ project.badge_type | default: project.category }}">
+      {{- project.badge_type | default: project.category -}}
+    </span>
   </div>
 
   <!-- Media Frame -->
   {% if featured_image %}
     <div class="project-card-media">
-      <img src="{{ featured_image.src | relative_url }}" alt="{{ featured_image.label | default: project.title }}" loading="lazy"{% if featured_image.position %} style="object-position: {{ featured_image.position }}"{% endif %}>
+      <img
+        src="{{ featured_image.src | relative_url }}"
+        alt="{{ featured_image.label | default: project.title }}"
+        loading="lazy"
+        {% if featured_image.position %}
+          style="object-position: {{ featured_image.position }}"
+        {% endif %}
+      >
     </div>
   {% endif %}
 
@@ -23,35 +32,62 @@
 
     <!-- Technology Badges / Pills -->
     <div class="project-card-tech">
-      {% for tech in project.skills.technologies limit:3 %}
+      {% for tech in project.skills.technologies limit: 3 %}
         <span class="tech-badge">{{ tech }}</span>
       {% endfor %}
-      {% for lang in project.skills.languages limit:2 %}
+      {% for lang in project.skills.languages limit: 2 %}
         <span class="tech-badge">{{ lang }}</span>
       {% endfor %}
       {% assign tech_total = project.skills.technologies.size | plus: project.skills.languages.size %}
       {% if tech_total > 5 %}
-        <span class="tech-badge tech-badge-more" title="{{ project.skills.technologies | join: ', ' }}; {{ project.skills.languages | join: ', ' }}">+{{ tech_total | minus: 5 }} more</span>
+        <span
+          class="tech-badge tech-badge-more"
+          title="{{ project.skills.technologies | join: ', ' }}; {{ project.skills.languages | join: ', ' }}"
+          >+{{ tech_total | minus: 5 }} more</span
+        >
       {% endif %}
     </div>
 
     <!-- Card Action Buttons -->
     <div class="project-card-actions">
-      <!-- Progressive enhancement: without JS this links to the case study
-           (or the external Devpost entry); with JS the modal intercepts it. -->
-      <a href="{{ project.live | relative_url }}" class="card-btn card-btn-primary" data-project-trigger="{{ project.id }}" aria-label="Preview {{ project.title }}"{% if project.link_type == "external" %} target="_blank" rel="noopener noreferrer"{% endif %}>
+      <!--
+        Progressive enhancement: without JS this links to the case study
+        (or the external Devpost entry); with JS the modal intercepts it.
+      -->
+      <a
+        href="{{ project.live | relative_url }}"
+        class="card-btn card-btn-primary"
+        data-project-trigger="{{ project.id }}"
+        aria-label="Preview {{ project.title }}"
+        {% if project.link_type == "external" %}
+          target="_blank" rel="noopener noreferrer"
+        {% endif %}
+      >
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
         <span>Preview & Gallery</span>
       </a>
       {% if project.github %}
-        <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on GitHub">
+        <a
+          href="{{ project.github }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-btn card-btn-secondary"
+          aria-label="View {{ project.title }} on GitHub"
+        >
           <i class="fa-brands fa-github"></i>
           <span>GitHub</span>
         </a>
       {% endif %}
       {% if project.live %}
         {% assign live_label = project.link_label | default: "Docs" %}
-        <a href="{{ project.live | relative_url }}" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on {{ live_label }}"{% if project.link_type == "external" %} target="_blank" rel="noopener noreferrer"{% endif %}>
+        <a
+          href="{{ project.live | relative_url }}"
+          class="card-btn card-btn-secondary"
+          aria-label="View {{ project.title }} on {{ live_label }}"
+          {% if project.link_type == "external" %}
+            target="_blank" rel="noopener noreferrer"
+          {% endif %}
+        >
           {% if project.link_type == "external" %}
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           {% else %}

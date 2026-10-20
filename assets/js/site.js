@@ -46,14 +46,17 @@
         // Remove line-number prefixes from highlighted code.
         text = text.replace(/^\s*\d+:\s/gm, '');
 
-        navigator.clipboard.writeText(text).then(() => {
-          copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #22c55e;"></i>';
-          setTimeout(() => {
-            copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
-          }, 2000);
-        }).catch((err) => {
-          console.error('Failed to copy text: ', err);
-        });
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            copyBtn.innerHTML = '<i class="fa-solid fa-check" style="color: #22c55e;"></i>';
+            setTimeout(() => {
+              copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i>';
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error('Failed to copy text: ', err);
+          });
       });
     });
   }

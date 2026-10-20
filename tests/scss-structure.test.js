@@ -56,26 +56,57 @@ describe('SCSS structure', () => {
   it('should keep the cascade-critical partial order explicit', () => {
     const entry = readRepoFile('assets/css/style.scss');
 
-    assert.ok(entry.indexOf('@import "tokens";') < entry.indexOf('@import "base";'), 'Tokens must load before base rules');
-    assert.ok(entry.indexOf('@import "modal";') < entry.indexOf('@import "modal-responsive";'), 'Modal mobile rules must load after modal base rules');
-    assert.ok(entry.indexOf('@import "print";') < entry.indexOf('@import "modal";'), 'Print rules must load before modal base rules');
-    assert.ok(entry.indexOf('@import "syntax";') > entry.indexOf('@import "lightbox";'), 'Syntax highlighting must remain last');
+    assert.ok(
+      entry.indexOf('@import "tokens";') < entry.indexOf('@import "base";'),
+      'Tokens must load before base rules'
+    );
+    assert.ok(
+      entry.indexOf('@import "modal";') < entry.indexOf('@import "modal-responsive";'),
+      'Modal mobile rules must load after modal base rules'
+    );
+    assert.ok(
+      entry.indexOf('@import "print";') < entry.indexOf('@import "modal";'),
+      'Print rules must load before modal base rules'
+    );
+    assert.ok(
+      entry.indexOf('@import "syntax";') > entry.indexOf('@import "lightbox";'),
+      'Syntax highlighting must remain last'
+    );
   });
 
   it('should keep print and mobile-modal rules co-located with their components', () => {
     const modalResponsive = readRepoFile('_sass/_modal-responsive.scss');
     const print = readRepoFile('_sass/_print.scss');
 
-    assert.ok(modalResponsive.includes('.project-modal'), 'Mobile modal rules are not in the modal responsive partial');
-    assert.ok(modalResponsive.includes('max-height: 94dvh'), 'Mobile modal viewport fallback is missing');
+    assert.ok(
+      modalResponsive.includes('.project-modal'),
+      'Mobile modal rules are not in the modal responsive partial'
+    );
+    assert.ok(
+      modalResponsive.includes('max-height: 94dvh'),
+      'Mobile modal viewport fallback is missing'
+    );
     assert.ok(print.includes('@media print'), 'Print rules are not in the print partial');
-    assert.ok(print.includes('.project-modal-backdrop'), 'Print rules do not hide the modal backdrop');
-    assert.ok(print.includes('.markdown-body a[href^="http"]:after'), 'Print URL expansion is not scoped to article links');
+    assert.ok(
+      print.includes('.project-modal-backdrop'),
+      'Print rules do not hide the modal backdrop'
+    );
+    assert.ok(
+      print.includes('.markdown-body a[href^="http"]:after'),
+      'Print URL expansion is not scoped to article links'
+    );
   });
 
   it('should remove the documented unused selectors', () => {
     const scss = readScss();
-    ['.project-card-image', '.project-card-header', '.project-card-tag', '.project-card-title', '.filter-label', '.preset-btn'].forEach((selector) => {
+    [
+      '.project-card-image',
+      '.project-card-header',
+      '.project-card-tag',
+      '.project-card-title',
+      '.filter-label',
+      '.preset-btn'
+    ].forEach((selector) => {
       assert.ok(!scss.includes(selector), `Unused selector remains: ${selector}`);
     });
   });
@@ -87,6 +118,6 @@ describe('SCSS structure', () => {
 
     assert.ok(config.includes('postcss-scss'), 'Stylelint is not configured for SCSS');
     assert.ok(packageJson.scripts['lint:css']?.includes('stylelint'), 'Missing lint:css script');
-    assert.ok(workflow.includes('npm run lint:css'), 'CI does not run stylelint');
+    assert.ok(workflow.includes('npm run lint'), 'CI does not run the lint suite');
   });
 });

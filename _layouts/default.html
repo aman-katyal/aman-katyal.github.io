@@ -1,33 +1,33 @@
-{% assign project_slug = nil %}
-{% assign project_meta = nil %}
-{% assign project_image = nil %}
-{% if page.permalink and page.permalink contains '/projects/' %}
-  {% assign project_slug = page.permalink | remove: '/projects/' | remove: '/' %}
+{% assign project_slug = null %}
+{% assign project_meta = null %}
+{% assign project_image = null %}
+{% if page.permalink and page.permalink contains "/projects/" %}
+  {% assign project_slug = page.permalink | remove: "/projects/" | remove: "/" %}
   {% assign project_meta = site.data.projects[project_slug] %}
   {% if project_meta %}
     {% assign project_image = project_meta.images | where: "featured", true | first | default: project_meta.images.first %}
   {% endif %}
 {% endif %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-{% include head.html %}
-</head>
-<body>
-{% include nav.html %}
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    {% include nav.html %}
 
-  <div class="content-wrapper {% if page.url == '/' %}home-layout{% endif %}">
-    {% if project_meta %}
-{% include project-detail.html %}
-    {% else %}
-    <main class="standard-layout" id="main-content" tabindex="-1">
-      {{ content }}
-    </main>
-    {% endif %}
-  </div>
+    <div class="content-wrapper {% if page.url == '/' %}home-layout{% endif %}">
+      {% if project_meta %}
+        {% include project-detail.html %}
+      {% else %}
+        <main class="standard-layout" id="main-content" tabindex="-1">
+          {{ content }}
+        </main>
+      {% endif %}
+    </div>
 
-{% include footer.html %}
-{% include project_modal.html %}
-{% include scripts.html %}
-</body>
+    {% include footer.html %}
+    {% include project_modal.html %}
+    {% include scripts.html %}
+  </body>
 </html>

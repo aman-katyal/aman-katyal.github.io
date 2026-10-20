@@ -82,7 +82,8 @@
   }
 
   /* Reset layout for physical paper printing */
-  html, body {
+  html,
+  body {
     background-color: #ffffff !important;
     color: #000000 !important;
     font-size: 10pt !important;
@@ -241,7 +242,7 @@
     color: #000000 !important;
     text-decoration: underline !important;
   }
-  
+
   /* Only expand real article links; never expose UI/button destinations. */
   .markdown-body a[href^="http"]:after {
     content: " (" attr(href) ")";
@@ -275,7 +276,8 @@
   }
 
   /* Code blocks printing adjustments */
-  .code-container-wrapper, pre {
+  .code-container-wrapper,
+  pre {
     background-color: #f8fafc !important;
     border: 1px solid #d0d7de !important;
     page-break-inside: avoid !important;
@@ -283,7 +285,8 @@
     box-shadow: none !important;
   }
 
-  pre, code {
+  pre,
+  code {
     color: #000000 !important;
     font-size: 8pt !important;
   }

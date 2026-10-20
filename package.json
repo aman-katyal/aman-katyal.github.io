@@ -5,7 +5,11 @@
   "description": "Aman Katyal's Personal Portfolio Website",
   "scripts": {
     "test": "node --test tests/*.test.js",
+    "lint": "npm run lint:css && npm run lint:js && npm run format:check",
     "lint:css": "stylelint \"_sass/**/*.scss\" \"assets/css/**/*.scss\"",
+    "lint:js": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "issue:start": "pwsh ./scripts/issue-start.ps1",
     "issue:lint": "python -m gh_tool issue lint",
     "issue:suggest": "python -m gh_tool issue suggest-labels",
@@ -16,8 +20,13 @@
     "labels:sync": "python -m gh_tool label sync"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@shopify/prettier-plugin-liquid": "^1.11.2",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0",
     "js-yaml": "^5.5.0",
     "postcss-scss": "^4.0.9",
+    "prettier": "^3.9.10",
     "sass": "^1.105.2",
     "stylelint": "^17.16.0"
   }

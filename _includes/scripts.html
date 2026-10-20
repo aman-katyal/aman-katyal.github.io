@@ -1,12 +1,22 @@
-  <!-- Site scripts (deferred so they never block first paint) -->
-  <script defer src="{{ '/assets/js/theme.js' | relative_url }}"></script>
-  <script defer src="{{ '/assets/js/site.js' | relative_url }}"></script>
+<!-- Site scripts (deferred so they never block first paint) -->
+<script defer src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/site.js' | relative_url }}"></script>
 
-  {% if page.math %}
+{% if page.math %}
   <!-- KaTeX math rendering (only on pages that opt in with `math: true`) -->
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous" data-proofer-ignore></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" data-proofer-ignore></script>
-  {% endif %}
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"
+    crossorigin="anonymous"
+    data-proofer-ignore
+  ></script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    crossorigin="anonymous"
+    data-proofer-ignore
+  ></script>
+{% endif %}
 
-  <!-- Project Modal Controller (native ES module, deferred by default) -->
-  <script type="module" defer src="{{ '/assets/js/project-modal.js' | relative_url }}"></script>
+<!-- Project Modal Controller (native ES module, deferred by default) -->
+<script type="module" defer src="{{ '/assets/js/project-modal.js' | relative_url }}"></script>

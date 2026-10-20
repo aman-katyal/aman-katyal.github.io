@@ -6,11 +6,16 @@
       <div class="exp-entry">
         <div class="exp-head">
           <span class="exp-role">{{ job.role }} — {{ job.company }}</span>
-          <span class="exp-meta">{% if job.location %}{{ job.location }} · {% endif %}{{ job.dates }}</span>
+          <span class="exp-meta">
+            {%- if job.location %}{{ job.location }} · {% endif -%}
+            {{- job.dates -}}
+          </span>
         </div>
         <ul class="exp-bullets">
           {% for bullet in job.bullets %}
-            <li><span class="highlight-bullet">▹</span><span>{{ bullet }}</span></li>
+            <li>
+              <span class="highlight-bullet">▹</span><span>{{ bullet }}</span>
+            </li>
           {% endfor %}
         </ul>
       </div>

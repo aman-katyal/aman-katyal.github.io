@@ -51,7 +51,9 @@
   text-decoration: underline;
   text-decoration-color: var(--border-hover);
   text-underline-offset: 6px;
-  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    text-decoration-color var(--transition-fast);
 }
 
 .hero-cta:hover {
@@ -296,7 +298,9 @@
 .profile-link-btn {
   text-decoration: none;
   color: var(--text-secondary);
-  transition: color var(--transition-fast), transform var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-fast);
   background: none;
   border: none;
   font: inherit;
@@ -347,7 +351,11 @@
   font-size: 0.8rem;
   cursor: pointer;
   padding: 0;
-  transition: color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .email-copy-icon-btn:hover {

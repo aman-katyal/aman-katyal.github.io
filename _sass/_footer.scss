@@ -7,7 +7,9 @@
   border-top: 1px solid var(--border);
   background-color: var(--bg-secondary);
   padding: 2rem 0;
-  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+  transition:
+    background-color var(--transition-normal),
+    border-color var(--transition-normal);
 }
 
 .footer-container {
@@ -66,7 +68,10 @@
   font-size: 0.9rem;
   cursor: pointer;
   padding: 0;
-  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    background-color var(--transition-fast);
 }
 
 .social-links a:hover,

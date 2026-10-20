@@ -1,7 +1,7 @@
 ---
 layout: default
 permalink: /projects/rov-buoyancy-float/
-description: "Autonomous underwater profiling float powered by RP2040 bare-metal C firmware, featuring multi-rate closed-loop depth PID with neutral baseline feedforward, SX1276 LoRa telemetry, LittleFS persistent storage, and an in-situ bsdiff OTA secondary bootloader."
+description: 'Autonomous underwater profiling float powered by RP2040 bare-metal C firmware, featuring multi-rate closed-loop depth PID with neutral baseline feedforward, SX1276 LoRa telemetry, LittleFS persistent storage, and an in-situ bsdiff OTA secondary bootloader.'
 math: true
 printable: true
 order: 2
@@ -9,7 +9,7 @@ order: 2
 
 **Context:** Purdue IEEE ROV Team | **MATE ROV Competition**
 
-Outside of the primary competition ROV, our team deploys an autonomous profiling buoyancy float engineered for automated vertical data collection in the water column. The float is a self-contained, tetherless cylindrical pressure vessel that modulates its net buoyancy by actively changing its displaced volume. 
+Outside of the primary competition ROV, our team deploys an autonomous profiling buoyancy float engineered for automated vertical data collection in the water column. The float is a self-contained, tetherless cylindrical pressure vessel that modulates its net buoyancy by actively changing its displaced volume.
 
 While the mechanical cylinder—incorporating a 90 mL syringe-driven variable buoyancy engine (VBE) and linear actuator—was physically fabricated, I led the complete architectural redesign and firmware overhaul of the float's embedded "brain." Migrating from legacy interpreted CircuitPython scripts to bare-metal **C on the Raspberry Pi Pico / Adafruit Feather RP2040**, I architected a deterministic multi-rate control system, an adaptive neutral-buoyancy depth controller, an RF telemetry link, and an in-situ secondary bootloader with differential binary patching.
 
@@ -40,10 +40,11 @@ While the mechanical cylinder—incorporating a 90 mL syringe-driven variable bu
 </div>
 
 The physical packaging is constrained to a compact vertical cylinder rated for hydrostatic pressures in excess of 3 bar:
-* **Custom Circular Carrier Board:** Designed to match the internal hull diameter, breaking out power regulation, an automotive blade fuse socket, JST-GH locking connectors, and dedicated SPI/I2C buses.
-* **Variable Buoyancy Engine (VBE):** A 90 mL medical-grade syringe driven by a high-torque DC motor through a stainless steel lead screw. Retraction draws ambient water inward (reducing vehicle displacement to sink); extension expels water outward (increasing displacement to ascend).
-* **Positional Feedback:** A 10 kΩ linear potentiometer mechanically coupled to the syringe piston is sampled via the RP2040's 12-bit ADC (ADC0, Pin 26), yielding 0–4095 discrete positional counts.
-* **Environmental Sensor Suite:** An external **TE MS5837-02BA** piezoresistive pressure/depth sensor ($0.02\text{ mbar}$ resolution, sub-centimeter depth precision) and an internal **BNO085 9-DOF IMU** for vehicle attitude and roll/pitch monitoring.
+
+- **Custom Circular Carrier Board:** Designed to match the internal hull diameter, breaking out power regulation, an automotive blade fuse socket, JST-GH locking connectors, and dedicated SPI/I2C buses.
+- **Variable Buoyancy Engine (VBE):** A 90 mL medical-grade syringe driven by a high-torque DC motor through a stainless steel lead screw. Retraction draws ambient water inward (reducing vehicle displacement to sink); extension expels water outward (increasing displacement to ascend).
+- **Positional Feedback:** A 10 kΩ linear potentiometer mechanically coupled to the syringe piston is sampled via the RP2040's 12-bit ADC (ADC0, Pin 26), yielding 0–4095 discrete positional counts.
+- **Environmental Sensor Suite:** An external **TE MS5837-02BA** piezoresistive pressure/depth sensor ($0.02\text{ mbar}$ resolution, sub-centimeter depth precision) and an internal **BNO085 9-DOF IMU** for vehicle attitude and roll/pitch monitoring.
 
 ---
 
@@ -113,16 +114,20 @@ while (1) {
 ```
 
 ### 1. 50 Hz Inner Actuator Loop
+
 The lead-screw drive requires high-bandwidth control to prevent mechanical overshoot and jamming:
-* **Anti-Hunting Hysteresis:** An entry deadband of 20 ADC counts and exit deadband of 50 counts prevents continuous motor chatter when holding position.
-* **Hardware Stall Protection:** If the H-bridge is driven actively but the potentiometer ADC position shifts by $\Delta\text{ADC} < 15$ counts over a 1.0-second window, the driver immediately shuts off power to prevent H-bridge FET thermal overload.
-* **Soft Bounds Clamping:** Software-enforced travel bounds (`ActMin: 120`, `ActMax: 3900`) safeguard the physical syringe from bottoming out or unsealing the piston.
+
+- **Anti-Hunting Hysteresis:** An entry deadband of 20 ADC counts and exit deadband of 50 counts prevents continuous motor chatter when holding position.
+- **Hardware Stall Protection:** If the H-bridge is driven actively but the potentiometer ADC position shifts by $\Delta\text{ADC} < 15$ counts over a 1.0-second window, the driver immediately shuts off power to prevent H-bridge FET thermal overload.
+- **Soft Bounds Clamping:** Software-enforced travel bounds (`ActMin: 120`, `ActMax: 3900`) safeguard the physical syringe from bottoming out or unsealing the piston.
 
 ### 2. 10 Hz Outer Depth Loop & 3-Tier Sensor Recovery
+
 Buoyancy physics exhibit substantial hydrodynamic inertia. Sampling depth at 10 Hz cleanly filters high-frequency surface wave chop while providing responsive control. To safeguard against subsea I2C bus lockups, I implemented a progressive 3-tier recovery matrix:
-* **Tier 1 (5 failed reads):** Issue soft sensor reset command over I2C.
-* **Tier 2 (15 failed reads):** Cycle peripheral I2C clock line to clear wedged slave devices and re-initialize bus hardware registers.
-* **Tier 3 (50 failed reads):** Trigger critical mission abort—override motor PWM to drive the syringe to `ActMax` (full positive buoyancy) and blow to the surface.
+
+- **Tier 1 (5 failed reads):** Issue soft sensor reset command over I2C.
+- **Tier 2 (15 failed reads):** Cycle peripheral I2C clock line to clear wedged slave devices and re-initialize bus hardware registers.
+- **Tier 3 (50 failed reads):** Trigger critical mission abort—override motor PWM to drive the syringe to `ActMax` (full positive buoyancy) and blow to the surface.
 
 ---
 
@@ -154,12 +159,13 @@ In typical terrestrial robotics, PID controllers output motor velocity or accele
 ```
 
 ### Neutral ADC Feedforward Solution
+
 To achieve rock-solid depth holds, the control law calculates absolute syringe position relative to a calibrated **Neutral Buoyancy ADC Baseline** ($N_{adc} \approx 1850$ counts):
 
 $$\text{Target ADC} = N_{adc} + \text{clamp}\left(K_p e(t) + K_i \int e(t) dt + K_d \frac{de(t)}{dt},\, \text{ActMin} - N_{adc},\, \text{ActMax} - N_{adc}\right)$$
 
-* When depth error reaches zero, the syringe automatically returns to $N_{adc}$, holding neutral buoyancy equilibrium effortlessly.
-* **Adaptive Hover Learning:** During the dwell hold stage within the depth arrival tolerance ($\pm 0.33\text{ m}$), the float samples and averages actual holding positions:
+- When depth error reaches zero, the syringe automatically returns to $N_{adc}$, holding neutral buoyancy equilibrium effortlessly.
+- **Adaptive Hover Learning:** During the dwell hold stage within the depth arrival tolerance ($\pm 0.33\text{ m}$), the float samples and averages actual holding positions:
   $$\overline{ADC}_{hover} = \frac{1}{K}\sum_{i=1}^{K} ADC_i$$
   Upon surfacing, this learned baseline is automatically written to LittleFS flash, compensating for variations in water salinity, temperature gradients, and vehicle payload shifts without manual re-tuning.
 
@@ -169,17 +175,17 @@ $$\text{Target ADC} = N_{adc} + \text{clamp}\left(K_p e(t) + K_i \int e(t) dt + 
 
 The vehicle's autonomous lifecycle is managed by an explicit Finite State Machine (`lib/fsm/float_fsm.c`):
 
-| State | LED Feedback (PIO NeoPixel) | Operational Behavior & Transitions |
-| :--- | :--- | :--- |
-| **`FLOAT_IDLE`** | 🟢 Green | Resting on surface; listening for LoRa radio commands via Channel Activity Detection (CAD). |
-| **`FLOAT_PRE_DIVE`** | 🟡 Yellow | Command received; zeros depth pressure sensor offset and transmits pre-dive verification packet. |
-| **`STAGE_DEEP`** | 🔵 Blue | Retracts syringe to descend toward deep target (e.g. 2.50 m); activates neutral feedforward braking. |
-| **`STAGE_SHALLOW`** | 🔵 Blue | Expels water to ascend to shallow target; holds position for designated profile duration (75 s timeout). |
-| **`STAGE_EXITING`** | 🔵 Blue | Drives syringe to `ActMax` (full positive buoyancy); ascends to surface ($d < 0.15\text{ m}$). |
-| **`FLOAT_PROFILE_DONE`** | 💠 Cyan | Surfaced; broadcasts recovery beacon packet every 3 seconds awaiting ground station handshake. |
-| **`FLOAT_DUMPING_DATA`** | 🟣 Magenta | Offloads time-series depth, pressure, and actuator logs via Stop-and-Wait ARQ with 32-bit CRC. |
+| State                    | LED Feedback (PIO NeoPixel) | Operational Behavior & Transitions                                                                       |
+| :----------------------- | :-------------------------- | :------------------------------------------------------------------------------------------------------- |
+| **`FLOAT_IDLE`**         | 🟢 Green                    | Resting on surface; listening for LoRa radio commands via Channel Activity Detection (CAD).              |
+| **`FLOAT_PRE_DIVE`**     | 🟡 Yellow                   | Command received; zeros depth pressure sensor offset and transmits pre-dive verification packet.         |
+| **`STAGE_DEEP`**         | 🔵 Blue                     | Retracts syringe to descend toward deep target (e.g. 2.50 m); activates neutral feedforward braking.     |
+| **`STAGE_SHALLOW`**      | 🔵 Blue                     | Expels water to ascend to shallow target; holds position for designated profile duration (75 s timeout). |
+| **`STAGE_EXITING`**      | 🔵 Blue                     | Drives syringe to `ActMax` (full positive buoyancy); ascends to surface ($d < 0.15\text{ m}$).           |
+| **`FLOAT_PROFILE_DONE`** | 💠 Cyan                     | Surfaced; broadcasts recovery beacon packet every 3 seconds awaiting ground station handshake.           |
+| **`FLOAT_DUMPING_DATA`** | 🟣 Magenta                  | Offloads time-series depth, pressure, and actuator logs via Stop-and-Wait ARQ with 32-bit CRC.           |
 
-*Visual feedback is generated using the RP2040's hardware Programmable I/O (PIO0) to bit-bang WS2812 RGB LED timing with zero CPU overhead and zero interrupt latency.*
+_Visual feedback is generated using the RP2040's hardware Programmable I/O (PIO0) to bit-bang WS2812 RGB LED timing with zero CPU overhead and zero interrupt latency._
 
 ---
 
@@ -201,12 +207,14 @@ RP2040 2MB Internal Flash Memory Layout:
 ```
 
 ### Why Differential `bsdiff` Compression?
-* A complete compiled RP2040 application binary occupies **~180 KB – 220 KB**.
-* Over a 9600-baud LoRa link with checksum validation and packet acknowledgement, transferring 200 KB takes **5 to 8 minutes** and carries significant exposure to packet dropouts.
-* Routine code changes (such as modifying PID constants, stage dwell timers, or calibration routines) alter only **2 KB – 8 KB** of compiled machine code.
-* By implementing `bspatch` inside the RP2040 secondary bootloader, we transmit only the binary delta over LoRa. Firmware updates flash over-the-air in **under 20 seconds**.
+
+- A complete compiled RP2040 application binary occupies **~180 KB – 220 KB**.
+- Over a 9600-baud LoRa link with checksum validation and packet acknowledgement, transferring 200 KB takes **5 to 8 minutes** and carries significant exposure to packet dropouts.
+- Routine code changes (such as modifying PID constants, stage dwell timers, or calibration routines) alter only **2 KB – 8 KB** of compiled machine code.
+- By implementing `bspatch` inside the RP2040 secondary bootloader, we transmit only the binary delta over LoRa. Firmware updates flash over-the-air in **under 20 seconds**.
 
 ### Bootloader Handoff Protocol
+
 1. **Patch Transmission:** The surface station slices the patch into 64-byte CRC-checked chunks written into Flash Slot 1 (`0x00100000`).
 2. **Watchdog Scratch Handoff:** Once fully validated, the application writes `0xDEADBEEF` into the hardware watchdog register `watchdog_hw->scratch[0]` and triggers a reboot.
 3. **Bootloader Execution:** Upon reboot, the bootloader inspects the scratch register. If the magic word matches, it reads the active firmware in Slot 0, reconstructs the new binary using `bspatch`, flashes Slot 0, clears the scratch register, updates `SCB_VTOR` (Vector Table Offset Register), and branches to the new application.
@@ -226,22 +234,22 @@ RP2040 2MB Internal Flash Memory Layout:
 </figure>
 
 To monitor field trials and tune controller parameters, I created the **X18 Mission Control Dashboard** in Python and Streamlit (`front_end/main.py`):
-* **Thread-Safe Telemetry Driver:** A background serial worker thread parses incoming `[SYNC]`, `[TELEMETRY]`, and `[HIL_OUT]` packets into ring buffers protected by thread locks, completely decoupling high-speed serial I/O from browser rendering.
-* **Live Closed-Loop Visualizer:** Renders real-time Plotly charts tracking depth versus target setpoints alongside actuator physical travel.
-* **Hardware-in-the-Loop (HIL) Simulator:** When bench-testing without water, the firmware boots in `#ifdef HIL_MODE`. A high-fidelity hydrodynamics engine models pure water density using the **UNESCO EOS-80** equation of state, simulating hull bulk modulus compressibility ($\beta_p = 3.3 \times 10^{-6}\text{ dbar}^{-1}$), thermal expansion ($\alpha_v = 6.9 \times 10^{-5}\text{ K}^{-1}$), and quadratic drag ($C_d = 0.82$, $C_a = 0.33$). The physical actuator moves on the desk while receiving simulated depth feedback over serial.
+
+- **Thread-Safe Telemetry Driver:** A background serial worker thread parses incoming `[SYNC]`, `[TELEMETRY]`, and `[HIL_OUT]` packets into ring buffers protected by thread locks, completely decoupling high-speed serial I/O from browser rendering.
+- **Live Closed-Loop Visualizer:** Renders real-time Plotly charts tracking depth versus target setpoints alongside actuator physical travel.
+- **Hardware-in-the-Loop (HIL) Simulator:** When bench-testing without water, the firmware boots in `#ifdef HIL_MODE`. A high-fidelity hydrodynamics engine models pure water density using the **UNESCO EOS-80** equation of state, simulating hull bulk modulus compressibility ($\beta_p = 3.3 \times 10^{-6}\text{ dbar}^{-1}$), thermal expansion ($\alpha_v = 6.9 \times 10^{-5}\text{ K}^{-1}$), and quadratic drag ($C_d = 0.82$, $C_a = 0.33$). The physical actuator moves on the desk while receiving simulated depth feedback over serial.
 
 ---
 
 ## Key Technical Specifications
 
-| Subsystem | Specification / Configuration | Engineering Rationale |
-| :--- | :--- | :--- |
-| **Main Processing Unit** | RP2040 Dual ARM Cortex-M0+ @ 133 MHz | Low cost, dual cores, 264 KB SRAM, programmable PIO for timing-critical peripherals. |
-| **Buoyancy Engine** | 90 mL Syringe driven by Lead Screw & DC Motor | Active volume displacement with high volumetric efficiency; power-off mechanical self-locking. |
-| **Position Feedback** | 10 kΩ Linear Potentiometer (12-bit ADC0) | Sub-millimeter linear stroke tracking with hardware filtering and stall detection. |
-| **Depth Sensor** | MS5837-02BA Piezoresistive I2C (0.02 mbar) | Sub-centimeter hydrostatic depth measurement with OSR 8192 oversampling. |
-| **Wireless Link** | SX1276 LoRa (915 MHz, SF7, 125 kHz BW) | Long-range penetration for surface telemetry and recovery beaconing. |
-| **Local File Storage** | LittleFS on 2 MB SPI Flash | Power-loss resilient storage for PID configurations, offsets, and mission time-series logs. |
-| **In-Situ Bootloader** | Dual-Slot Secondary Bootloader with `bsdiff` | Enables sub-20-second Over-The-Air code patches without unsealing the pressure hull. |
-| **Surface Station** | Python / Streamlit + Decoupled RP2040 Gateway | Non-blocking telemetry plotting, real-time gain tuning, and physics-based HIL validation. |
-
+| Subsystem                | Specification / Configuration                 | Engineering Rationale                                                                          |
+| :----------------------- | :-------------------------------------------- | :--------------------------------------------------------------------------------------------- |
+| **Main Processing Unit** | RP2040 Dual ARM Cortex-M0+ @ 133 MHz          | Low cost, dual cores, 264 KB SRAM, programmable PIO for timing-critical peripherals.           |
+| **Buoyancy Engine**      | 90 mL Syringe driven by Lead Screw & DC Motor | Active volume displacement with high volumetric efficiency; power-off mechanical self-locking. |
+| **Position Feedback**    | 10 kΩ Linear Potentiometer (12-bit ADC0)      | Sub-millimeter linear stroke tracking with hardware filtering and stall detection.             |
+| **Depth Sensor**         | MS5837-02BA Piezoresistive I2C (0.02 mbar)    | Sub-centimeter hydrostatic depth measurement with OSR 8192 oversampling.                       |
+| **Wireless Link**        | SX1276 LoRa (915 MHz, SF7, 125 kHz BW)        | Long-range penetration for surface telemetry and recovery beaconing.                           |
+| **Local File Storage**   | LittleFS on 2 MB SPI Flash                    | Power-loss resilient storage for PID configurations, offsets, and mission time-series logs.    |
+| **In-Situ Bootloader**   | Dual-Slot Secondary Bootloader with `bsdiff`  | Enables sub-20-second Over-The-Air code patches without unsealing the pressure hull.           |
+| **Surface Station**      | Python / Streamlit + Decoupled RP2040 Gateway | Non-blocking telemetry plotting, real-time gain tuning, and physics-based HIL validation.      |

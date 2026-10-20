@@ -5,7 +5,8 @@
 
 import { isWithin } from './focus.js';
 
-const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE =
+  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export function bindKeyboard(doc, state, els, api) {
   doc.addEventListener('keydown', (event) => handleKeyDown(doc, state, els, api, event));
@@ -49,7 +50,8 @@ function handleClosedKey(event, api) {
   if (!trigger || event.target.closest('a:not([data-project-trigger])')) return;
 
   event.preventDefault();
-  const projectId = trigger.getAttribute('data-project-trigger') || trigger.getAttribute('data-project-id');
+  const projectId =
+    trigger.getAttribute('data-project-trigger') || trigger.getAttribute('data-project-id');
   if (!projectId) return;
 
   const focusTarget = trigger.matches('button, a, [tabindex]')
@@ -100,6 +102,7 @@ function handleArrowKey(state, api, event) {
     return;
   }
 
-  const nextImageIndex = (state.currentImageIndex + delta + project.images.length) % project.images.length;
+  const nextImageIndex =
+    (state.currentImageIndex + delta + project.images.length) % project.images.length;
   api.setProjectImage(nextImageIndex);
 }

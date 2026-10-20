@@ -9,6 +9,7 @@
 ## 1. Overview & Purpose
 
 Transition the project presentation on the portfolio from full-length, report-heavy pages into a concise, image-driven, interactive showcase. Visitors can preview photos, schematics, CAD renders, and punchy engineering highlights directly without navigating to separate long report pages, drawing inspiration from:
+
 - **`snadol.com`**: In-page modal viewer with multi-image gallery/thumbnails, high-res lightbox, bulleted technical highlights (`▹`), and categorized skills badge clusters (Languages, Technologies, Protocols).
 - **`thavlik.dev`**: Sleek terminal-style card headers (`termbar`), clean media frames, and structured technical summaries with clear direct action links.
 
@@ -19,33 +20,36 @@ The detailed markdown files (`asic-design.md`, `rov-buoyancy-float.md`, etc.) ar
 ## 2. Architecture & Data Model
 
 ### 2.1 Centralized Project Data (`_data/projects/<id>.yml`)
+
 To keep the site maintainable and decouple project metadata from page layout templates, each project is defined in its own file under `_data/projects/`. Jekyll exposes the directory as `site.data.projects`; templates aggregate and sort the records by `order`.
 
 Schema per project entry:
+
 ```yaml
-- id: "string (e.g. ml-dueling)"
-  title: "string"
-  subtitle: "string (e.g. Asymmetric Dual-Core RP2350 Gesture Recognition)"
-  category: "string (e.g. Embedded Hardware & ML)"
-  badge_type: "string (e.g. embedded / hardware / open-source)"
-  role: "string"
-  year: "string"
-  github: "string (URL)"
-  live: "string (URL or empty)"
-  summary: "string (1-2 sentence engineering overview)"
+- id: 'string (e.g. ml-dueling)'
+  title: 'string'
+  subtitle: 'string (e.g. Asymmetric Dual-Core RP2350 Gesture Recognition)'
+  category: 'string (e.g. Embedded Hardware & ML)'
+  badge_type: 'string (e.g. embedded / hardware / open-source)'
+  role: 'string'
+  year: 'string'
+  github: 'string (URL)'
+  live: 'string (URL or empty)'
+  summary: 'string (1-2 sentence engineering overview)'
   highlights:
-    - "string (concise bullet point)"
+    - 'string (concise bullet point)'
   skills:
-    languages: ["string"]
-    technologies: ["string"]
-    protocols: ["string"]
+    languages: ['string']
+    technologies: ['string']
+    protocols: ['string']
   images:
-    - src: "string (path to image)"
-      label: "string (caption/description)"
+    - src: 'string (path to image)'
+      label: 'string (caption/description)'
       featured: boolean
 ```
 
 ### 2.2 Projects Included
+
 1. **ASIC & Digital Design Portfolio** (`asic-design`):
    - Images: `asic_preview.jpg`, `ahb_rtl.png`, `ahb_fsm.png`
    - Highlights: APB UART peripheral, AHB-Lite SRAM controller, 400MHz SkyWater 130nm timing closure.
@@ -76,6 +80,7 @@ Schema per project entry:
 ## 3. UI Component Specifications
 
 ### 3.1 Homepage Project Card (`thavlik.dev` + Modern Portfolio)
+
 - **Terminal Header (`termbar`)**:
   - Displays project title in monospace/bold style.
   - Category pill on the right (e.g., `Embedded Hardware`, `Digital Design`).
@@ -89,6 +94,7 @@ Schema per project entry:
 - Entire card is clickable to open modal for high-usability experience.
 
 ### 3.2 Modal Dialog Viewer (`snadol.com` Inspired)
+
 - **Overlay & Container**:
   - Fixed backdrop with blur (`backdrop-filter: blur(8px)`) and smooth fade-in.
   - Centered dialog container with max-width `900px`, max-height `90vh`, scrollable content body, and sticky header/footer.
@@ -121,11 +127,13 @@ Schema per project entry:
 ## 4. Assets & Styling Implementation
 
 ### 4.1 New Image Assets
+
 - Copy user-provided wand photos:
   - `C:\Users\aman\Downloads\PXL_20251213_200656652.jpg` → `assets/images/wand_pcb_1.jpg`
   - `C:\Users\aman\Downloads\PXL_20251213_200640646.jpg` → `assets/images/wand_pcb_2.jpg`
 
 ### 4.2 Styling Updates in `assets/css/style.scss`
+
 - Variables: Utilize existing theme variables (`--bg-color`, `--card-bg`, `--text-primary`, `--accent-color`, etc.) to guarantee seamless Light/Dark mode transitions.
 - Classes:
   - `.termbar`, `.termbar-title`, `.termbar-badge`
@@ -136,6 +144,7 @@ Schema per project entry:
   - `.modal-lightbox`
 
 ### 4.3 Script Integration in `_layouts/default.html`
+
 - Vanilla JavaScript (zero dependencies).
 - Projects data aggregated from `site.data.projects`, sorted by `order`, and passed via `jsonify` into a client-side lookup.
 - Functions:
