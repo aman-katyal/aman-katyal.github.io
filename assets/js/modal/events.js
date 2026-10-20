@@ -12,6 +12,11 @@ export function bindControls(els, api) {
   }
 
   if (els.galleryViewportEl) {
+    els.galleryViewportEl.addEventListener('mousedown', (event) => {
+      if (event.target && event.target.closest && event.target.closest('video')) return;
+      // Keep mousedown from blurring the modal before the lightbox opens.
+      if (typeof event.preventDefault === 'function') event.preventDefault();
+    });
     els.galleryViewportEl.addEventListener('click', (event) => {
       if (event.target && event.target.closest && event.target.closest('video')) return;
       // Keep the click from moving focus to <body> after the lightbox opens.
