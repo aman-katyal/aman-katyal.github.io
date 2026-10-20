@@ -15,6 +15,10 @@ describe('Print portfolio builder', () => {
     assert.ok(content.includes('site.pages | where: "printable", true'), 'Missing printable page query');
     assert.ok(content.includes('pdf-builder-panel'), 'Missing control panel');
     assert.ok(content.includes('window.print()'), 'Missing print trigger');
+    assert.ok(content.includes('site.data.projects[proj_slug]'), 'Builder does not resolve project metadata');
+    assert.ok(content.includes('proj_data.title'), 'Builder does not use the data title');
+    assert.ok(content.includes('proj_data.role'), 'Builder does not use the data role');
+    assert.ok(content.includes('proj_data.skills.technologies'), 'Builder does not use data technologies');
   });
 
   it('should keep Clear All and empty restore behavior fixed', () => {
@@ -74,9 +78,10 @@ describe('Print portfolio builder', () => {
       assert.ok(content.includes(`permalink: ${permalink}`), `${file} missing permalink: ${permalink}`);
       assert.ok(content.includes('printable: true'), `${file} missing printable: true`);
       assert.ok(content.includes(`order: ${order}`), `${file} missing order: ${order}`);
-      assert.ok(content.includes('role:'), `${file} missing role`);
-      assert.ok(content.includes('technologies:'), `${file} missing technologies`);
-      assert.ok(content.includes('image:'), `${file} missing image`);
+      assert.ok(!content.includes('title:'), `${file} still duplicates the data title`);
+      assert.ok(!content.includes('role:'), `${file} still duplicates the data role`);
+      assert.ok(!content.includes('technologies:'), `${file} still duplicates data technologies`);
+      assert.ok(!content.includes('image:'), `${file} still duplicates the featured image`);
       assert.ok(content.length > 2500, `${file} content body appears truncated (${content.length} chars)`);
     });
   });

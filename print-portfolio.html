@@ -37,7 +37,9 @@ math: true
   <div class="pdf-project-checklist">
     {% for project in print_pages %}
       {% assign proj_slug = project.permalink | remove: "/projects/" | remove: "/" %}
-      <label class="pdf-checkbox-card selected" for="check-{{ proj_slug }}" data-project-slug="{{ proj_slug }}" data-project-role="{{ project.role }}">
+      {% assign proj_data = site.data.projects[proj_slug] %}
+      {% assign proj_technologies = proj_data.skills.technologies | concat: proj_data.skills.protocols %}
+      <label class="pdf-checkbox-card selected" for="check-{{ proj_slug }}" data-project-slug="{{ proj_slug }}" data-project-role="{{ proj_data.role }}">
         <div class="checkbox-input-wrapper">
           <input type="checkbox" id="check-{{ proj_slug }}" class="project-toggle-checkbox" data-target="proj-sec-{{ proj_slug }}" checked>
           <span class="custom-checkmark"><i class="fa-solid fa-check"></i></span>
@@ -45,16 +47,16 @@ math: true
         <div class="checkbox-card-content">
           <div class="checkbox-card-header">
             <span class="project-order-tag">#{{ project.order }}</span>
-            <span class="project-role-tag">{{ project.role }}</span>
+            <span class="project-role-tag">{{ proj_data.role }}</span>
           </div>
-          <h3 class="checkbox-card-title">{{ project.title }}</h3>
-          <p class="checkbox-card-desc">{{ project.description }}</p>
+          <h3 class="checkbox-card-title">{{ proj_data.title }}</h3>
+          <p class="checkbox-card-desc">{{ project.description | default: proj_data.summary }}</p>
           <div class="checkbox-card-tech">
-            {% for tech in project.technologies limit:4 %}
+            {% for tech in proj_technologies limit:4 %}
               <span class="tech-badge-sm">{{ tech }}</span>
             {% endfor %}
-            {% if project.technologies.size > 4 %}
-              <span class="tech-badge-sm">+{{ project.technologies.size | minus: 4 }} more</span>
+            {% if proj_technologies.size > 4 %}
+              <span class="tech-badge-sm">+{{ proj_technologies.size | minus: 4 }} more</span>
             {% endif %}
           </div>
         </div>
@@ -115,19 +117,21 @@ math: true
 <div class="print-projects-container">
   {% for project in print_pages %}
     {% assign proj_slug = project.permalink | remove: "/projects/" | remove: "/" %}
+    {% assign proj_data = site.data.projects[proj_slug] %}
+    {% assign proj_technologies = proj_data.skills.technologies | concat: proj_data.skills.protocols %}
     <section class="print-project-section" id="proj-sec-{{ proj_slug }}" data-project-slug="{{ proj_slug }}">
       <div class="print-project-meta-header">
         <div class="print-title-group">
-          <h2 class="print-project-title">{{ project.title }}</h2>
+          <h2 class="print-project-title">{{ proj_data.title }}</h2>
           <div class="print-project-badges">
-            <span class="print-badge-role"><strong>Role:</strong> {{ project.role }}</span>
-            {% if project.github %}
-              <span class="print-badge-link"><strong>Repo:</strong> {{ project.github }}</span>
+            <span class="print-badge-role"><strong>Role:</strong> {{ proj_data.role }}</span>
+            {% if proj_data.github %}
+              <span class="print-badge-link"><strong>Repo:</strong> {{ proj_data.github }}</span>
             {% endif %}
           </div>
         </div>
         <div class="print-tech-stack">
-          <strong>Technologies:</strong> {{ project.technologies | join: ", " }}
+          <strong>Technologies:</strong> {{ proj_technologies | join: ", " }}
         </div>
       </div>
       

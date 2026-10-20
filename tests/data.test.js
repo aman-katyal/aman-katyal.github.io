@@ -133,7 +133,7 @@ describe('Project data model', () => {
     assert.strictEqual(buoyancy.year, '2026', 'Buoyancy year must match the 2026 resume timeline');
     assert.strictEqual(wand.year, '2025', 'Wand year must match the 2025 resume timeline');
     assert.strictEqual(wand.title, 'ML Gesture Dueling System', 'Data and page must share one ML project name');
-    assert.ok(mlPage.includes('title: "ML Gesture Dueling System"'), 'Case study title must match the project data');
+    assert.ok(!mlPage.includes('title:'), 'Case study still duplicates the data title in front matter');
     assert.ok(!wand.skills.technologies.includes('FreeRTOS'), 'ML metadata still claims unused FreeRTOS');
     assert.ok(!mlPage.includes('FreeRTOS'), 'ML case study still claims unused FreeRTOS');
     projects.forEach((project) => {

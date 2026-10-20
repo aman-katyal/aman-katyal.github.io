@@ -23,7 +23,7 @@ describe('Site navigation and metadata', () => {
     assert.ok(layout.includes('rel="canonical"'), 'Layout is missing a canonical URL');
     assert.ok(layout.includes('property="og:site_name"'), 'Layout is missing og:site_name');
     assert.ok(layout.includes('name="theme-color"'), 'Layout is missing theme-color');
-    assert.ok(layout.includes('{% if page.role %}article{% else %}website{% endif %}'), 'OG type is not page-aware');
+    assert.ok(layout.includes('{% if project_meta %}article{% else %}website{% endif %}'), 'OG type is not page-aware');
     assert.ok(config.includes('og_image: /assets/images/og-portfolio.jpg'), 'Default OG image is not configured');
     assert.ok(!config.includes('UVM Verification'), 'Stale UVM positioning remains in the description');
   });
@@ -39,6 +39,22 @@ describe('Site navigation and metadata', () => {
     const layout = readRepoFile('_layouts/default.html');
     assert.ok(home.includes("'/print-portfolio/'"), 'Home hero does not link the PDF builder');
     assert.ok(layout.includes("'/print-portfolio/'"), 'Site footer does not link the PDF builder');
+  });
+
+  it('should resolve project page metadata from the project data', () => {
+    const layout = readRepoFile('_layouts/default.html');
+    assert.ok(layout.includes('site.data.projects[project_slug]'), 'Layout does not look up project metadata');
+    assert.ok(layout.includes('project_meta.title'), 'Layout does not use the data title');
+    assert.ok(layout.includes('project_meta.role'), 'Layout does not use the data role');
+    assert.ok(layout.includes('project_meta.skills.technologies'), 'Layout does not use data technologies');
+    assert.ok(layout.includes('project_image.src'), 'Layout does not use the featured data image');
+
+    ['rov-hil-testbench.md', 'rov-buoyancy-float.md', 'ml-dueling.md'].forEach((file) => {
+      const content = readRepoFile(file);
+      ['title:', 'role:', 'technologies:', 'image:'].forEach((field) => {
+        assert.ok(!content.includes(`\n${field}`), `${file} still duplicates ${field} in front matter`);
+      });
+    });
   });
 
   it('should cache-bust the hosted resume', () => {

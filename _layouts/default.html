@@ -1,27 +1,37 @@
+{% assign project_slug = nil %}
+{% assign project_meta = nil %}
+{% assign project_image = nil %}
+{% if page.permalink and page.permalink contains '/projects/' %}
+  {% assign project_slug = page.permalink | remove: '/projects/' | remove: '/' %}
+  {% assign project_meta = site.data.projects[project_slug] %}
+  {% if project_meta %}
+    {% assign project_image = project_meta.images | where: "featured", true | first | default: project_meta.images.first %}
+  {% endif %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title | default: site.title }}</title>
-  <meta name="description" content="{{ page.description | default: site.description }}">
+  <title>{{ page.title | default: project_meta.title | default: site.title }}</title>
+  <meta name="description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
   {% if page.url != '/404.html' %}
   <link rel="canonical" href="{{ page.url | absolute_url }}">
   {% endif %}
   <meta name="theme-color" content="#ffffff" id="theme-color-meta">
 
   <!-- SEO & Social Sharing Meta Tags -->
-  <meta property="og:title" content="{{ page.title | default: site.title }}">
-  <meta property="og:description" content="{{ page.description | default: site.description }}">
-  <meta property="og:type" content="{% if page.role %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ page.title | default: project_meta.title | default: site.title }}">
+  <meta property="og:description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
+  <meta property="og:type" content="{% if project_meta %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
   <meta property="og:site_name" content="{{ site.title }}">
-  <meta property="og:image" content="{{ page.image | default: site.og_image | absolute_url }}">
+  <meta property="og:image" content="{{ page.image | default: project_image.src | default: site.og_image | absolute_url }}">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ page.title | default: site.title }}">
-  <meta name="twitter:description" content="{{ page.description | default: site.description }}">
-  <meta name="twitter:image" content="{{ page.image | default: site.og_image | absolute_url }}">
+  <meta name="twitter:title" content="{{ page.title | default: project_meta.title | default: site.title }}">
+  <meta name="twitter:description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
+  <meta name="twitter:image" content="{{ page.image | default: project_image.src | default: site.og_image | absolute_url }}">
   
   <!-- Fonts (proofer-ignore: font CDNs bot-block link checks) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" data-proofer-ignore>
@@ -87,7 +97,7 @@
   <!-- Page Layout Wrapper -->
   <div class="content-wrapper {% if page.url == '/' %}home-layout{% endif %}">
     
-    {% if page.role %}
+    {% if project_meta %}
       <!-- Project Detail Layout with Sidebar -->
       <main class="project-layout" id="main-content" tabindex="-1">
         
@@ -95,11 +105,11 @@
         <div class="breadcrumbs no-print">
           <a href="{{ '/' | relative_url }}">Home</a>
           <span class="separator">/</span>
-          <span class="current">{{ page.title }}</span>
+          <span class="current">{{ page.title | default: project_meta.title }}</span>
         </div>
 
         <div class="project-header">
-          <h1 class="project-title">{{ page.title }}</h1>
+          <h1 class="project-title">{{ page.title | default: project_meta.title }}</h1>
         </div>
 
         <div class="project-grid">
@@ -108,23 +118,19 @@
             <div class="sidebar-card">
               <h2 class="sidebar-card-title"><i class="fa-solid fa-circle-info"></i> Quick Look</h2>
               <ul class="metadata-list">
-                {% if page.role %}
                 <li>
                   <span class="meta-label">Role</span>
-                  <span class="meta-value">{{ page.role }}</span>
+                  <span class="meta-value">{{ project_meta.role }}</span>
                 </li>
-                {% endif %}
-                {% if page.timeline %}
                 <li>
                   <span class="meta-label">Timeline</span>
-                  <span class="meta-value">{{ page.timeline }}</span>
+                  <span class="meta-value">{{ project_meta.year }}</span>
                 </li>
-                {% endif %}
-                {% if page.github %}
+                {% if project_meta.github %}
                 <li>
                   <span class="meta-label">Code Base</span>
                   <span class="meta-value">
-                    <a href="{{ page.github }}" target="_blank" rel="noopener noreferrer" class="meta-link">
+                    <a href="{{ project_meta.github }}" target="_blank" rel="noopener noreferrer" class="meta-link">
                       <i class="fa-brands fa-github"></i> Repository
                     </a>
                   </span>
@@ -132,11 +138,12 @@
                 {% endif %}
               </ul>
               
-              {% if page.technologies %}
+              {% assign project_tech = project_meta.skills.technologies | concat: project_meta.skills.protocols %}
+              {% if project_tech.size > 0 %}
               <div class="sidebar-tech">
                 <h3 class="sidebar-tech-title">Technologies</h3>
                 <div class="tech-badges">
-                  {% for tech in page.technologies %}
+                  {% for tech in project_tech %}
                     <span class="tech-badge">{{ tech }}</span>
                   {% endfor %}
                 </div>
@@ -177,11 +184,22 @@
           {% endif %}
         {% endfor %}
 
+        {% assign prev_meta = nil %}
+        {% assign next_meta = nil %}
+        {% if prev_project %}
+          {% assign prev_slug = prev_project.permalink | remove: '/projects/' | remove: '/' %}
+          {% assign prev_meta = site.data.projects[prev_slug] %}
+        {% endif %}
+        {% if next_project %}
+          {% assign next_slug = next_project.permalink | remove: '/projects/' | remove: '/' %}
+          {% assign next_meta = site.data.projects[next_slug] %}
+        {% endif %}
+
         <div class="project-pagination no-print">
           {% if prev_project %}
             <a href="{{ prev_project.url | relative_url }}" class="pagination-card prev">
               <span class="pagination-dir"><i class="fa-solid fa-arrow-left"></i> Previous Project</span>
-              <span class="pagination-title">{{ prev_project.title }}</span>
+              <span class="pagination-title">{{ prev_meta.title | default: prev_project.title }}</span>
             </a>
           {% else %}
             <div class="pagination-spacer"></div>
@@ -190,7 +208,7 @@
           {% if next_project %}
             <a href="{{ next_project.url | relative_url }}" class="pagination-card next">
               <span class="pagination-dir">Next Project <i class="fa-solid fa-arrow-right"></i></span>
-              <span class="pagination-title">{{ next_project.title }}</span>
+              <span class="pagination-title">{{ next_meta.title | default: next_project.title }}</span>
             </a>
           {% endif %}
         </div>

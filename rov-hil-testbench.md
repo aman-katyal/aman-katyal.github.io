@@ -1,14 +1,9 @@
 ---
 layout: default
-title: "ROV HIL Testbench & Control Board"
 permalink: /projects/rov-hil-testbench/
-role: "Embedded Firmware & Electrical"
 description: "Hardware-in-the-Loop (HIL) carrier board and testbench for MATE ROV, enabling firmware development and real-time comparison of STM32/RP2350."
-technologies: ["STM32F091", "RP2350B", "Raspberry Pi 5", "SPI/I2C/UART", "KiCad"]
-image: "/assets/images/rov_hil_render_iso.png"
 printable: true
 order: 1
-timeline: "2024 – 2025"
 ---
 
 **Context:** Purdue IEEE ROV Team | **MATE ROV Competition**
