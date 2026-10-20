@@ -60,10 +60,15 @@ title: Aman Katyal | Portfolio
 </div>
 
 <!-- Skills Section (aggregated across all projects) -->
+{% assign projects = "" | split: "" %}
+{% for project_pair in site.data.projects %}
+  {% assign projects = projects | push: project_pair[1] %}
+{% endfor %}
+{% assign projects = projects | sort: "order" %}
 {% assign lang_list = "" | split: "" %}
 {% assign tech_list = "" | split: "" %}
 {% assign proto_list = "" | split: "" %}
-{% for p in site.data.projects %}
+{% for p in projects %}
   {% for l in p.skills.languages %}{% assign lang_list = lang_list | push: l %}{% endfor %}
   {% for t in p.skills.technologies %}{% assign tech_list = tech_list | push: t %}{% endfor %}
   {% for r in p.skills.protocols %}{% assign proto_list = proto_list | push: r %}{% endfor %}
@@ -137,7 +142,7 @@ title: Aman Katyal | Portfolio
   <h2 class="section-title">Featured Projects</h2>
   
   <div class="projects-grid">
-    {% for project in site.data.projects %}
+    {% for project in projects %}
       {% assign featured_image = project.images | where: "featured", true | first | default: project.images.first %}
       <article class="project-card" data-project-trigger="{{ project.id }}">
         <!-- Terminal Header Bar: badge only (full title lives in the card heading) -->

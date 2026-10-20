@@ -1,0 +1,43 @@
+# Project data: ml-dueling
+# Self-contained record consumed by Jekyll, the modal, and tests.
+
+id: "ml-dueling"
+order: 4
+title: "ML Gesture Dueling System"
+subtitle: "Dual-Core RP2350 Gesture Recognition with On-Device TFLite Micro Inference"
+category: "Embedded ML & Hardware"
+badge_type: "embedded / ml"
+role: "Lead Embedded Engineer"
+year: "2025"
+github: "https://github.com/aman-katyal/harry-potter-wand-duel"
+live: "/projects/ml-dueling/"
+
+summary: "Real-time competitive gesture dueling system combining custom handheld wand and chest-mounted hardware. Utilizes asymmetric dual-core RP2350 architecture to run TensorFlow Lite Micro inference at 96% accuracy while maintaining a jitter-free 74Hz sensor and IR combat loop."
+highlights:
+  - "Architected asymmetric dual-core multiprocessing on RP2350: Core 0 manages 74Hz IMU polling, circular ring buffers, and IR; Core 1 runs dedicated TFLite Micro inference in <5ms."
+  - "Achieved 96% gesture classification accuracy across spell gestures using 6-axis BNO08x IMU motion features and Gaussian Mixture Model (GMM) anomaly rejection."
+  - "Engineered a 'Spell Bucket' leaky-integrator trigger algorithm to eliminate false activations and smooth inference jitter."
+  - "Designed custom multi-layer PCBs in KiCad for wand and chest units, integrating DRV2605 haptics, 38kHz NEC IR transceiver, and 256-LED WS2812 display matrix via PIO/DMA."
+  - "Engineered wand PCB hardware with low-power sensor integration, tactile feedback, and robust battery power management."
+skills:
+  languages:
+    - "C/C++"
+    - "Python"
+  technologies:
+    - "RP2350"
+    - "TensorFlow Lite Micro"
+    - "Edge Impulse"
+    - "KiCad"
+    - "3D Printing"
+  protocols:
+    - "I2C"
+    - "NEC IR (38 kHz)"
+    - "PIO / DMA"
+    - "SPI"
+images:
+  - src: "/assets/images/wand_pcb_1.jpg"
+    label: "Custom Handheld Wand PCB Assembly (Component View)"
+    featured: true
+  - src: "/assets/images/wand_pcb_2.jpg"
+    label: "Custom Handheld Wand PCB Assembly (Trace & Connector View)"
+    featured: false

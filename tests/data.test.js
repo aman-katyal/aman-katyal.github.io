@@ -5,7 +5,7 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs');
-const { loadProjects, readRepoFile, repoPath } = require('./helpers/project-data');
+const { loadProjectFiles, loadProjects, readRepoFile, repoPath } = require('./helpers/project-data');
 
 const projects = loadProjects();
 
@@ -16,6 +16,54 @@ describe('Project data model', () => {
       projects.map((project) => project.id),
       ['rov-hil-testbench', 'rov-buoyancy-float', 'posture-pet', 'ml-dueling']
     );
+  });
+
+  it('should load per-project files in explicit display order', () => {
+    assert.deepStrictEqual(projects.map((project) => project.order), [1, 2, 3, 4]);
+    assert.ok(!fs.existsSync(repoPath('_data', 'projects.yml')), 'Legacy single project data file still exists');
+    assert.ok(readRepoFile('index.md').includes('site.data.projects'), 'Homepage no longer reads the project directory');
+    assert.ok(readRepoFile('index.md').includes('sort: "order"'), 'Homepage does not sort project data');
+    assert.ok(readRepoFile('_includes/project_modal.html').includes('site.data.projects'), 'Modal no longer reads the project directory');
+    assert.ok(readRepoFile('_includes/project_modal.html').includes('sort: "order"'), 'Modal payload does not sort project data');
+  });
+
+  it('should keep each per-project file self-contained and schema-valid', () => {
+    const allowedKeys = new Set([
+      'id', 'order', 'title', 'subtitle', 'category', 'badge_type', 'role',
+      'year', 'github', 'live', 'live_label', 'live_external', 'summary',
+      'highlights', 'skills', 'images'
+    ]);
+    const allowedSkillKeys = new Set(['languages', 'technologies', 'protocols']);
+    const allowedImageKeys = new Set(['src', 'label', 'featured', 'position', 'type']);
+    const orderSeen = new Set();
+
+    loadProjectFiles().forEach(({ file, project }) => {
+      assert.strictEqual(file, `${project.id}.yml`, `Filename ${file} must match id ${project.id}`);
+      assert.ok(Number.isInteger(project.order) && project.order > 0, `${project.id} missing numeric order`);
+      assert.ok(!orderSeen.has(project.order), `Duplicate project order: ${project.order}`);
+      orderSeen.add(project.order);
+
+      Object.keys(project).forEach((key) => {
+        assert.ok(allowedKeys.has(key), `${project.id} has undocumented field: ${key}`);
+      });
+      Object.keys(project.skills).forEach((key) => {
+        assert.ok(allowedSkillKeys.has(key), `${project.id} has undocumented skills field: ${key}`);
+      });
+      project.images.forEach((image) => {
+        Object.keys(image).forEach((key) => {
+          assert.ok(allowedImageKeys.has(key), `${project.id} has undocumented image field: ${key}`);
+        });
+      });
+
+      assert.match(project.year, /^\d{4}(–\d{4})?$/, `${project.id} year must be YYYY or YYYY–YYYY`);
+      assert.match(project.github, /^https:\/\/github\.com\//, `${project.id} github link is invalid`);
+      if (project.live_external) {
+        assert.match(project.live, /^https:\/\//, `${project.id} external live link must be absolute HTTPS`);
+        assert.ok(project.live_label, `${project.id} external link needs a label`);
+      } else {
+        assert.match(project.live, /^\//, `${project.id} internal live link must start with /`);
+      }
+    });
   });
 
   it('should satisfy the strict schema for every project', () => {

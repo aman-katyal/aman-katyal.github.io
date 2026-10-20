@@ -113,6 +113,11 @@
 </div>
 
 <!-- Embedded JSON Project Data Payload -->
+{% assign project_data = "" | split: "" %}
+{% for project_pair in site.data.projects %}
+  {% assign project_data = project_data | push: project_pair[1] %}
+{% endfor %}
+{% assign project_data = project_data | sort: "order" %}
 <script id="portfolio-projects-data" type="application/json">
-  {{ site.data.projects | jsonify }}
+  {{ project_data | jsonify }}
 </script>

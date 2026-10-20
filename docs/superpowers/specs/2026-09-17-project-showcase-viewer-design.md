@@ -18,8 +18,8 @@ The detailed markdown files (`asic-design.md`, `rov-buoyancy-float.md`, etc.) ar
 
 ## 2. Architecture & Data Model
 
-### 2.1 Centralized Project Data (`_data/projects.yml`)
-To keep the site maintainable and decouple project metadata from page layout templates, all projects are defined in `_data/projects.yml`.
+### 2.1 Centralized Project Data (`_data/projects/<id>.yml`)
+To keep the site maintainable and decouple project metadata from page layout templates, each project is defined in its own file under `_data/projects/`. Jekyll exposes the directory as `site.data.projects`; templates aggregate and sort the records by `order`.
 
 Schema per project entry:
 ```yaml
@@ -137,7 +137,7 @@ Schema per project entry:
 
 ### 4.3 Script Integration in `_layouts/default.html`
 - Vanilla JavaScript (zero dependencies).
-- Projects data passed via `site.data.projects | jsonify` into a client-side lookup.
+- Projects data aggregated from `site.data.projects`, sorted by `order`, and passed via `jsonify` into a client-side lookup.
 - Functions:
   - `openProjectModal(projectId)`
   - `closeProjectModal()`
@@ -150,7 +150,7 @@ Schema per project entry:
 ## 5. Verification Plan
 
 1. **Jekyll Build & Static Verification**:
-   - Verify YAML syntax in `_data/projects.yml`.
+   - Verify YAML syntax in `_data/projects/<id>.yml` against `docs/project-data-schema.md`.
    - Verify image paths and asset existence.
    - Run Jekyll build/bundle command if available, or test static HTML output.
 2. **Interactive UI Verification**:
