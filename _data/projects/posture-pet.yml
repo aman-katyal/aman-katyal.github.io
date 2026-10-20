@@ -12,8 +12,8 @@ year: "2026"
 github: "https://github.com/aman-katyal/posture-pet"
 live: "https://devpost.com/software/posture-pet-brh6vx"
 # External Devpost entry: intentionally has no printable case study.
-live_label: "Devpost"
-live_external: true
+link_label: "Devpost"
+link_type: "external"
 summary: "A wearable AI companion built at the StarkHacks Hardware Hackathon (Purdue University) that won Honorable Mention for Best Use of AMD Tech. Utilizes a hybrid system of wearable 3-IMU sensors and computer vision to track posture in real time at up to 98.18% detection accuracy, mirroring the user's spinal state on an articulating 3D-printed robotic pet."
 highlights:
   - "Awarded Honorable Mention for Best Use of AMD Tech at the StarkHacks Hardware Hackathon (Purdue University)."

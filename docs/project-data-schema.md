@@ -28,8 +28,8 @@ before rendering.
 
 | Field | Type | Notes |
 | --- | --- | --- |
-| `live_label` | string | Link label for an external destination, e.g. `Devpost`. |
-| `live_external` | boolean | Opens the live link in a new tab and requires `live_label`. |
+| `link_label` | string | Link label for an external destination, e.g. `Devpost`. |
+| `link_type` | string | `internal` (default) or `external`; external links open in a new tab and require `link_label`. |
 
 Image objects accept `src`, `label`, `featured`, `position`, and `type`
 (`video`). Every `src` must point at a real file under `assets/images/`.

@@ -632,11 +632,11 @@
 
     if (liveLinkEl) {
       if (project.live) {
-        const liveLabel = project.live_label || 'View';
+        const liveLabel = project.link_label || 'View';
         liveLinkEl.href = project.live;
         liveLinkEl.setAttribute(
           'aria-label',
-          project.live_label
+          project.link_label
             ? 'View ' + project.title + ' on ' + liveLabel
             : 'View ' + project.title
         );

@@ -30,7 +30,7 @@ describe('Project data model', () => {
   it('should keep each per-project file self-contained and schema-valid', () => {
     const allowedKeys = new Set([
       'id', 'order', 'title', 'subtitle', 'category', 'badge_type', 'role',
-      'year', 'github', 'live', 'live_label', 'live_external', 'summary',
+      'year', 'github', 'live', 'link_label', 'link_type', 'summary',
       'highlights', 'skills', 'images'
     ]);
     const allowedSkillKeys = new Set(['languages', 'technologies', 'protocols']);
@@ -57,11 +57,14 @@ describe('Project data model', () => {
 
       assert.match(project.year, /^\d{4}(–\d{4})?$/, `${project.id} year must be YYYY or YYYY–YYYY`);
       assert.match(project.github, /^https:\/\/github\.com\//, `${project.id} github link is invalid`);
-      if (project.live_external) {
+      assert.ok([undefined, 'internal', 'external'].includes(project.link_type), `${project.id} has an invalid link_type`);
+      if (project.link_type === 'external') {
         assert.match(project.live, /^https:\/\//, `${project.id} external live link must be absolute HTTPS`);
-        assert.ok(project.live_label, `${project.id} external link needs a label`);
+        assert.ok(project.link_label, `${project.id} external link needs a label`);
       } else {
-        assert.match(project.live, /^\//, `${project.id} internal live link must start with /`);
+        assert.match(project.live, /^\/projects\//, `${project.id} internal live link must point at a project page`);
+        const slug = project.live.replace(/^\/projects\//, '').replace(/\/$/, '');
+        assert.ok(fs.existsSync(repoPath(`${slug}.md`)), `${project.id} internal live link has no matching case study`);
       }
     });
   });
@@ -145,9 +148,9 @@ describe('Project data model', () => {
     const posturePet = projects.find((project) => project.id === 'posture-pet');
     const home = readRepoFile('index.md');
 
-    assert.strictEqual(posturePet.live_label, 'Devpost');
-    assert.strictEqual(posturePet.live_external, true);
-    assert.ok(home.includes('project.live_label'), 'Home card does not use the project link label');
-    assert.ok(home.includes('project.live_external'), 'Home card does not mark external links');
+    assert.strictEqual(posturePet.link_label, 'Devpost');
+    assert.strictEqual(posturePet.link_type, 'external');
+    assert.ok(home.includes('project.link_label'), 'Home card does not use the project link label');
+    assert.ok(home.includes("project.link_type == \"external\""), 'Home card does not mark external links');
   });
 });

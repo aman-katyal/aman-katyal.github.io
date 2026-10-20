@@ -192,9 +192,9 @@ title: Aman Katyal | Portfolio
               </a>
             {% endif %}
             {% if project.live %}
-              {% assign live_label = project.live_label | default: "Docs" %}
-              <a href="{{ project.live | relative_url }}" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on {{ live_label }}"{% if project.live_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
-                {% if project.live_external %}
+              {% assign live_label = project.link_label | default: "Docs" %}
+              <a href="{{ project.live | relative_url }}" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on {{ live_label }}"{% if project.link_type == "external" %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                {% if project.link_type == "external" %}
                   <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 {% else %}
                   <i class="fa-solid fa-file-lines"></i>
