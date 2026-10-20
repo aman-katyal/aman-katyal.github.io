@@ -33,13 +33,13 @@ skills:
     - 'UART'
     - 'PWM'
 images:
-  - src: '/assets/images/rov_hil_render_iso.png'
+  - src: '/assets/images/rov_hil_render_iso.webp'
     label: 'HIL Carrier Board 3D Render (Isometric, Pi Mated)'
     featured: true
-  - src: '/assets/images/rov_hil_render_top.png'
+  - src: '/assets/images/rov_hil_render_top.webp'
     label: 'HIL Carrier Board 3D Render (Top, Fully Populated)'
     featured: false
-  - src: '/assets/images/rov_hil_render_bottom.png'
+  - src: '/assets/images/rov_hil_render_bottom.webp'
     label: 'HIL Carrier Board 3D Render (Bottom)'
     featured: false
   - src: '/assets/images/rov_hil_layer_ftop.svg'

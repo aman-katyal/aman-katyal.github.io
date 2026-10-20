@@ -22,7 +22,8 @@
     {
       "files": "*.md",
       "options": {
-        "proseWrap": "preserve"
+        "proseWrap": "preserve",
+        "embeddedLanguageFormatting": "off"
       }
     }
   ]

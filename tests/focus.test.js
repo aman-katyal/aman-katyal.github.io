@@ -62,7 +62,7 @@ describe('Modal focus and keyboard behavior', () => {
       target: doc.getElementById('modal-close-btn'),
       preventDefault: () => {}
     });
-    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_2.jpg');
+    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_2.webp');
 
     doc.dispatchEvent({
       type: 'keydown',
@@ -71,7 +71,7 @@ describe('Modal focus and keyboard behavior', () => {
       target: doc.getElementById('modal-close-btn'),
       preventDefault: () => {}
     });
-    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.jpg');
+    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.webp');
 
     doc.dispatchEvent({
       type: 'keydown',

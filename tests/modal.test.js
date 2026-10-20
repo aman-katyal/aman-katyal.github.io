@@ -106,18 +106,18 @@ describe('Project modal controller', () => {
 
     const thumbnails = doc.getElementById('modal-thumbnails').children;
     assert.strictEqual(thumbnails.length, 2);
-    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.jpg');
+    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.webp');
     assert.ok(thumbnails[0].classList.contains('is-active'));
     assert.strictEqual(thumbnails[0].getAttribute('aria-selected'), 'true');
 
     sandbox.window.setProjectImage(1);
-    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_2.jpg');
+    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_2.webp');
     assert.ok(thumbnails[1].classList.contains('is-active'));
     assert.strictEqual(thumbnails[1].getAttribute('aria-selected'), 'true');
     assert.ok(!thumbnails[0].classList.contains('is-active'));
 
     sandbox.window.setProjectImage(0);
-    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.jpg');
+    assert.strictEqual(doc.getElementById('modal-main-img').src, '/assets/images/wand_pcb_1.webp');
     assert.ok(thumbnails[0].classList.contains('is-active'));
   });
 
@@ -168,7 +168,7 @@ describe('Project modal controller', () => {
     const lightbox = doc.getElementById('modal-lightbox');
     assert.ok(lightbox.classList.contains('is-active'));
     assert.strictEqual(lightbox.getAttribute('aria-hidden'), 'false');
-    assert.strictEqual(doc.getElementById('lightbox-img').src, '/assets/images/wand_pcb_2.jpg');
+    assert.strictEqual(doc.getElementById('lightbox-img').src, '/assets/images/wand_pcb_2.webp');
     assert.strictEqual(doc.activeElement, doc.getElementById('lightbox-close-btn'));
     assert.strictEqual(doc.getElementById('project-modal').getAttribute('inert'), '');
 

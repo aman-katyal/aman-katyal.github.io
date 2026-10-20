@@ -20,7 +20,16 @@ While the mechanical cylinder—incorporating a 90 mL syringe-driven variable bu
 <div class="image-grid-2col">
   <figure class="figure-card contain-fit">
     <div class="figure-image-container">
-      <img src="/assets/images/rov_buoyancy_cad.png" alt="CAD Assembly Model of Autonomous Buoyancy Float Cylinder">
+      <img
+        src="/assets/images/rov_buoyancy_cad.webp"
+        srcset="/assets/images/rov_buoyancy_cad-400.webp 400w, /assets/images/rov_buoyancy_cad-800.webp 800w, /assets/images/rov_buoyancy_cad.webp 965w"
+        sizes="(max-width: 700px) 100vw, 480px"
+        width="965"
+        height="975"
+        alt="CAD Assembly Model of Autonomous Buoyancy Float Cylinder"
+        loading="lazy"
+        decoding="async"
+      >
     </div>
     <figcaption class="figure-caption">
       <i class="fa-solid fa-cube"></i>
@@ -30,7 +39,16 @@ While the mechanical cylinder—incorporating a 90 mL syringe-driven variable bu
 
   <figure class="figure-card">
     <div class="figure-image-container">
-      <img src="/assets/images/rov_buoyancy_pcb.jpg" alt="Physical Internal Electronics Stack and Custom Carrier PCB">
+      <img
+        src="/assets/images/rov_buoyancy_pcb.webp"
+        srcset="/assets/images/rov_buoyancy_pcb-400.webp 400w, /assets/images/rov_buoyancy_pcb-800.webp 800w, /assets/images/rov_buoyancy_pcb.webp 1270w"
+        sizes="(max-width: 700px) 100vw, 480px"
+        width="1270"
+        height="1015"
+        alt="Physical Internal Electronics Stack and Custom Carrier PCB"
+        loading="lazy"
+        decoding="async"
+      >
     </div>
     <figcaption class="figure-caption">
       <i class="fa-solid fa-microchip"></i>
@@ -225,7 +243,16 @@ RP2040 2MB Internal Flash Memory Layout:
 
 <figure class="figure-card">
   <div class="figure-image-container">
-    <img src="/assets/images/rov_buoyancy_dashboard.png" alt="X18 Mission Control Dashboard showing real-time 10Hz closed-loop depth profiling and telemetry">
+    <img
+        src="/assets/images/rov_buoyancy_dashboard.webp"
+        srcset="/assets/images/rov_buoyancy_dashboard-800.webp 800w, /assets/images/rov_buoyancy_dashboard.webp 1600w"
+        sizes="(max-width: 900px) 100vw, 900px"
+        width="1600"
+        height="900"
+        alt="X18 Mission Control Dashboard showing real-time 10Hz closed-loop depth profiling and telemetry"
+        loading="lazy"
+        decoding="async"
+      >
   </div>
   <figcaption class="figure-caption">
     <i class="fa-solid fa-chart-line"></i>

@@ -71,7 +71,7 @@ describe('Project data model', () => {
       'images'
     ]);
     const allowedSkillKeys = new Set(['languages', 'technologies', 'protocols']);
-    const allowedImageKeys = new Set(['src', 'label', 'featured', 'position', 'type']);
+    const allowedImageKeys = new Set(['src', 'label', 'featured', 'position', 'type', 'poster']);
     const orderSeen = new Set();
 
     loadProjectFiles().forEach(({ file, project }) => {
@@ -241,23 +241,20 @@ describe('Project data model', () => {
     });
   });
 
-  it('should keep the wand photos web-sized and valid JPEGs', () => {
+  it('should keep the wand photos web-sized and valid WebP images', () => {
     const mlProject = projects.find((project) => project.id === 'ml-dueling');
     assert.ok(mlProject, 'ml-dueling project not found');
     const imageSrcs = mlProject.images.map((image) => image.src);
-    assert.ok(imageSrcs.includes('/assets/images/wand_pcb_1.jpg'), 'missing wand_pcb_1.jpg');
-    assert.ok(imageSrcs.includes('/assets/images/wand_pcb_2.jpg'), 'missing wand_pcb_2.jpg');
+    assert.ok(imageSrcs.includes('/assets/images/wand_pcb_1.webp'), 'missing wand_pcb_1.webp');
+    assert.ok(imageSrcs.includes('/assets/images/wand_pcb_2.webp'), 'missing wand_pcb_2.webp');
 
-    ['wand_pcb_1.jpg', 'wand_pcb_2.jpg'].forEach((file) => {
+    ['wand_pcb_1.webp', 'wand_pcb_2.webp'].forEach((file) => {
       const absolutePath = repoPath('assets', 'images', file);
       assert.ok(fs.existsSync(absolutePath), `${file} does not exist`);
-      assert.ok(fs.statSync(absolutePath).size > 150000, `${file} is suspiciously small`);
+      assert.ok(fs.statSync(absolutePath).size > 100000, `${file} is suspiciously small`);
       const buffer = fs.readFileSync(absolutePath);
-      assert.deepStrictEqual(
-        [buffer[0], buffer[1], buffer[2]],
-        [0xff, 0xd8, 0xff],
-        `${file} is not a JPEG`
-      );
+      assert.strictEqual(buffer.toString('ascii', 0, 4), 'RIFF', `${file} is not a WebP`);
+      assert.strictEqual(buffer.toString('ascii', 8, 12), 'WEBP', `${file} is not a WebP`);
     });
   });
 

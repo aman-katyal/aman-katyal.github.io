@@ -45,6 +45,13 @@ export function cacheElements(doc) {
   };
 }
 
+export function updateCounter(el, index, total) {
+  if (!el) return;
+  const visible = total > 1;
+  el.textContent = visible ? `${index + 1} / ${total}` : '';
+  el.style.display = visible ? 'block' : 'none';
+}
+
 export function escapeHTML(str) {
   if (!str) return '';
   return String(str)

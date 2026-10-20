@@ -17,7 +17,8 @@
     "issue:port": "python -m gh_tool issue port",
     "pr:lint": "python -m gh_tool pr lint",
     "pr:create": "python -m gh_tool pr create",
-    "labels:sync": "python -m gh_tool label sync"
+    "labels:sync": "python -m gh_tool label sync",
+    "assets:optimize": "node scripts/optimize-assets.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -28,6 +29,8 @@
     "postcss-scss": "^4.0.9",
     "prettier": "^3.9.10",
     "sass": "^1.105.2",
-    "stylelint": "^17.16.0"
+    "sharp": "^0.35.5",
+    "stylelint": "^17.16.0",
+    "svgo": "^4.1.0"
   }
 }

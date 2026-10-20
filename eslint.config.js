@@ -46,6 +46,15 @@ module.exports = [
     }
   },
   {
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      sourceType: 'module',
+      globals: {
+        ...globals.node
+      }
+    }
+  },
+  {
     files: ['tests/**/*.js'],
     languageOptions: {
       sourceType: 'commonjs',

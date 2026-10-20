@@ -41,17 +41,18 @@ skills:
     - 'I2C'
     - 'PWM'
 images:
-  - src: '/assets/images/posture_pet_demo.jpg'
+  - src: '/assets/images/posture_pet_demo.webp'
     label: 'Posture Pet demo station at StarkHacks'
     featured: true
     position: '50% 15%'
-  - src: '/assets/images/posture_pet_real.jpg'
+  - src: '/assets/images/posture_pet_real.webp'
     label: 'Posture Pet 3D-printed companion at StarkHacks'
     featured: false
   - src: '/assets/images/posture_pet_demo.mp4'
     label: 'Posture Pet live posture-mirroring demo'
     featured: false
     type: 'video'
-  - src: '/assets/images/posture_pet_preview.jpg'
+    poster: '/assets/images/posture_pet_demo-800.webp'
+  - src: '/assets/images/posture_pet_preview.webp'
     label: 'Posture Pet Robotic Companion & Hackathon Hardware Setup'
     featured: false

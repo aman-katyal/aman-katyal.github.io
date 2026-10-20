@@ -2,6 +2,8 @@
  * Gallery rendering, image/video switching, and thumbnail state.
  */
 
+import { updateCounter } from './dom.js';
+
 export function isVideo(item) {
   return !!item && item.type === 'video';
 }
@@ -37,6 +39,8 @@ export function showMedia(imgEl, videoEl, item, project) {
         videoEl.setAttribute('src', item.src);
       }
       videoEl.setAttribute('aria-label', item.label || project.title);
+      if (item.poster) videoEl.setAttribute('poster', item.poster);
+      else videoEl.removeAttribute('poster');
     } else if (typeof videoEl.pause === 'function') {
       try {
         videoEl.pause();
@@ -86,13 +90,6 @@ export function stepImage(els, state, delta) {
   setProjectImage(els, state, next);
 }
 
-function updateCounter(el, index, total) {
-  if (!el) return;
-  const visible = total > 1;
-  el.textContent = visible ? `${index + 1} / ${total}` : '';
-  el.style.display = visible ? 'block' : 'none';
-}
-
 export function renderGallery(doc, els, state, project) {
   const images = project.images || [];
 
@@ -130,7 +127,7 @@ export function renderGallery(doc, els, state, project) {
         thumbBtn.appendChild(thumbIcon);
       } else {
         const thumbImg = doc.createElement('img');
-        thumbImg.src = image.src;
+        thumbImg.src = image.src.replace(/\.(png|jpe?g|webp|svg)$/i, '-thumb.webp');
         thumbImg.alt = image.label || `${project.title} thumbnail ${index + 1}`;
         thumbImg.loading = 'lazy';
         thumbImg.decoding = 'async';

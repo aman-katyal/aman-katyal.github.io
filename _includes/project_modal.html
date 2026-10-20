@@ -69,10 +69,17 @@
             class="modal-main-video"
             controls
             playsinline
-            preload="metadata"
-            style="display:none"
+            preload="none"
+            style="display: none"
             aria-label="Project demo video"
-          ></video>
+          >
+            <track
+              kind="captions"
+              src="{{ '/assets/captions/posture_pet_demo.vtt' | relative_url }}"
+              srclang="en"
+              label="English captions"
+            >
+          </video>
           <div id="modal-img-caption" class="modal-img-caption">Caption text</div>
           <div id="modal-media-counter" class="modal-media-counter" aria-hidden="true"></div>
           <button
@@ -193,10 +200,17 @@
       class="lightbox-video"
       controls
       playsinline
-      preload="metadata"
-      style="display:none"
+      preload="none"
+      style="display: none"
       aria-label="Project demo video enlarged"
-    ></video>
+    >
+      <track
+        kind="captions"
+        src="{{ '/assets/captions/posture_pet_demo.vtt' | relative_url }}"
+        srclang="en"
+        label="English captions"
+      >
+    </video>
     <div id="lightbox-caption" class="lightbox-caption"></div>
     <div id="lightbox-counter" class="lightbox-counter" aria-hidden="true"></div>
   </div>

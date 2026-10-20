@@ -35,9 +35,9 @@ skills:
     - 'PIO / DMA'
     - 'SPI'
 images:
-  - src: '/assets/images/wand_pcb_1.jpg'
+  - src: '/assets/images/wand_pcb_1.webp'
     label: 'Custom Handheld Wand PCB Assembly (Component View)'
     featured: true
-  - src: '/assets/images/wand_pcb_2.jpg'
+  - src: '/assets/images/wand_pcb_2.webp'
     label: 'Custom Handheld Wand PCB Assembly (Trace & Connector View)'
     featured: false

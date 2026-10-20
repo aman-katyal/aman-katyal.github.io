@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00.000 --> 00:04.500
+A participant sits at the Posture Pet demo table wearing shoulder and neck motion sensors.
+
+00:04.500 --> 00:09.000
+The monitor shows a live skeleton visualization and a posture classification.
+
+00:09.000 --> 00:14.000
+The orange robotic pet mirrors the participant's upper-body posture.
+
+00:14.000 --> 00:18.181
+The posture score and neck, shoulder, and spine readings update in real time.

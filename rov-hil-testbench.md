@@ -24,7 +24,17 @@ The carrier is a custom 4-layer PCB designed in KiCad, with dedicated power and 
 
 <figure class="figure-card">
   <div class="figure-image-container">
-    <img src="/assets/images/rov_hil_render_top.png" alt="Top-down 3D render of the HIL carrier board with the Raspberry Pi 5 mated, STM32 and RP2350B footprints, servo and ESC backplane connectors, and the multi-rail power section">
+    <img
+      src="/assets/images/rov_hil_render_top.webp"
+      srcset="/assets/images/rov_hil_render_top-800.webp 800w, /assets/images/rov_hil_render_top.webp 1600w"
+      sizes="(max-width: 900px) 100vw, 900px"
+      width="1600"
+      height="894"
+      alt="Top-down 3D render of the HIL carrier board with the Raspberry Pi 5 mated, STM32 and RP2350B footprints, servo and ESC backplane connectors, and the multi-rail power section"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    >
   </div>
   <figcaption class="figure-caption">
     <i class="fa-solid fa-microchip"></i>
@@ -69,7 +79,14 @@ Bring-up follows the board from power to protocol. The 12V, 6V, 5V, and 3.3V rai
 
 <figure class="figure-card">
   <div class="figure-image-container">
-    <img src="/assets/images/rov_hil_schematic.svg" alt="KiCad root schematic for the HIL carrier showing the Raspberry Pi 5, STM32F091, RP2350B, power distribution, and backplane connections">
+    <img
+      src="/assets/images/rov_hil_schematic.svg"
+      width="1123"
+      height="794"
+      alt="KiCad root schematic for the HIL carrier showing the Raspberry Pi 5, STM32F091, RP2350B, power distribution, and backplane connections"
+      loading="lazy"
+      decoding="async"
+    >
   </div>
   <figcaption class="figure-caption">
     <i class="fa-solid fa-diagram-project"></i>
@@ -79,6 +96,6 @@ Bring-up follows the board from power to protocol. The 12V, 6V, 5V, and 3.3V rai
 
 ---
 
-![HIL Carrier Board 3D render, Raspberry Pi mated](/assets/images/rov_hil_render_iso.png)
+<img src="/assets/images/rov_hil_render_iso.webp" srcset="/assets/images/rov_hil_render_iso-800.webp 800w, /assets/images/rov_hil_render_iso.webp 1600w" sizes="(max-width: 900px) 100vw, 900px" width="1600" height="894" alt="HIL Carrier Board 3D render, Raspberry Pi mated" loading="lazy" decoding="async">
 
-![Top copper layer: power and signals](/assets/images/rov_hil_layer_ftop.svg)
+<img src="/assets/images/rov_hil_layer_ftop.svg" width="1587" height="1123" alt="Top copper layer: power and signals" loading="lazy" decoding="async">

@@ -38,15 +38,15 @@ skills:
     - 'UART / USB CDC'
     - 'PIO (WS2812)'
 images:
-  - src: '/assets/images/buoyancy_preview.jpg'
+  - src: '/assets/images/buoyancy_preview.webp'
     label: 'Buoyancy Float Physical Electronics Stack & CAD Assembly'
     featured: true
-  - src: '/assets/images/rov_buoyancy_pcb.jpg'
+  - src: '/assets/images/rov_buoyancy_pcb.webp'
     label: 'Custom Circular Carrier Board with RP2040 & LoRa RF'
     featured: false
-  - src: '/assets/images/rov_buoyancy_cad.png'
+  - src: '/assets/images/rov_buoyancy_cad.webp'
     label: '3D CAD Mechanical Assembly of Pressure Hull & Buoyancy Engine'
     featured: false
-  - src: '/assets/images/rov_buoyancy_dashboard.png'
+  - src: '/assets/images/rov_buoyancy_dashboard.webp'
     label: 'X18 Streamlit Mission Control & Telemetry Dashboard'
     featured: false
