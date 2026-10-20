@@ -96,6 +96,25 @@ describe('Print portfolio builder', () => {
     );
   });
 
+  it('should reserve page margins so browser headers do not overlap the document', () => {
+    const css = readScss();
+    const builder = readRepoFile('_includes/print/builder.html');
+
+    assert.match(
+      css,
+      /@page\s*\{[^}]*margin:\s*0?\.5in/s,
+      'Print CSS must reserve 0.5in page margins'
+    );
+    assert.ok(
+      !builder.includes('"Default"</em> or <em>"None"'),
+      'Print instructions must not recommend edge-to-edge margins'
+    );
+    assert.ok(
+      /keep margins on\s+<em>"Default"<\/em>/s.test(builder),
+      'Print instructions must tell users to keep Default margins'
+    );
+  });
+
   it('should mark the first visible project so excluded projects do not leave a blank page', () => {
     const css = readScss();
     const builder = readRepoFile('assets/js/print-builder.js');

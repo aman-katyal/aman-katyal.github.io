@@ -2,6 +2,13 @@
    PRINT LAYOUT & PDF OPTIMIZATION
    ========================================================================== */
 
+/* Keep content out of the browser's printable header/footer area. Without
+   this, Chrome/Firefox can paint the date, title, and page number over the
+   document when the dialog uses "Margins: None". */
+@page {
+  margin: 0.5in;
+}
+
 @media print {
   .only-print {
     display: block !important;
