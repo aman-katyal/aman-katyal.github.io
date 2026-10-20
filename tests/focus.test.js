@@ -10,8 +10,8 @@ const { createDOMSandbox } = require('./helpers/mock-dom');
 const projects = loadProjects();
 
 describe('Modal focus and keyboard behavior', () => {
-  it('should restore focus to the originating trigger after project navigation', () => {
-    const { doc, sandbox } = createDOMSandbox(projects);
+  it('should restore focus to the originating trigger after project navigation', async () => {
+    const { doc, sandbox } = await createDOMSandbox(projects);
 
     const navbar = doc.createElement('nav');
     navbar.className = 'navbar';
@@ -38,8 +38,8 @@ describe('Modal focus and keyboard behavior', () => {
     assert.strictEqual(wrapper.getAttribute('inert'), null);
   });
 
-  it('should handle Escape, arrows, project switching, and the Tab trap', () => {
-    const { doc, sandbox } = createDOMSandbox(projects);
+  it('should handle Escape, arrows, project switching, and the Tab trap', async () => {
+    const { doc, sandbox } = await createDOMSandbox(projects);
 
     const dummyTrigger = doc.createElement('div');
     dummyTrigger.setAttribute('data-project-trigger', 'ml-dueling');

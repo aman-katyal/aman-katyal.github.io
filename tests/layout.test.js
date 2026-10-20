@@ -29,7 +29,7 @@ describe('Layout composition', () => {
   it('should defer every non-critical script', () => {
     const scripts = readRepoFile('_includes/scripts.html');
     ['theme.js', 'site.js', 'project-modal.js'].forEach((file) => {
-      assert.match(scripts, new RegExp(`<script defer src="\\{\\{ '/assets/js/${file.replace('.', '\\.')}' \\| relative_url }}"></script>`), `${file} is not deferred`);
+      assert.match(scripts, new RegExp(`<script(?: type="module")? defer src="\\{\\{ '/assets/js/${file.replace('.', '\\.')}' \\| relative_url }}"></script>`), `${file} is not deferred`);
     });
   });
 

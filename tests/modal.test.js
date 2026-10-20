@@ -11,13 +11,15 @@ const { createDOMSandbox } = require('./helpers/mock-dom');
 const projects = loadProjects();
 
 describe('Project modal controller', () => {
-  it('should pass a Node syntax compilation check', () => {
-    const output = execSync(`node -c "${repoPath('assets', 'js', 'project-modal.js')}"`, { encoding: 'utf8' });
-    assert.strictEqual(output.trim(), '');
+  it('should pass a Node syntax compilation check for every module', async () => {
+    ['state.js', 'dom.js', 'focus.js', 'gallery.js', 'render.js', 'lightbox.js', 'keyboard.js', 'triggers.js', 'index.js'].forEach((file) => {
+      const output = execSync(`node -c "${repoPath('assets', 'js', 'modal', file)}"`, { encoding: 'utf8' });
+      assert.strictEqual(output.trim(), '');
+    });
   });
 
-  it('should export the documented public functions on window', () => {
-    const { sandbox } = createDOMSandbox(projects);
+  it('should expose only the documented controller API', async () => {
+    const { sandbox } = await createDOMSandbox(projects);
     [
       'openProjectModal',
       'closeProjectModal',
@@ -27,12 +29,12 @@ describe('Project modal controller', () => {
       'nextProject',
       'prevProject'
     ].forEach((functionName) => {
-      assert.strictEqual(typeof sandbox.window[functionName], 'function', `window.${functionName} must be a function`);
+      assert.strictEqual(typeof sandbox.window[functionName], 'function', `api.${functionName} must be a function`);
     });
   });
 
-  it('should open every project and populate all fields', () => {
-    const { doc, sandbox } = createDOMSandbox(projects);
+  it('should open every project and populate all fields', async () => {
+    const { doc, sandbox } = await createDOMSandbox(projects);
 
     projects.forEach((project, index) => {
       sandbox.window.openProjectModal(project.id);
@@ -60,8 +62,8 @@ describe('Project modal controller', () => {
     });
   });
 
-  it('should switch images and update thumbnail state', () => {
-    const { doc, sandbox } = createDOMSandbox(projects);
+  it('should switch images and update thumbnail state', async () => {
+    const { doc, sandbox } = await createDOMSandbox(projects);
     const project = projects.find((entry) => entry.id === 'ml-dueling');
     sandbox.window.openProjectModal(project.id);
 
@@ -82,8 +84,8 @@ describe('Project modal controller', () => {
     assert.ok(thumbnails[0].classList.contains('is-active'));
   });
 
-  it('should cycle projects in both directions', () => {
-    const { doc, sandbox } = createDOMSandbox(projects);
+  it('should cycle projects in both directions', async () => {
+    const { doc, sandbox } = await createDOMSandbox(projects);
 
     sandbox.window.openProjectModal(projects[0].id);
     assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `1 / ${projects.length}`);
@@ -102,8 +104,8 @@ describe('Project modal controller', () => {
     assert.strictEqual(doc.getElementById('modal-nav-indicator').textContent, `${projects.length - 1} / ${projects.length}`);
   });
 
-  it('should open and close the lightbox while syncing the current image', () => {
-    const { doc, sandbox } = createDOMSandbox(projects);
+  it('should open and close the lightbox while syncing the current image', async () => {
+    const { doc, sandbox } = await createDOMSandbox(projects);
     sandbox.window.openProjectModal('ml-dueling');
     sandbox.window.setProjectImage(1);
 

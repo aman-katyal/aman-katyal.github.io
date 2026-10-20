@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const vm = require('vm');
+const { pathToFileURL } = require('url');
 const { repoPath } = require('./project-data');
 
 class MockElement {
@@ -257,9 +258,10 @@ class MockDocument {
 }
 
 /**
- * Builds the modal DOM, loads project data, and executes the controller.
+ * Builds the modal DOM, loads project data, and initializes the ES module
+ * controller against the mock document.
  */
-function createDOMSandbox(projectsData) {
+async function createDOMSandbox(projectsData) {
   const doc = new MockDocument();
 
   const backdrop = new MockElement('div', 'project-modal-backdrop', 'project-modal-backdrop');
@@ -345,21 +347,12 @@ function createDOMSandbox(projectsData) {
     lightboxCaption, lightboxCloseBtn, dataScript
   ].forEach(el => doc.registerElement(el));
 
-  const sandbox = {
-    document: doc,
-    window: {},
-    console: console,
-    Array: Array,
-    Object: Object,
-    JSON: JSON
-  };
-  sandbox.window = sandbox;
+  const module = await import(pathToFileURL(repoPath('assets', 'js', 'modal', 'index.js')).href);
+  const controller = module.createModalController(doc);
+  controller.init();
 
-  const scriptContent = fs.readFileSync(repoPath('assets', 'js', 'project-modal.js'), 'utf8');
-  vm.createContext(sandbox);
-  vm.runInContext(scriptContent, sandbox);
-
-  return { doc, sandbox };
+  const sandbox = { window: controller.api };
+  return { doc, sandbox, api: controller.api, controller };
 }
 
 /**

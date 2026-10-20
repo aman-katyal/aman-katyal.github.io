@@ -8,5 +8,5 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous" data-proofer-ignore></script>
   {% endif %}
 
-  <!-- Project Modal Controller Script -->
-  <script defer src="{{ '/assets/js/project-modal.js' | relative_url }}"></script>
+  <!-- Project Modal Controller (native ES module, deferred by default) -->
+  <script type="module" defer src="{{ '/assets/js/project-modal.js' | relative_url }}"></script>

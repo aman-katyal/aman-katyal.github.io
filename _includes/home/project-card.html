@@ -37,10 +37,12 @@
 
     <!-- Card Action Buttons -->
     <div class="project-card-actions">
-      <button type="button" class="card-btn card-btn-primary" data-project-trigger="{{ project.id }}">
+      <!-- Progressive enhancement: without JS this links to the case study
+           (or the external Devpost entry); with JS the modal intercepts it. -->
+      <a href="{{ project.live | relative_url }}" class="card-btn card-btn-primary" data-project-trigger="{{ project.id }}" aria-label="Preview {{ project.title }}"{% if project.link_type == "external" %} target="_blank" rel="noopener noreferrer"{% endif %}>
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
         <span>Preview & Gallery</span>
-      </button>
+      </a>
       {% if project.github %}
         <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on GitHub">
           <i class="fa-brands fa-github"></i>
