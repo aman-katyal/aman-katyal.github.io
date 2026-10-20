@@ -19,6 +19,7 @@ export function cacheElements(doc) {
     mainImgEl: byId('modal-main-img'),
     mainVideoEl: byId('modal-main-video'),
     imgCaptionEl: byId('modal-img-caption'),
+    mediaCounterEl: byId('modal-media-counter'),
     zoomBtnEl: byId('modal-zoom-btn'),
     thumbnailsEl: byId('modal-thumbnails'),
     summaryEl: byId('modal-project-summary'),
@@ -37,6 +38,7 @@ export function cacheElements(doc) {
     lightboxImgEl: byId('lightbox-img'),
     lightboxVideoEl: byId('lightbox-video'),
     lightboxCaptionEl: byId('lightbox-caption'),
+    lightboxCounterEl: byId('lightbox-counter'),
     lightboxCloseBtnEl: byId('lightbox-close-btn'),
     lightboxPrevBtnEl: byId('lightbox-prev-btn'),
     lightboxNextBtnEl: byId('lightbox-next-btn')

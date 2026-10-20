@@ -74,6 +74,7 @@
             aria-label="Project demo video"
           ></video>
           <div id="modal-img-caption" class="modal-img-caption">Caption text</div>
+          <div id="modal-media-counter" class="modal-media-counter" aria-hidden="true"></div>
           <button
             id="modal-zoom-btn"
             class="modal-zoom-btn"
@@ -139,7 +140,14 @@
         <i class="fa-solid fa-chevron-left"></i>
         <span>Previous Project</span>
       </button>
-      <div class="modal-nav-indicator" id="modal-nav-indicator">1 / 6</div>
+      <div class="modal-footer-center">
+        <div class="modal-nav-indicator" id="modal-nav-indicator">1 / 6</div>
+        <div class="modal-shortcuts" aria-hidden="true">
+          <span><kbd>←</kbd><kbd>→</kbd> media</span>
+          <span><kbd>Shift</kbd> + <kbd>←</kbd><kbd>→</kbd> project</span>
+          <span><kbd>Esc</kbd> close</span>
+        </div>
+      </div>
       <button
         id="modal-next-btn"
         class="modal-nav-btn modal-nav-next"
@@ -190,6 +198,7 @@
       aria-label="Project demo video enlarged"
     ></video>
     <div id="lightbox-caption" class="lightbox-caption"></div>
+    <div id="lightbox-counter" class="lightbox-counter" aria-hidden="true"></div>
   </div>
   <button
     id="lightbox-next-btn"

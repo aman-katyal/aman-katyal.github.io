@@ -69,9 +69,11 @@ describe('Project modal modules', () => {
       mainVideoEl: new MockElement('video', 'modal-main-video'),
       imgCaptionEl: new MockElement('div', 'modal-img-caption'),
       thumbnailsEl: new MockElement('div', 'modal-thumbnails'),
+      mediaCounterEl: new MockElement('div', 'modal-media-counter'),
       lightboxImgEl: new MockElement('img', 'lightbox-img'),
       lightboxVideoEl: new MockElement('video', 'lightbox-video'),
-      lightboxCaptionEl: new MockElement('div', 'lightbox-caption')
+      lightboxCaptionEl: new MockElement('div', 'lightbox-caption'),
+      lightboxCounterEl: new MockElement('div', 'lightbox-counter')
     };
     const state = (await load('state.js')).createState([
       {
@@ -92,17 +94,150 @@ describe('Project modal modules', () => {
     assert.strictEqual(state.currentImageIndex, 0);
     assert.strictEqual(els.mainImgEl.src, '/one.jpg');
     assert.strictEqual(els.mainImgEl.style.display, 'block');
+    assert.strictEqual(els.mediaCounterEl.textContent, '1 / 2');
+    assert.strictEqual(els.lightboxCounterEl.textContent, '1 / 2');
 
     setProjectImage(els, state, 1);
     assert.strictEqual(state.currentImageIndex, 1);
     assert.strictEqual(els.mainImgEl.style.display, 'none');
     assert.strictEqual(els.mainVideoEl.style.display, 'block');
     assert.strictEqual(els.mainVideoEl.getAttribute('src'), '/two.jpg');
+    assert.strictEqual(els.mediaCounterEl.textContent, '2 / 2');
+    assert.strictEqual(els.lightboxCounterEl.textContent, '2 / 2');
 
     stepImage(els, state, 1);
     assert.strictEqual(state.currentImageIndex, 0);
     stepImage(els, state, -1);
     assert.strictEqual(state.currentImageIndex, 1);
+  });
+
+  it('should handle horizontal swipes and suppress the follow-up click', async () => {
+    const { bindSwipe } = await load('swipe.js');
+    const element = new MockElement('div', '', 'gallery-swipe');
+    const video = new MockElement('video', '', 'video');
+    element.appendChild(video);
+    let left = 0;
+    let right = 0;
+    const swipe = bindSwipe(element, {
+      onSwipeLeft: () => (left += 1),
+      onSwipeRight: () => (right += 1)
+    });
+
+    element.dispatchEvent({
+      type: 'pointerdown',
+      pointerType: 'touch',
+      clientX: 120,
+      clientY: 10,
+      target: element
+    });
+    element.dispatchEvent({
+      type: 'pointerup',
+      pointerType: 'touch',
+      clientX: 20,
+      clientY: 12,
+      target: element
+    });
+
+    assert.strictEqual(left, 1);
+    assert.strictEqual(right, 0);
+    assert.strictEqual(swipe.consumeSuppression(), true);
+    assert.strictEqual(swipe.consumeSuppression(), false);
+
+    element.dispatchEvent({
+      type: 'pointerdown',
+      pointerType: 'touch',
+      clientX: 20,
+      clientY: 10,
+      target: element
+    });
+    element.dispatchEvent({
+      type: 'pointerup',
+      pointerType: 'touch',
+      clientX: 130,
+      clientY: 10,
+      target: element
+    });
+    assert.strictEqual(right, 1);
+
+    element.dispatchEvent({
+      type: 'pointerdown',
+      pointerType: 'touch',
+      clientX: 120,
+      clientY: 10,
+      target: video
+    });
+    element.dispatchEvent({
+      type: 'pointerup',
+      pointerType: 'touch',
+      clientX: 20,
+      clientY: 10,
+      target: video
+    });
+    assert.strictEqual(left, 1);
+  });
+
+  it('should read and write shareable project hashes', async () => {
+    const { projectIdFromHash, updateProjectHash } = await load('history.js');
+    const calls = [];
+    const win = {
+      location: { pathname: '/projects/', search: '?view=grid', hash: '' },
+      history: {
+        replaceState(_state, _title, url) {
+          calls.push(url);
+          const hashIndex = url.indexOf('#');
+          win.location.hash = hashIndex === -1 ? '' : url.slice(hashIndex);
+        }
+      }
+    };
+
+    assert.strictEqual(projectIdFromHash(win), null);
+    updateProjectHash(win, 'ml-dueling');
+    assert.strictEqual(win.location.hash, '#project-ml-dueling');
+    assert.strictEqual(projectIdFromHash(win), 'ml-dueling');
+    assert.deepStrictEqual(calls, ['/projects/?view=grid#project-ml-dueling']);
+
+    updateProjectHash(win, null);
+    assert.strictEqual(win.location.hash, '');
+    assert.deepStrictEqual(calls, [
+      '/projects/?view=grid#project-ml-dueling',
+      '/projects/?view=grid'
+    ]);
+    assert.strictEqual(projectIdFromHash({ location: { hash: '#project-bad%ZZ' } }), null);
+  });
+
+  it('should open a deep-linked project and clear the hash on close', async () => {
+    const { loadProjects } = require('./helpers/project-data');
+    const projects = loadProjects();
+    const calls = [];
+    const win = {
+      location: { pathname: '/', search: '', hash: `#project-${projects[2].id}` },
+      history: {
+        replaceState(_state, _title, url) {
+          calls.push(url);
+          const hashIndex = url.indexOf('#');
+          win.location.hash = hashIndex === -1 ? '' : url.slice(hashIndex);
+        }
+      }
+    };
+    const { doc, api } = await createDOMSandbox(projects, win);
+
+    assert.ok(doc.getElementById('project-modal').classList.contains('is-active'));
+    assert.strictEqual(doc.getElementById('modal-project-title').textContent, projects[2].title);
+
+    api.closeProjectModal();
+    assert.strictEqual(win.location.hash, '');
+    assert.strictEqual(calls.at(-1), '/');
+  });
+
+  it('should ship swipe, counter, and shortcut affordances', () => {
+    const modal = readRepoFile('_includes/project_modal.html');
+    const entry = readRepoFile('assets/js/project-modal.js');
+
+    assert.ok(modal.includes('id="modal-media-counter"'), 'Gallery media counter is missing');
+    assert.ok(modal.includes('id="lightbox-counter"'), 'Lightbox media counter is missing');
+    assert.ok(modal.includes('class="modal-shortcuts"'), 'Shortcut hints are missing');
+    assert.ok(modal.includes('id="modal-footer-center"') || modal.includes('modal-footer-center'));
+    assert.ok(entry.includes('createModalController(document, window)'), 'Window is not passed');
   });
 
   it('should open and close the lightbox with focus restoration', async () => {

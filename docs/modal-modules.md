@@ -23,8 +23,21 @@ Card and button triggers continue to work through event delegation on
 | `modal/lightbox.js` | Full-screen lightbox open/close.                         |
 | `modal/keyboard.js` | Escape, arrows, trigger activation, Tab trap.            |
 | `modal/triggers.js` | Click delegation for project triggers.                   |
-| `modal/events.js`   | Wires close, backdrop, gallery, and navigation controls. |
+| `modal/events.js`   | Wires close, backdrop, gallery, swipe, and nav controls. |
+| `modal/history.js`  | Shareable `#project-<id>` hash helpers.                  |
+| `modal/swipe.js`    | Horizontal touch/pen swipes for gallery and lightbox.    |
 | `modal/index.js`    | Controller factory and public API.                       |
+
+## Deep links and touch
+
+Opening a project writes `#project-<id>` with `history.replaceState`; the hash
+updates when moving between projects and is removed on close. Loading a URL
+with that hash opens the matching project after initialization.
+
+Gallery and lightbox images support horizontal touch/pen swipes. A swipe
+suppresses the follow-up click so it does not open the lightbox accidentally.
+The modal shows a desktop-only keyboard hint, and multi-image projects show a
+`current / total` counter in both the gallery and lightbox.
 
 ## No-JS fallback
 

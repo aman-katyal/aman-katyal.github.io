@@ -261,7 +261,7 @@ class MockDocument {
  * Builds the modal DOM, loads project data, and initializes the ES module
  * controller against the mock document.
  */
-async function createDOMSandbox(projectsData) {
+async function createDOMSandbox(projectsData, win = null) {
   const doc = new MockDocument();
 
   const backdrop = new MockElement('div', 'project-modal-backdrop', 'project-modal-backdrop');
@@ -280,6 +280,7 @@ async function createDOMSandbox(projectsData) {
   );
   const mainImg = new MockElement('img', 'modal-main-img', 'modal-main-img');
   const imgCaption = new MockElement('div', 'modal-img-caption', 'modal-img-caption');
+  const mediaCounter = new MockElement('div', 'modal-media-counter', 'modal-media-counter');
   const zoomBtn = new MockElement('button', 'modal-zoom-btn', 'modal-zoom-btn');
   const thumbnails = new MockElement('div', 'modal-thumbnails', 'modal-thumbnails');
   const summary = new MockElement('p', 'modal-project-summary', 'modal-overview');
@@ -297,6 +298,7 @@ async function createDOMSandbox(projectsData) {
   const lightbox = new MockElement('div', 'modal-lightbox', 'modal-lightbox');
   const lightboxImg = new MockElement('img', 'lightbox-img', 'lightbox-img');
   const lightboxCaption = new MockElement('div', 'lightbox-caption', 'lightbox-caption');
+  const lightboxCounter = new MockElement('div', 'lightbox-counter', 'lightbox-counter');
   const lightboxCloseBtn = new MockElement('button', 'lightbox-close-btn', 'lightbox-close-btn');
 
   const dataScript = new MockElement('script', 'portfolio-projects-data');
@@ -315,6 +317,7 @@ async function createDOMSandbox(projectsData) {
 
   galleryViewport.appendChild(mainImg);
   galleryViewport.appendChild(imgCaption);
+  galleryViewport.appendChild(mediaCounter);
   galleryViewport.appendChild(zoomBtn);
   modal.appendChild(galleryViewport);
   modal.appendChild(thumbnails);
@@ -337,6 +340,7 @@ async function createDOMSandbox(projectsData) {
   lightbox.appendChild(lightboxCloseBtn);
   lightbox.appendChild(lightboxImg);
   lightbox.appendChild(lightboxCaption);
+  lightbox.appendChild(lightboxCounter);
   doc.body.appendChild(lightbox);
 
   doc.body.appendChild(dataScript);
@@ -354,6 +358,7 @@ async function createDOMSandbox(projectsData) {
     galleryViewport,
     mainImg,
     imgCaption,
+    mediaCounter,
     zoomBtn,
     thumbnails,
     summary,
@@ -371,16 +376,17 @@ async function createDOMSandbox(projectsData) {
     lightbox,
     lightboxImg,
     lightboxCaption,
+    lightboxCounter,
     lightboxCloseBtn,
     dataScript
   ].forEach((el) => doc.registerElement(el));
 
   const module = await import(pathToFileURL(repoPath('assets', 'js', 'modal', 'index.js')).href);
-  const controller = module.createModalController(doc);
+  const controller = module.createModalController(doc, win);
   controller.init();
 
   const sandbox = { window: controller.api };
-  return { doc, sandbox, api: controller.api, controller };
+  return { doc, win, sandbox, api: controller.api, controller };
 }
 
 /**

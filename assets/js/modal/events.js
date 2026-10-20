@@ -2,6 +2,8 @@
  * Wire modal, gallery, lightbox, and navigation controls to the controller API.
  */
 
+import { bindSwipe } from './swipe.js';
+
 export function bindControls(els, api) {
   if (els.closeBtnEl) els.closeBtnEl.addEventListener('click', api.closeProjectModal);
 
@@ -11,6 +13,11 @@ export function bindControls(els, api) {
     });
   }
 
+  const gallerySwipe = bindSwipe(els.galleryViewportEl, {
+    onSwipeLeft: () => api.stepImage(1),
+    onSwipeRight: () => api.stepImage(-1)
+  });
+
   if (els.galleryViewportEl) {
     els.galleryViewportEl.addEventListener('mousedown', (event) => {
       if (event.target && event.target.closest && event.target.closest('video')) return;
@@ -18,6 +25,10 @@ export function bindControls(els, api) {
       if (typeof event.preventDefault === 'function') event.preventDefault();
     });
     els.galleryViewportEl.addEventListener('click', (event) => {
+      if (gallerySwipe.consumeSuppression()) {
+        event.preventDefault();
+        return;
+      }
       if (event.target && event.target.closest && event.target.closest('video')) return;
       // Keep the click from moving focus to <body> after the lightbox opens.
       if (typeof event.preventDefault === 'function') event.preventDefault();
@@ -27,8 +38,14 @@ export function bindControls(els, api) {
 
   if (els.lightboxCloseBtnEl) els.lightboxCloseBtnEl.addEventListener('click', api.closeLightbox);
 
+  const lightboxSwipe = bindSwipe(els.lightboxEl, {
+    onSwipeLeft: () => api.stepImage(1),
+    onSwipeRight: () => api.stepImage(-1)
+  });
+
   if (els.lightboxEl) {
     els.lightboxEl.addEventListener('click', (event) => {
+      if (lightboxSwipe.consumeSuppression()) return;
       if (event.target === els.lightboxEl) api.closeLightbox();
     });
   }

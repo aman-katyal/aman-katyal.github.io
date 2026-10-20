@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  touch-action: pan-y;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -91,6 +92,13 @@
   font-weight: 500;
   text-align: center;
   max-width: 600px;
+}
+
+.lightbox-counter {
+  color: #94a3b8;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 
 .lightbox-nav-btn {

@@ -11,6 +11,7 @@ import {
   setProjectImage as setGalleryImage,
   stepImage as stepGalleryImage
 } from './gallery.js';
+import { projectIdFromHash, updateProjectHash } from './history.js';
 import {
   closeLightbox as closeLightboxView,
   openLightbox as openLightboxView
@@ -20,7 +21,7 @@ import { renderProject } from './render.js';
 import { createState, loadProjects } from './state.js';
 import { bindTriggers } from './triggers.js';
 
-export function createModalController(doc = document) {
+export function createModalController(doc = document, win = null) {
   const state = createState(loadProjects(doc));
   const els = cacheElements(doc);
   let initialized = false;
@@ -59,6 +60,7 @@ export function createModalController(doc = document) {
 
     doc.body.classList.add('modal-open');
     state.isModalOpen = true;
+    updateProjectHash(win, projectId);
     // Stop retrying once the lightbox becomes the topmost dialog.
     focusDialogControl(
       doc,
@@ -79,6 +81,7 @@ export function createModalController(doc = document) {
 
     doc.body.classList.remove('modal-open');
     state.isModalOpen = false;
+    updateProjectHash(win, null);
     pauseVideos(els);
     setPageInert(doc, false);
 
@@ -133,6 +136,9 @@ export function createModalController(doc = document) {
     bindTriggers(doc, openProjectModal);
     bindKeyboard(doc, state, els, api);
     bindControls(els, api);
+
+    const deepLinkedProject = projectIdFromHash(win);
+    if (deepLinkedProject) openProjectModal(deepLinkedProject);
     return api;
   }
 

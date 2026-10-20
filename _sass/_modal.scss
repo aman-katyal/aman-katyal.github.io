@@ -266,6 +266,7 @@ body.modal-open {
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: zoom-in;
+  touch-action: pan-y;
 }
 
 .modal-main-img {

@@ -60,6 +60,9 @@ export function setProjectImage(els, state, index) {
     els.imgCaptionEl.style.display = item.label ? 'block' : 'none';
   }
 
+  updateCounter(els.mediaCounterEl, index, project.images.length);
+  updateCounter(els.lightboxCounterEl, index, project.images.length);
+
   if (els.thumbnailsEl) {
     els.thumbnailsEl.querySelectorAll('.modal-thumb').forEach((thumb, thumbIndex) => {
       const active = thumbIndex === index;
@@ -83,6 +86,13 @@ export function stepImage(els, state, delta) {
   setProjectImage(els, state, next);
 }
 
+function updateCounter(el, index, total) {
+  if (!el) return;
+  const visible = total > 1;
+  el.textContent = visible ? `${index + 1} / ${total}` : '';
+  el.style.display = visible ? 'block' : 'none';
+}
+
 export function renderGallery(doc, els, state, project) {
   const images = project.images || [];
 
@@ -91,6 +101,8 @@ export function renderGallery(doc, els, state, project) {
   if (images.length === 0) {
     if (els.galleryViewportEl) els.galleryViewportEl.style.display = 'none';
     if (els.thumbnailsEl) els.thumbnailsEl.style.display = 'none';
+    updateCounter(els.mediaCounterEl, 0, 0);
+    updateCounter(els.lightboxCounterEl, 0, 0);
     return;
   }
 

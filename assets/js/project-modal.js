@@ -6,7 +6,7 @@
 
 import { createModalController } from './modal/index.js';
 
-const controller = createModalController(document);
+const controller = createModalController(document, window);
 controller.init();
 
 window.PortfolioModal = controller.api;
