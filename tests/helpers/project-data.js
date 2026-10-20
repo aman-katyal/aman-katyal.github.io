@@ -37,6 +37,18 @@ function readRepoFile(relativePath) {
 }
 
 /**
+ * Concatenates the SCSS entry point and every partial so source assertions do
+ * not depend on where a rule currently lives.
+ */
+function readScss() {
+  const directory = path.join(ROOT, 'assets', 'css');
+  const files = fs.readdirSync(directory)
+    .filter((file) => file.endsWith('.scss'))
+    .sort((a, b) => (a === 'style.scss' ? -1 : b === 'style.scss' ? 1 : a.localeCompare(b)));
+  return files.map((file) => readRepoFile(path.join('assets', 'css', file))).join('\n');
+}
+
+/**
  * Concatenates the homepage and its extracted includes so tests can assert on
  * rendered structure without depending on one physical file.
  */
@@ -82,6 +94,7 @@ module.exports = {
   loadProjects,
   readHome,
   readLayout,
+  readScss,
   readRepoFile,
   repoPath
 };

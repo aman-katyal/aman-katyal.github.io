@@ -30,6 +30,9 @@ jobs:
       - name: Run regression tests
         run: npm test
 
+      - name: Lint SCSS
+        run: npm run lint:css
+
       - name: Build with Jekyll (same engine Pages uses)
         run: bundle exec jekyll build --destination _site --trace
 

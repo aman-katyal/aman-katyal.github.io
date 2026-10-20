@@ -4,7 +4,7 @@
 
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
-const { readHome, readLayout, readRepoFile } = require('./helpers/project-data');
+const { readHome, readLayout, readRepoFile, readScss } = require('./helpers/project-data');
 
 describe('Accessibility regressions', () => {
   it('should provide a skip link and a focusable main target', () => {
@@ -22,7 +22,7 @@ describe('Accessibility regressions', () => {
   });
 
   it('should reveal keyboard and touch affordances', () => {
-    const css = readRepoFile('assets/css/style.scss');
+    const css = readScss();
     assert.ok(css.includes('.code-container-wrapper:focus-within .copy-code-btn'), 'Copy buttons are not revealed on keyboard focus');
     assert.ok(css.includes('@media (hover: none)'), 'Copy buttons are not discoverable on touch devices');
     assert.ok(css.includes('.project-toggle-checkbox:focus-visible + .custom-checkmark'), 'Print checkboxes lack a focus ring');

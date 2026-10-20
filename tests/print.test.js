@@ -5,7 +5,7 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs');
-const { readLayout, readRepoFile, repoPath } = require('./helpers/project-data');
+const { readLayout, readRepoFile, readScss, repoPath } = require('./helpers/project-data');
 
 describe('Print portfolio builder', () => {
   it('should keep a thin builder page composed from print includes', () => {
@@ -45,7 +45,7 @@ describe('Print portfolio builder', () => {
   });
 
   it('should scope print URLs and hide overlays', () => {
-    const css = readRepoFile('assets/css/style.scss');
+    const css = readScss();
     assert.ok(css.includes('.markdown-body a[href^="http"]:after'), 'Print URL expansion is not scoped to article links');
     assert.ok(css.includes('.project-modal-backdrop'), 'Print styles do not hide the project modal');
     assert.ok(css.includes('.modal-lightbox'), 'Print styles do not hide the lightbox');
@@ -54,7 +54,7 @@ describe('Print portfolio builder', () => {
   });
 
   it('should mark the first visible project so excluded projects do not leave a blank page', () => {
-    const css = readRepoFile('assets/css/style.scss');
+    const css = readScss();
     const builder = readRepoFile('assets/js/print-builder.js');
     assert.ok(css.includes('.print-project-section.is-first-visible'), 'Print CSS lacks a first-visible rule');
     assert.ok(builder.includes("classList.add('is-first-visible')"), 'Builder JS does not mark the first visible section');

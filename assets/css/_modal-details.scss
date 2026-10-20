@@ -1,0 +1,187 @@
+/* Engineering Highlights (▹ bullet style) */
+.modal-highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.modal-highlight-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+
+  .highlight-bullet {
+    color: var(--accent-interactive);
+    font-weight: 700;
+    font-size: 0.95rem;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  .highlight-text {
+    flex: 1;
+  }
+}
+
+/* Skills Cluster (Categorized Groups) */
+.skills-cluster {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.skills-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.skills-group-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  i {
+    font-size: 0.75rem;
+  }
+}
+
+.skills-pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.skills-pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid;
+  transition: border-color var(--transition-fast);
+}
+
+/* Languages (Purple/Indigo tint) */
+.skills-group-languages {
+  .skills-group-label {
+    color: #7c3aed;
+  }
+
+  .skills-pill {
+    background-color: rgba(124, 58, 237, 0.08);
+    color: #6d28d9;
+    border-color: rgba(124, 58, 237, 0.25);
+  }
+}
+
+[data-theme="dark"] .skills-group-languages {
+  .skills-group-label {
+    color: #c084fc;
+  }
+
+  .skills-pill {
+    background-color: rgba(192, 132, 252, 0.12);
+    color: #e9d5ff;
+    border-color: rgba(192, 132, 252, 0.3);
+  }
+}
+
+/* Technologies & Hardware (Cyan/Blue tint) */
+.skills-group-technologies {
+  .skills-group-label {
+    color: #0284c7;
+  }
+
+  .skills-pill {
+    background-color: rgba(2, 132, 199, 0.08);
+    color: #0369a1;
+    border-color: rgba(2, 132, 199, 0.25);
+  }
+}
+
+[data-theme="dark"] .skills-group-technologies {
+  .skills-group-label {
+    color: #38bdf8;
+  }
+
+  .skills-pill {
+    background-color: rgba(56, 189, 248, 0.12);
+    color: #bae6fd;
+    border-color: rgba(56, 189, 248, 0.3);
+  }
+}
+
+/* Protocols & Standards (Green/Teal tint) */
+.skills-group-protocols {
+  .skills-group-label {
+    color: #0d9488;
+  }
+
+  .skills-pill {
+    background-color: rgba(13, 148, 136, 0.08);
+    color: #0f766e;
+    border-color: rgba(13, 148, 136, 0.25);
+  }
+}
+
+[data-theme="dark"] .skills-group-protocols {
+  .skills-group-label {
+    color: #2dd4bf;
+  }
+
+  .skills-pill {
+    background-color: rgba(45, 212, 191, 0.12);
+    color: #99f6e4;
+    border-color: rgba(45, 212, 191, 0.3);
+  }
+}
+
+/* Modal Footer Navigation */
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.75rem;
+  background-color: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.modal-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+
+  &:hover {
+    background-color: var(--bg-tertiary);
+    border-color: var(--border-hover);
+    color: var(--accent-interactive);
+  }
+}
+
+.modal-nav-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}

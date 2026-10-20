@@ -1,0 +1,82 @@
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+.footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  background-color: var(--bg-secondary);
+  padding: 2rem 0;
+  transition: background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer-left p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.academic-affiliation {
+  font-weight: 500;
+  color: var(--text-secondary) !important;
+  margin-top: 0.2rem;
+}
+
+.footer-pdf-link {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-interactive);
+  text-decoration: none;
+}
+
+.footer-pdf-link:hover {
+  text-decoration: underline;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links a,
+.social-links button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  text-decoration: none;
+  background-color: transparent;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.social-links a:hover,
+.social-links button:hover {
+  border-color: var(--accent-interactive);
+  color: var(--accent-interactive);
+  background-color: var(--bg-primary);
+}
+
+.social-links button.is-copied {
+  border-color: #16a34a;
+  color: #16a34a;
+}

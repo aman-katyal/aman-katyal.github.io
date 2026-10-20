@@ -5,7 +5,7 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const { compileScss } = require('./helpers/sass');
-const { readRepoFile } = require('./helpers/project-data');
+const { readRepoFile, readScss } = require('./helpers/project-data');
 
 const compiledCss = compileScss();
 
@@ -94,7 +94,7 @@ describe('Compiled stylesheet', () => {
   });
 
   it('should meet the documented contrast token targets', () => {
-    const source = readRepoFile('assets/css/style.scss');
+    const source = readScss();
     assert.ok(source.includes('--text-muted: #5b6b7f'), 'Light muted text was not darkened');
     assert.ok(source.includes('--text-muted: #a8b6c9'), 'Dark muted text was not lightened');
     assert.ok(source.includes('[data-theme="dark"] .termbar-badge'), 'Dark terminal badge override is missing');

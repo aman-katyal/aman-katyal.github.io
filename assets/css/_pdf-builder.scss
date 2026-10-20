@@ -1,0 +1,159 @@
+/* ==========================================================================
+   PDF BUILDER CONTROL PANEL (SCREEN STYLES)
+   ========================================================================== */
+
+.only-print {
+  display: none !important;
+}
+
+.pdf-builder-panel {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.pdf-builder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.pdf-builder-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pdf-builder-title i {
+  color: var(--accent-interactive);
+}
+
+.pdf-builder-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 650px;
+  line-height: 1.5;
+}
+
+.print-primary-btn {
+  background-color: var(--accent-interactive);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.print-primary-btn:hover {
+  background-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+.print-primary-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .pdf-builder-panel {
+    padding: 1.25rem;
+  }
+
+  .pdf-builder-header {
+    gap: 1.25rem;
+  }
+
+  /* Let the title text wrap naturally instead of squeezing it beside the icon. */
+  .pdf-builder-title {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  .pdf-builder-title i {
+    margin-right: 0.45rem;
+  }
+
+  .pdf-builder-subtitle {
+    font-size: 0.95rem;
+  }
+}
+
+/* Presets & Filter Toolbar */
+.pdf-filter-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.75rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.pdf-filter-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.text-action-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+.text-action-btn:hover {
+  color: var(--accent-interactive);
+}
+
+.btn-divider {
+  color: var(--border-hover);
+  font-size: 0.75rem;
+}
+
+.selected-badge {
+  background-color: var(--accent-light);
+  color: var(--accent-interactive);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.selected-badge.none-selected {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+  border-color: rgba(185, 28, 28, 0.25);
+}
+
+[data-theme="dark"] .selected-badge.none-selected {
+  color: #fca5a5;
+  border-color: rgba(252, 165, 165, 0.3);
+}

@@ -5,6 +5,7 @@
   "description": "Aman Katyal's Personal Portfolio Website",
   "scripts": {
     "test": "node --test tests/*.test.js",
+    "lint:css": "stylelint \"assets/css/**/*.scss\"",
     "issue:start": "pwsh ./scripts/issue-start.ps1",
     "issue:lint": "python -m gh_tool issue lint",
     "issue:suggest": "python -m gh_tool issue suggest-labels",
@@ -16,6 +17,8 @@
   },
   "devDependencies": {
     "js-yaml": "^5.5.0",
-    "sass": "^1.105.2"
+    "postcss-scss": "^4.0.9",
+    "sass": "^1.105.2",
+    "stylelint": "^17.16.0"
   }
 }
