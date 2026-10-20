@@ -229,6 +229,38 @@ describe('Project modal modules', () => {
     assert.strictEqual(calls.at(-1), '/');
   });
 
+  it('should react to same-page hash changes without a reload', async () => {
+    const { loadProjects } = require('./helpers/project-data');
+    const projects = loadProjects();
+    let hashHandler;
+    const win = {
+      location: { pathname: '/', search: '', hash: '' },
+      history: {
+        replaceState(_state, _title, url) {
+          const hashIndex = url.indexOf('#');
+          win.location.hash = hashIndex === -1 ? '' : url.slice(hashIndex);
+        }
+      },
+      addEventListener(type, handler) {
+        if (type === 'hashchange') hashHandler = handler;
+      }
+    };
+    const { doc } = await createDOMSandbox(projects, win);
+
+    win.location.hash = `#project-${projects[2].id}`;
+    hashHandler();
+    assert.ok(doc.getElementById('project-modal').classList.contains('is-active'));
+    assert.strictEqual(doc.getElementById('modal-project-title').textContent, projects[2].title);
+
+    win.location.hash = `#project-${projects[1].id}`;
+    hashHandler();
+    assert.strictEqual(doc.getElementById('modal-project-title').textContent, projects[1].title);
+
+    win.location.hash = '';
+    hashHandler();
+    assert.ok(!doc.getElementById('project-modal').classList.contains('is-active'));
+  });
+
   it('should ship swipe, counter, and shortcut affordances', () => {
     const modal = readRepoFile('_includes/project_modal.html');
     const entry = readRepoFile('assets/js/project-modal.js');

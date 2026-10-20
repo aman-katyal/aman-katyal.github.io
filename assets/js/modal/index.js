@@ -11,7 +11,7 @@ import {
   setProjectImage as setGalleryImage,
   stepImage as stepGalleryImage
 } from './gallery.js';
-import { projectIdFromHash, updateProjectHash } from './history.js';
+import { bindProjectHash, updateProjectHash } from './history.js';
 import {
   closeLightbox as closeLightboxView,
   openLightbox as openLightboxView
@@ -136,9 +136,12 @@ export function createModalController(doc = document, win = null) {
     bindTriggers(doc, openProjectModal);
     bindKeyboard(doc, state, els, api);
     bindControls(els, api);
-
-    const deepLinkedProject = projectIdFromHash(win);
-    if (deepLinkedProject) openProjectModal(deepLinkedProject);
+    bindProjectHash(win, {
+      isOpen: () => state.isModalOpen,
+      currentId: () => state.getCurrentProject()?.id,
+      open: openProjectModal,
+      close: closeProjectModal
+    });
     return api;
   }
 

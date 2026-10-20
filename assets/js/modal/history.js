@@ -15,6 +15,22 @@ export function projectIdFromHash(win) {
   }
 }
 
+export function bindProjectHash(win, handlers) {
+  if (!win) return;
+
+  const sync = () => {
+    const projectId = projectIdFromHash(win);
+    if (projectId) {
+      if (!handlers.isOpen() || handlers.currentId() !== projectId) handlers.open(projectId);
+    } else if (handlers.isOpen()) {
+      handlers.close();
+    }
+  };
+
+  if (typeof win.addEventListener === 'function') win.addEventListener('hashchange', sync);
+  sync();
+}
+
 export function updateProjectHash(win, projectId) {
   if (!win || !win.history || !win.location || typeof win.history.replaceState !== 'function') {
     return;
