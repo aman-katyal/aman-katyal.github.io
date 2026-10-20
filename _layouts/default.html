@@ -13,7 +13,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title | default: project_meta.title | default: site.title }}</title>
+  <title>{{ project_meta.title | default: page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
   {% if page.url != '/404.html' %}
   <link rel="canonical" href="{{ page.url | absolute_url }}">
@@ -21,7 +21,7 @@
   <meta name="theme-color" content="#ffffff" id="theme-color-meta">
 
   <!-- SEO & Social Sharing Meta Tags -->
-  <meta property="og:title" content="{{ page.title | default: project_meta.title | default: site.title }}">
+  <meta property="og:title" content="{{ project_meta.title | default: page.title | default: site.title }}">
   <meta property="og:description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
   <meta property="og:type" content="{% if project_meta %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
@@ -29,7 +29,7 @@
   <meta property="og:image" content="{{ page.image | default: project_image.src | default: site.og_image | absolute_url }}">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{{ page.title | default: project_meta.title | default: site.title }}">
+  <meta name="twitter:title" content="{{ project_meta.title | default: page.title | default: site.title }}">
   <meta name="twitter:description" content="{{ page.description | default: project_meta.summary | default: site.description }}">
   <meta name="twitter:image" content="{{ page.image | default: project_image.src | default: site.og_image | absolute_url }}">
   
@@ -105,11 +105,11 @@
         <div class="breadcrumbs no-print">
           <a href="{{ '/' | relative_url }}">Home</a>
           <span class="separator">/</span>
-          <span class="current">{{ page.title | default: project_meta.title }}</span>
+          <span class="current">{{ project_meta.title }}</span>
         </div>
 
         <div class="project-header">
-          <h1 class="project-title">{{ page.title | default: project_meta.title }}</h1>
+          <h1 class="project-title">{{ project_meta.title }}</h1>
         </div>
 
         <div class="project-grid">

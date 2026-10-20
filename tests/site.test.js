@@ -48,6 +48,8 @@ describe('Site navigation and metadata', () => {
     assert.ok(layout.includes('project_meta.role'), 'Layout does not use the data role');
     assert.ok(layout.includes('project_meta.skills.technologies'), 'Layout does not use data technologies');
     assert.ok(layout.includes('project_image.src'), 'Layout does not use the featured data image');
+    assert.ok(layout.includes('<title>{{ project_meta.title | default: page.title'), 'Project data title must win over an inferred page title');
+    assert.ok(layout.includes('<h1 class="project-title">{{ project_meta.title }}</h1>'), 'Project heading must use the data title');
 
     ['rov-hil-testbench.md', 'rov-buoyancy-float.md', 'ml-dueling.md'].forEach((file) => {
       const content = readRepoFile(file);
