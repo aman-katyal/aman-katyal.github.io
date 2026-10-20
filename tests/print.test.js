@@ -8,29 +8,38 @@ const fs = require('fs');
 const { readLayout, readRepoFile, repoPath } = require('./helpers/project-data');
 
 describe('Print portfolio builder', () => {
-  it('should keep the builder page and printable query intact', () => {
-    const content = readRepoFile('print-portfolio.html');
-    assert.ok(content.includes('permalink: /print-portfolio/'), 'Missing permalink');
-    assert.ok(content.includes('layout: default'), 'Missing layout');
-    assert.ok(content.includes('site.pages | where: "printable", true'), 'Missing printable page query');
-    assert.ok(content.includes('pdf-builder-panel'), 'Missing control panel');
-    assert.ok(content.includes('window.print()'), 'Missing print trigger');
-    assert.ok(content.includes('site.data.projects[proj_slug]'), 'Builder does not resolve project metadata');
-    assert.ok(content.includes('proj_data.title'), 'Builder does not use the data title');
-    assert.ok(content.includes('proj_data.role'), 'Builder does not use the data role');
-    assert.ok(content.includes('proj_data.skills.technologies'), 'Builder does not use data technologies');
+  it('should keep a thin builder page composed from print includes', () => {
+    const page = readRepoFile('print-portfolio.html');
+    const builder = readRepoFile('_includes/print/builder.html');
+    const document = readRepoFile('_includes/print/document.html');
+    const section = readRepoFile('_includes/print/project-section.html');
+
+    assert.ok(page.split('\n').length < 40, 'print-portfolio.html is no longer a thin include page');
+    assert.ok(page.includes('permalink: /print-portfolio/'), 'Missing permalink');
+    assert.ok(page.includes('layout: default'), 'Missing layout');
+    assert.ok(page.includes('site.pages | where: "printable", true'), 'Missing printable page query');
+    assert.ok(page.includes('include print/builder.html'), 'Missing builder include');
+    assert.ok(page.includes('include print/document.html'), 'Missing print document include');
+    assert.ok(page.includes('print-builder.js'), 'Missing builder script');
+    assert.ok(builder.includes('pdf-builder-panel'), 'Missing control panel');
+    assert.ok(builder.includes('window.print()'), 'Missing print trigger');
+    assert.ok(document.includes('include print/project-section.html'), 'Document does not include project sections');
+    assert.ok(section.includes('site.data.projects[proj_slug]'), 'Section does not resolve project metadata');
+    assert.ok(section.includes('proj_data.title'), 'Section does not use the data title');
+    assert.ok(section.includes('proj_data.role'), 'Section does not use the data role');
+    assert.ok(section.includes('proj_data.skills.technologies'), 'Section does not use data technologies');
   });
 
   it('should keep Clear All and empty restore behavior fixed', () => {
-    const content = readRepoFile('print-portfolio.html');
+    const content = readRepoFile('assets/js/print-builder.js');
     assert.ok(!content.includes('presetBtns.forEach'), 'Clear All still references the undefined presetBtns variable');
-    assert.ok(content.includes("document.querySelectorAll('.preset-btn')"), 'Clear All must clear preset buttons via a live query');
+    assert.ok(content.includes("querySelectorAll('.preset-btn')"), 'Clear All must clear preset buttons via a live query');
     assert.ok(content.includes('Array.isArray(saved)'), 'Saved selections must restore an intentionally empty array');
     assert.ok(!content.includes('saved.length > 0'), 'Empty selections must not be skipped on restore');
   });
 
   it('should render the counter from the printable page set', () => {
-    const content = readRepoFile('print-portfolio.html');
+    const content = readRepoFile('_includes/print/builder.html');
     assert.ok(content.includes('{{ print_pages.size }} of {{ print_pages.size }} Selected'), 'PDF counter is still hardcoded');
     assert.ok(!content.includes('3 of 3 Selected'), 'Stale hardcoded PDF counter remains');
   });
@@ -46,7 +55,7 @@ describe('Print portfolio builder', () => {
 
   it('should mark the first visible project so excluded projects do not leave a blank page', () => {
     const css = readRepoFile('assets/css/style.scss');
-    const builder = readRepoFile('print-portfolio.html');
+    const builder = readRepoFile('assets/js/print-builder.js');
     assert.ok(css.includes('.print-project-section.is-first-visible'), 'Print CSS lacks a first-visible rule');
     assert.ok(builder.includes("classList.add('is-first-visible')"), 'Builder JS does not mark the first visible section');
   });

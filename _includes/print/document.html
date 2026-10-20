@@ -1,0 +1,7 @@
+{% assign print_pages = include.print_pages %}
+{% include print/cover.html %}
+<div class="print-projects-container">
+  {% for project in print_pages %}
+    {% include print/project-section.html project=project %}
+  {% endfor %}
+</div>

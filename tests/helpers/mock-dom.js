@@ -362,8 +362,91 @@ function createDOMSandbox(projectsData) {
   return { doc, sandbox };
 }
 
+/**
+ * Builds a minimal print-builder DOM, loads saved state, and executes the
+ * browser controller. The script auto-initializes because readyState is
+ * already "complete".
+ */
+function createPrintSandbox(options = {}) {
+  const doc = new MockDocument();
+  const slugs = options.slugs || ['rov-hil-testbench', 'rov-buoyancy-float', 'ml-dueling'];
+  const counter = new MockElement('span', 'selected-counter-badge', 'selected-badge');
+  const selectAllBtn = new MockElement('button', 'btn-select-all', 'text-action-btn');
+  const clearAllBtn = new MockElement('button', 'btn-clear-all', 'text-action-btn');
+  const checkboxes = {};
+  const cards = {};
+  const sections = {};
+
+  doc.body.appendChild(counter);
+  doc.body.appendChild(selectAllBtn);
+  doc.body.appendChild(clearAllBtn);
+
+  slugs.forEach((slug) => {
+    const card = new MockElement('label', '', 'pdf-checkbox-card selected');
+    card.setAttribute('data-project-slug', slug);
+
+    const checkbox = new MockElement('input', `check-${slug}`, 'project-toggle-checkbox');
+    checkbox.setAttribute('data-target', `proj-sec-${slug}`);
+    checkbox.checked = true;
+    card.appendChild(checkbox);
+    doc.body.appendChild(card);
+
+    const section = new MockElement('section', `proj-sec-${slug}`, 'print-project-section');
+    section.setAttribute('data-project-slug', slug);
+    doc.body.appendChild(section);
+
+    checkboxes[slug] = checkbox;
+    cards[slug] = card;
+    sections[slug] = section;
+  });
+
+  const storage = {
+    store: {},
+    getItem(key) {
+      return Object.prototype.hasOwnProperty.call(this.store, key) ? this.store[key] : null;
+    },
+    setItem(key, value) {
+      this.store[key] = String(value);
+    }
+  };
+  if (options.saved !== undefined) {
+    storage.store.pdf_selected_projects = JSON.stringify(options.saved);
+  }
+
+  const sandbox = {
+    document: doc,
+    window: {},
+    console,
+    JSON,
+    Array,
+    Object,
+    localStorage: storage,
+    setTimeout,
+    clearTimeout
+  };
+  sandbox.window = sandbox;
+
+  const scriptContent = fs.readFileSync(repoPath('assets', 'js', 'print-builder.js'), 'utf8');
+  vm.createContext(sandbox);
+  vm.runInContext(scriptContent, sandbox);
+
+  return {
+    doc,
+    sandbox,
+    storage,
+    counter,
+    selectAllBtn,
+    clearAllBtn,
+    checkboxes,
+    cards,
+    sections,
+    instance: sandbox.PrintBuilder.instance
+  };
+}
+
 module.exports = {
   MockElement,
   MockDocument,
-  createDOMSandbox
+  createDOMSandbox,
+  createPrintSandbox
 };
