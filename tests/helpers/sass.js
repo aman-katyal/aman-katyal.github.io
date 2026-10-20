@@ -12,7 +12,7 @@ function compileScss() {
   const scssRaw = fs.readFileSync(entry, 'utf8');
   const scssClean = scssRaw.replace(/^---[\s\S]*?---\r?\n/, '');
 
-  return execSync('npx --yes sass --stdin --no-source-map --load-path=assets/css', {
+  return execSync('npx --yes sass --stdin --no-source-map --load-path=_sass', {
     input: scssClean,
     encoding: 'utf8',
     cwd: ROOT

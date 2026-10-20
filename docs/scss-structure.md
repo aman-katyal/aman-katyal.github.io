@@ -2,7 +2,8 @@
 
 `assets/css/style.scss` is the only Jekyll front-matter entry point. It contains
 the front matter plus ordered `@import` declarations; every rule lives in a
-partial under `assets/css/`.
+partial under `_sass/`. GitHub Pages' Sass converter only searches `_sass`,
+so the partials live there while the public entry point stays in `assets/css/`.
 
 ## Partial order
 

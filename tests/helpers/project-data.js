@@ -41,11 +41,11 @@ function readRepoFile(relativePath) {
  * not depend on where a rule currently lives.
  */
 function readScss() {
-  const directory = path.join(ROOT, 'assets', 'css');
-  const files = fs.readdirSync(directory)
+  const entry = readRepoFile('assets/css/style.scss');
+  const files = fs.readdirSync(path.join(ROOT, '_sass'))
     .filter((file) => file.endsWith('.scss'))
-    .sort((a, b) => (a === 'style.scss' ? -1 : b === 'style.scss' ? 1 : a.localeCompare(b)));
-  return files.map((file) => readRepoFile(path.join('assets', 'css', file))).join('\n');
+    .sort();
+  return [entry, ...files.map((file) => readRepoFile(path.join('_sass', file)))].join('\n');
 }
 
 /**

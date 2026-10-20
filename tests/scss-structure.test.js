@@ -46,9 +46,9 @@ describe('SCSS structure', () => {
 
   it('should keep every partial under 400 lines', () => {
     PARTIALS.forEach((partial) => {
-      const file = repoPath('assets', 'css', partial);
+      const file = repoPath('_sass', partial);
       assert.ok(fs.existsSync(file), `${partial} is missing`);
-      const lines = readRepoFile(`assets/css/${partial}`).split('\n').length;
+      const lines = readRepoFile(`_sass/${partial}`).split('\n').length;
       assert.ok(lines <= 400, `${partial} is ${lines} lines; expected <=400`);
     });
   });
@@ -63,8 +63,8 @@ describe('SCSS structure', () => {
   });
 
   it('should keep print and mobile-modal rules co-located with their components', () => {
-    const modalResponsive = readRepoFile('assets/css/_modal-responsive.scss');
-    const print = readRepoFile('assets/css/_print.scss');
+    const modalResponsive = readRepoFile('_sass/_modal-responsive.scss');
+    const print = readRepoFile('_sass/_print.scss');
 
     assert.ok(modalResponsive.includes('.project-modal'), 'Mobile modal rules are not in the modal responsive partial');
     assert.ok(modalResponsive.includes('max-height: 94dvh'), 'Mobile modal viewport fallback is missing');
