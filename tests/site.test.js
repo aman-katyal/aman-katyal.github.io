@@ -5,11 +5,11 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs');
-const { readRepoFile, repoPath } = require('./helpers/project-data');
+const { readLayout, readRepoFile, repoPath } = require('./helpers/project-data');
 
 describe('Site navigation and metadata', () => {
   it('should order nav links to match the homepage sections', () => {
-    const layout = readRepoFile('_layouts/default.html');
+    const layout = readLayout();
     const navMatch = layout.match(/<div class="nav-links">([\s\S]*?)<\/div>/);
     assert.ok(navMatch, 'Could not find the nav-links block');
     const navLinks = navMatch[1];
@@ -17,7 +17,7 @@ describe('Site navigation and metadata', () => {
   });
 
   it('should publish canonical, theme-color, and social metadata', () => {
-    const layout = readRepoFile('_layouts/default.html');
+    const layout = readLayout();
     const config = readRepoFile('_config.yml');
 
     assert.ok(layout.includes('rel="canonical"'), 'Layout is missing a canonical URL');
@@ -36,13 +36,13 @@ describe('Site navigation and metadata', () => {
 
   it('should link the PDF builder from the hero and footer', () => {
     const home = readRepoFile('index.md');
-    const layout = readRepoFile('_layouts/default.html');
+    const layout = readLayout();
     assert.ok(home.includes("'/print-portfolio/'"), 'Home hero does not link the PDF builder');
     assert.ok(layout.includes("'/print-portfolio/'"), 'Site footer does not link the PDF builder');
   });
 
   it('should resolve project page metadata from the project data', () => {
-    const layout = readRepoFile('_layouts/default.html');
+    const layout = readLayout();
     assert.ok(layout.includes('site.data.projects[project_slug]'), 'Layout does not look up project metadata');
     assert.ok(layout.includes('project_meta.title'), 'Layout does not use the data title');
     assert.ok(layout.includes('project_meta.role'), 'Layout does not use the data role');

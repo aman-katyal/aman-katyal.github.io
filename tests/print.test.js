@@ -5,7 +5,7 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs');
-const { readRepoFile, repoPath } = require('./helpers/project-data');
+const { readLayout, readRepoFile, repoPath } = require('./helpers/project-data');
 
 describe('Print portfolio builder', () => {
   it('should keep the builder page and printable query intact', () => {
@@ -52,7 +52,7 @@ describe('Print portfolio builder', () => {
   });
 
   it('should load KaTeX only when a page opts into math', () => {
-    const layout = readRepoFile('_layouts/default.html');
+    const layout = readLayout();
     const buoyancy = readRepoFile('rov-buoyancy-float.md');
     const builder = readRepoFile('print-portfolio.html');
 

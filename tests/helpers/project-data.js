@@ -37,6 +37,23 @@ function readRepoFile(relativePath) {
 }
 
 /**
+ * Concatenates the layout and its extracted includes/scripts so tests can
+ * assert on rendered structure without depending on one physical file.
+ */
+function readLayout() {
+  return [
+    '_layouts/default.html',
+    '_includes/head.html',
+    '_includes/nav.html',
+    '_includes/footer.html',
+    '_includes/project-detail.html',
+    '_includes/scripts.html',
+    'assets/js/theme.js',
+    'assets/js/site.js'
+  ].map(readRepoFile).join('\n');
+}
+
+/**
  * Resolves one or more repository-relative path segments.
  */
 function repoPath(...segments) {
@@ -47,6 +64,7 @@ module.exports = {
   ROOT,
   loadProjectFiles,
   loadProjects,
+  readLayout,
   readRepoFile,
   repoPath
 };

@@ -4,18 +4,18 @@
 
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
-const { readRepoFile } = require('./helpers/project-data');
+const { readLayout, readRepoFile } = require('./helpers/project-data');
 
 describe('Accessibility regressions', () => {
   it('should provide a skip link and a focusable main target', () => {
-    const layout = readRepoFile('_layouts/default.html');
+    const layout = readLayout();
     assert.ok(layout.includes('class="skip-link'), 'Layout is missing the skip link');
     assert.ok(layout.includes('id="main-content"'), 'Layout is missing the skip target');
     assert.ok(layout.includes('tabindex="-1"'), 'Main content must be programmatically focusable');
   });
 
   it('should expose theme state and honor reduced motion', () => {
-    const layout = readRepoFile('_layouts/default.html');
+    const layout = readLayout();
     assert.ok(layout.includes('aria-pressed="false"'), 'Theme toggle does not expose pressed state');
     assert.ok(layout.includes("setAttribute('aria-pressed'"), 'Theme toggle never updates pressed state');
     assert.ok(layout.includes('prefers-reduced-motion: reduce'), 'Scroll-to-top ignores reduced motion');
