@@ -854,6 +854,12 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
       assert.ok(compiledCss.includes('table-layout: fixed'), 'Narrow-screen tables must use fixed layout');
     });
 
+    it('should stack education labels and compact the PDF builder on phones', () => {
+      assert.match(compiledCss, /@media \(max-width: 480px\) \{[\s\S]*?\.edu-row \{[\s\S]*?grid-template-columns: minmax\(0, 1fr\);/, 'Education rows must stack on phones');
+      assert.match(compiledCss, /@media \(max-width: 480px\) \{[\s\S]*?\.pdf-builder-title \{[\s\S]*?display: block;/, 'PDF builder title must wrap naturally on phones');
+      assert.ok(compiledCss.includes('padding: 1.25rem'), 'PDF builder panel should use compact phone padding');
+    });
+
     it('should normalize project card action buttons', () => {
       assert.ok(compiledCss.includes('font: inherit'), 'Form controls must inherit the page typeface');
       assert.ok(compiledCss.includes('line-height: 1.2'), 'Action buttons must share the same line height');

@@ -437,6 +437,21 @@ main:focus {
   min-width: 0;
 }
 
+@media (max-width: 480px) {
+  .edu-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.2rem;
+    padding: 0.65rem 0;
+  }
+
+  .edu-row dt {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
 /* Aggregated Skills Section */
 .skills-section {
   margin-bottom: 1rem;
@@ -1846,6 +1861,30 @@ main:focus {
 
 .print-primary-btn:active {
   transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .pdf-builder-panel {
+    padding: 1.25rem;
+  }
+
+  .pdf-builder-header {
+    gap: 1.25rem;
+  }
+
+  /* Let the title text wrap naturally instead of squeezing it beside the icon. */
+  .pdf-builder-title {
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  .pdf-builder-title i {
+    margin-right: 0.45rem;
+  }
+
+  .pdf-builder-subtitle {
+    font-size: 0.95rem;
+  }
 }
 
 /* Presets & Filter Toolbar */
