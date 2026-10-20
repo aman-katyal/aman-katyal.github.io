@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
+  {% if page.url != '/404.html' %}
   <link rel="canonical" href="{{ page.url | absolute_url }}">
+  {% endif %}
   <meta name="theme-color" content="#ffffff" id="theme-color-meta">
 
   <!-- SEO & Social Sharing Meta Tags -->
