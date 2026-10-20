@@ -37,9 +37,10 @@ describe('SCSS structure', () => {
 
     assert.ok(lines < 50, `style.scss is ${lines} lines; expected <50`);
     assert.ok(!entry.includes('{'), 'style.scss still contains CSS rules');
+    assert.ok(!entry.includes('@use "'), 'style.scss must use @import so Jekyll inlines partials');
     PARTIALS.forEach((partial) => {
       const name = partial.replace(/^_/, '').replace(/\.scss$/, '');
-      assert.ok(entry.includes(`@use "${name}";`), `style.scss does not import ${partial}`);
+      assert.ok(entry.includes(`@import "${name}";`), `style.scss does not import ${partial}`);
     });
   });
 
@@ -55,10 +56,10 @@ describe('SCSS structure', () => {
   it('should keep the cascade-critical partial order explicit', () => {
     const entry = readRepoFile('assets/css/style.scss');
 
-    assert.ok(entry.indexOf('@use "tokens";') < entry.indexOf('@use "base";'), 'Tokens must load before base rules');
-    assert.ok(entry.indexOf('@use "modal";') < entry.indexOf('@use "modal-responsive";'), 'Modal mobile rules must load after modal base rules');
-    assert.ok(entry.indexOf('@use "print";') < entry.indexOf('@use "modal";'), 'Print rules must load before modal base rules');
-    assert.ok(entry.indexOf('@use "syntax";') > entry.indexOf('@use "lightbox";'), 'Syntax highlighting must remain last');
+    assert.ok(entry.indexOf('@import "tokens";') < entry.indexOf('@import "base";'), 'Tokens must load before base rules');
+    assert.ok(entry.indexOf('@import "modal";') < entry.indexOf('@import "modal-responsive";'), 'Modal mobile rules must load after modal base rules');
+    assert.ok(entry.indexOf('@import "print";') < entry.indexOf('@import "modal";'), 'Print rules must load before modal base rules');
+    assert.ok(entry.indexOf('@import "syntax";') > entry.indexOf('@import "lightbox";'), 'Syntax highlighting must remain last');
   });
 
   it('should keep print and mobile-modal rules co-located with their components', () => {

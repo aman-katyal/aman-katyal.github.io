@@ -1,23 +1,23 @@
 ---
 ---
 
-@use "tokens";
-@use "base";
-@use "nav";
-@use "layout";
-@use "home";
-@use "cards";
-@use "project";
-@use "markdown";
-@use "code";
-@use "feedback";
-@use "footer";
-@use "pdf-builder";
-@use "pdf-checklist";
-@use "print";
-@use "responsive";
-@use "modal";
-@use "modal-details";
-@use "lightbox";
-@use "modal-responsive";
-@use "syntax";
+@import "tokens";
+@import "base";
+@import "nav";
+@import "layout";
+@import "home";
+@import "cards";
+@import "project";
+@import "markdown";
+@import "code";
+@import "feedback";
+@import "footer";
+@import "pdf-builder";
+@import "pdf-checklist";
+@import "print";
+@import "responsive";
+@import "modal";
+@import "modal-details";
+@import "lightbox";
+@import "modal-responsive";
+@import "syntax";

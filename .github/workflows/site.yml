@@ -36,6 +36,14 @@ jobs:
       - name: Build with Jekyll (same engine Pages uses)
         run: bundle exec jekyll build --destination _site --trace
 
+      - name: Verify SCSS partials were inlined
+        run: |
+          if grep -q '@import' _site/assets/css/style.css; then
+            echo "::error::Jekyll left @import rules unresolved in the compiled stylesheet"
+            exit 1
+          fi
+          test -s _site/assets/css/style.css
+
       # LinkedIn answers link-check bots with 999, so it is excluded;
       # every other internal/external link is verified live.
       - name: Check links in built HTML

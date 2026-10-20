@@ -1,7 +1,7 @@
 # SCSS structure
 
 `assets/css/style.scss` is the only Jekyll front-matter entry point. It contains
-the front matter plus ordered `@use` declarations; every rule lives in a
+the front matter plus ordered `@import` declarations; every rule lives in a
 partial under `assets/css/`.
 
 ## Partial order
