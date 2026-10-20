@@ -8,6 +8,8 @@ module.exports = [
     ignores: [
       '_site/**',
       'node_modules/**',
+      'vendor/**',
+      '.bundle/**',
       'assets/images/**',
       'assets/**/*.pdf',
       'package-lock.json'
