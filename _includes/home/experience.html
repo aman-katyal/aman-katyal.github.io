@@ -1,0 +1,19 @@
+<!-- Experience Section (follows resume) -->
+<section class="exp-section" id="experience">
+  <h2 class="skills-eyebrow">Experience</h2>
+  <div class="exp-list">
+    {% for job in site.data.experience %}
+      <div class="exp-entry">
+        <div class="exp-head">
+          <span class="exp-role">{{ job.role }} — {{ job.company }}</span>
+          <span class="exp-meta">{% if job.location %}{{ job.location }} · {% endif %}{{ job.dates }}</span>
+        </div>
+        <ul class="exp-bullets">
+          {% for bullet in job.bullets %}
+            <li><span class="highlight-bullet">▹</span><span>{{ bullet }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</section>

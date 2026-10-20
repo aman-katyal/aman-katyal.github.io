@@ -5,7 +5,7 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs');
-const { loadProjectFiles, loadProjects, readRepoFile, repoPath } = require('./helpers/project-data');
+const { loadProjectFiles, loadProjects, readHome, readRepoFile, repoPath } = require('./helpers/project-data');
 
 const projects = loadProjects();
 
@@ -146,7 +146,7 @@ describe('Project data model', () => {
 
   it('should label the external Posture Pet destination correctly', () => {
     const posturePet = projects.find((project) => project.id === 'posture-pet');
-    const home = readRepoFile('index.md');
+    const home = readHome();
 
     assert.strictEqual(posturePet.link_label, 'Devpost');
     assert.strictEqual(posturePet.link_type, 'external');

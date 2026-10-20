@@ -1,0 +1,13 @@
+school: Purdue University
+degrees:
+  - degree: B.S. Computer Engineering
+    expected: Expected May 2027
+  - degree: M.S. Electrical & Computer Engineering
+    expected: Expected May 2028
+coursework:
+  - RISC-V Microarchitecture
+  - ASIC Design Flow
+  - Embedded Microprocessor Systems
+honors:
+  - Dean's List
+  - Semester Honors

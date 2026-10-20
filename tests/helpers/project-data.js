@@ -37,6 +37,22 @@ function readRepoFile(relativePath) {
 }
 
 /**
+ * Concatenates the homepage and its extracted includes so tests can assert on
+ * rendered structure without depending on one physical file.
+ */
+function readHome() {
+  return [
+    'index.md',
+    '_includes/home/hero.html',
+    '_includes/home/education.html',
+    '_includes/home/skills.html',
+    '_includes/home/experience.html',
+    '_includes/home/projects.html',
+    '_includes/home/project-card.html'
+  ].map(readRepoFile).join('\n');
+}
+
+/**
  * Concatenates the layout and its extracted includes/scripts so tests can
  * assert on rendered structure without depending on one physical file.
  */
@@ -64,6 +80,7 @@ module.exports = {
   ROOT,
   loadProjectFiles,
   loadProjects,
+  readHome,
   readLayout,
   readRepoFile,
   repoPath

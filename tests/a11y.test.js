@@ -4,7 +4,7 @@
 
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
-const { readLayout, readRepoFile } = require('./helpers/project-data');
+const { readHome, readLayout, readRepoFile } = require('./helpers/project-data');
 
 describe('Accessibility regressions', () => {
   it('should provide a skip link and a focusable main target', () => {
@@ -37,7 +37,7 @@ describe('Accessibility regressions', () => {
   });
 
   it('should not label a non-interactive project card as a control', () => {
-    const home = readRepoFile('index.md');
+    const home = readHome();
     assert.ok(!home.includes('class="project-card" data-project-trigger="{{ project.id }}" aria-label='), 'Project card still has a misleading aria-label');
   });
 });

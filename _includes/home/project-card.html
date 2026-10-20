@@ -1,0 +1,63 @@
+{% assign project = include.project %}
+{% assign featured_image = project.images | where: "featured", true | first | default: project.images.first %}
+<article class="project-card" data-project-trigger="{{ project.id }}">
+  <!-- Terminal Header Bar: badge only (full title lives in the card heading) -->
+  <div class="termbar">
+    <span class="termbar-badge" title="{{ project.badge_type | default: project.category }}">{{ project.badge_type | default: project.category }}</span>
+  </div>
+
+  <!-- Media Frame -->
+  {% if featured_image %}
+    <div class="project-card-media">
+      <img src="{{ featured_image.src | relative_url }}" alt="{{ featured_image.label | default: project.title }}" loading="lazy"{% if featured_image.position %} style="object-position: {{ featured_image.position }}"{% endif %}>
+    </div>
+  {% endif %}
+
+  <!-- Card Body Content -->
+  <div class="project-card-content">
+    {% if project.subtitle %}
+      <span class="project-card-subtitle">{{ project.subtitle }}</span>
+    {% endif %}
+    <h3 class="project-card-heading">{{ project.title }}</h3>
+    <p class="project-card-desc">{{ project.summary }}</p>
+
+    <!-- Technology Badges / Pills -->
+    <div class="project-card-tech">
+      {% for tech in project.skills.technologies limit:3 %}
+        <span class="tech-badge">{{ tech }}</span>
+      {% endfor %}
+      {% for lang in project.skills.languages limit:2 %}
+        <span class="tech-badge">{{ lang }}</span>
+      {% endfor %}
+      {% assign tech_total = project.skills.technologies.size | plus: project.skills.languages.size %}
+      {% if tech_total > 5 %}
+        <span class="tech-badge tech-badge-more" title="{{ project.skills.technologies | join: ', ' }}; {{ project.skills.languages | join: ', ' }}">+{{ tech_total | minus: 5 }} more</span>
+      {% endif %}
+    </div>
+
+    <!-- Card Action Buttons -->
+    <div class="project-card-actions">
+      <button type="button" class="card-btn card-btn-primary" data-project-trigger="{{ project.id }}">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        <span>Preview & Gallery</span>
+      </button>
+      {% if project.github %}
+        <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on GitHub">
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub</span>
+        </a>
+      {% endif %}
+      {% if project.live %}
+        {% assign live_label = project.link_label | default: "Docs" %}
+        <a href="{{ project.live | relative_url }}" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on {{ live_label }}"{% if project.link_type == "external" %} target="_blank" rel="noopener noreferrer"{% endif %}>
+          {% if project.link_type == "external" %}
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          {% else %}
+            <i class="fa-solid fa-file-lines"></i>
+          {% endif %}
+          <span>{{ live_label }}</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</article>

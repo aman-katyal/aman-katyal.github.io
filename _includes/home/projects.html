@@ -1,0 +1,10 @@
+<!-- Projects Section -->
+<section class="projects-section" id="projects">
+  <h2 class="section-title">Featured Projects</h2>
+
+  <div class="projects-grid">
+    {% for project in projects %}
+      {% include home/project-card.html project=project %}
+    {% endfor %}
+  </div>
+</section>

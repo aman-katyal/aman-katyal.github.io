@@ -1,0 +1,23 @@
+{% assign education = site.data.education %}
+<aside class="edu-card" aria-label="Education">
+  <span class="edu-eyebrow">Education</span>
+  <h2 class="edu-school">{{ education.school }}</h2>
+  {% for degree in education.degrees %}
+    <p class="edu-degree">{{ degree.degree }}</p>
+    <p class="edu-years">{{ degree.expected }}</p>
+  {% endfor %}
+  <dl class="edu-rows">
+    <div class="edu-row">
+      <dt>gpa</dt>
+      <dd>{{ site.gpa }}</dd>
+    </div>
+    <div class="edu-row">
+      <dt>coursework</dt>
+      <dd>{{ education.coursework | join: ", " }}</dd>
+    </div>
+    <div class="edu-row">
+      <dt>honors</dt>
+      <dd>{{ education.honors | join: ", " }}</dd>
+    </div>
+  </dl>
+</aside>

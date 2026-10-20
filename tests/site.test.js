@@ -5,7 +5,7 @@
 const { describe, it } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('fs');
-const { readLayout, readRepoFile, repoPath } = require('./helpers/project-data');
+const { readHome, readLayout, readRepoFile, repoPath } = require('./helpers/project-data');
 
 describe('Site navigation and metadata', () => {
   it('should order nav links to match the homepage sections', () => {
@@ -35,7 +35,7 @@ describe('Site navigation and metadata', () => {
   });
 
   it('should link the PDF builder from the hero and footer', () => {
-    const home = readRepoFile('index.md');
+    const home = readHome();
     const layout = readLayout();
     assert.ok(home.includes("'/print-portfolio/'"), 'Home hero does not link the PDF builder');
     assert.ok(layout.includes("'/print-portfolio/'"), 'Site footer does not link the PDF builder');
@@ -60,7 +60,7 @@ describe('Site navigation and metadata', () => {
   });
 
   it('should cache-bust the hosted resume', () => {
-    const home = readRepoFile('index.md');
+    const home = readHome();
     const config = readRepoFile('_config.yml');
     assert.ok(config.includes('resume_version:'), 'Resume URL is not cache-busted');
     assert.ok(home.includes('?v={{ site.resume_version }}'), 'Resume link does not use the version query');
