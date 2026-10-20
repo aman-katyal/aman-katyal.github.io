@@ -5,18 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
-  
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+
   <!-- SEO & Social Sharing Meta Tags -->
   <meta property="og:title" content="{{ page.title | default: site.title }}">
   <meta property="og:description" content="{{ page.description | default: site.description }}">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="{% if page.role %}article{% else %}website{% endif %}">
   <meta property="og:url" content="{{ page.url | absolute_url }}">
-  <meta property="og:image" content="{{ page.image | default: '/assets/images/wand_pcb_1.jpg' | absolute_url }}">
-  
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:image" content="{{ page.image | default: site.og_image | absolute_url }}">
+
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ page.title | default: site.title }}">
   <meta name="twitter:description" content="{{ page.description | default: site.description }}">
-  <meta name="twitter:image" content="{{ page.image | default: '/assets/images/wand_pcb_1.jpg' | absolute_url }}">
+  <meta name="twitter:image" content="{{ page.image | default: site.og_image | absolute_url }}">
   
   <!-- Fonts (proofer-ignore: font CDNs bot-block link checks) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" data-proofer-ignore>
@@ -45,15 +48,18 @@
     (function () {
       const savedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'light');
+      const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
       }
     })();
   </script>
 </head>
 <body>
+
+  <a class="skip-link no-print" href="#main-content">Skip to content</a>
 
   <!-- Navigation Bar -->
   <nav class="navbar no-print">
@@ -68,7 +74,7 @@
         <a href="{{ '/' | relative_url }}#projects" class="nav-link">Projects</a>
         
         <!-- Theme Toggle Button -->
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark mode">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Dark mode" aria-pressed="false">
           <i class="fa-solid fa-moon moon-icon"></i>
           <i class="fa-solid fa-sun sun-icon"></i>
         </button>
@@ -81,7 +87,7 @@
     
     {% if page.role %}
       <!-- Project Detail Layout with Sidebar -->
-      <main class="project-layout">
+      <main class="project-layout" id="main-content" tabindex="-1">
         
         <!-- Breadcrumbs -->
         <div class="breadcrumbs no-print">
@@ -190,7 +196,7 @@
       </main>
     {% else %}
       <!-- Standard Layout (Home & Generic Pages) -->
-      <main class="standard-layout">
+      <main class="standard-layout" id="main-content" tabindex="-1">
         {{ content }}
       </main>
     {% endif %}
@@ -203,6 +209,7 @@
       <div class="footer-left">
         <p>&copy; {{ site.time | date: '%Y' }} {{ site.author }}. All rights reserved.</p>
         <p class="academic-affiliation">Computer Engineering @ Purdue University</p>
+        <a class="footer-pdf-link" href="{{ '/print-portfolio/' | relative_url }}"><i class="fa-solid fa-file-pdf"></i> Custom PDF portfolio →</a>
       </div>
       <div class="footer-right">
         <div class="social-links">
@@ -226,14 +233,28 @@
   <script>
     // Dark/Light Theme Switching Logic
     const themeToggleBtn = document.getElementById('theme-toggle');
-    
-    themeToggleBtn.addEventListener('click', () => {
-      let currentTheme = document.documentElement.getAttribute('data-theme');
-      let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-    });
+
+    function syncThemeToggleState() {
+      if (!themeToggleBtn) return;
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      themeToggleBtn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+      if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', isDark ? '#0f172a' : '#ffffff');
+      }
+    }
+
+    if (themeToggleBtn) {
+      syncThemeToggleState();
+      themeToggleBtn.addEventListener('click', () => {
+        let currentTheme = document.documentElement.getAttribute('data-theme');
+        let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        syncThemeToggleState();
+      });
+    }
 
     // Copy to Clipboard for Code Blocks
     document.addEventListener('DOMContentLoaded', () => {
@@ -293,9 +314,10 @@
       });
 
       scrollTopBtn.addEventListener('click', () => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         window.scrollTo({
           top: 0,
-          behavior: 'smooth'
+          behavior: reduceMotion ? 'auto' : 'smooth'
         });
       });
 

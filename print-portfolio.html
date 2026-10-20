@@ -5,6 +5,8 @@ permalink: /print-portfolio/
 math: true
 ---
 
+{% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
+
 <!-- ==========================================================================
      PDF BUILDER CONTROL PANEL (Screen Only)
      ========================================================================== -->
@@ -27,12 +29,11 @@ math: true
       <button type="button" class="text-action-btn" id="btn-select-all">Select All</button>
       <span class="btn-divider">•</span>
       <button type="button" class="text-action-btn" id="btn-clear-all">Clear All</button>
-      <span class="selected-badge" id="selected-counter-badge">3 of 3 Selected</span>
+      <span class="selected-badge" id="selected-counter-badge">{{ print_pages.size }} of {{ print_pages.size }} Selected</span>
     </div>
   </div>
 
   <!-- Project Checkbox Grid -->
-  {% assign print_pages = site.pages | where: "printable", true | sort: "order" %}
   <div class="pdf-project-checklist">
     {% for project in print_pages %}
       {% assign proj_slug = project.permalink | remove: "/projects/" | remove: "/" %}
@@ -174,6 +175,17 @@ math: true
           counterBadge.classList.remove('none-selected');
         }
       }
+
+      // Printing starts page 2 from DOM order, so explicitly mark the first
+      // section that is still visible after exclusions.
+      let foundFirstVisible = false;
+      document.querySelectorAll('.print-project-section').forEach(section => {
+        section.classList.remove('is-first-visible');
+        if (!foundFirstVisible && !section.classList.contains('is-excluded')) {
+          section.classList.add('is-first-visible');
+          foundFirstVisible = true;
+        }
+      });
 
       // Save state in localStorage
       const activeSlugs = Array.from(checkboxes)

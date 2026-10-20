@@ -11,6 +11,7 @@ title: Aman Katyal | Portfolio
 
     <div class="hero-ctas">
       <a href="#projects" class="hero-cta">view work →</a>
+      <a href="{{ '/print-portfolio/' | relative_url }}" class="hero-cta">PDF portfolio →</a>
     </div>
 
     <div class="profile-links">
@@ -28,7 +29,7 @@ title: Aman Katyal | Portfolio
       <a href="{{ site.github }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="GitHub">
         <i class="fa-brands fa-github"></i> GitHub
       </a>
-      <a href="{{ site.resume | relative_url }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="Resume (PDF)">
+      <a href="{{ site.resume | relative_url }}?v={{ site.resume_version }}" target="_blank" rel="noopener noreferrer" class="profile-link-btn" title="Resume (PDF)">
         <i class="fa-solid fa-file-lines"></i> Resume
       </a>
     </div>
@@ -138,7 +139,7 @@ title: Aman Katyal | Portfolio
   <div class="projects-grid">
     {% for project in site.data.projects %}
       {% assign featured_image = project.images | where: "featured", true | first | default: project.images.first %}
-      <article class="project-card" data-project-trigger="{{ project.id }}" aria-label="Open details for {{ project.title }}">
+      <article class="project-card" data-project-trigger="{{ project.id }}">
         <!-- Terminal Header Bar: badge only (full title lives in the card heading) -->
         <div class="termbar">
           <span class="termbar-badge" title="{{ project.badge_type | default: project.category }}">{{ project.badge_type | default: project.category }}</span>
@@ -186,9 +187,14 @@ title: Aman Katyal | Portfolio
               </a>
             {% endif %}
             {% if project.live %}
-              <a href="{{ project.live | relative_url }}" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} documentation">
-                <i class="fa-solid fa-file-lines"></i>
-                <span>Docs</span>
+              {% assign live_label = project.live_label | default: "Docs" %}
+              <a href="{{ project.live | relative_url }}" class="card-btn card-btn-secondary" aria-label="View {{ project.title }} on {{ live_label }}"{% if project.live_external %} target="_blank" rel="noopener noreferrer"{% endif %}>
+                {% if project.live_external %}
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                {% else %}
+                  <i class="fa-solid fa-file-lines"></i>
+                {% endif %}
+                <span>{{ live_label }}</span>
               </a>
             {% endif %}
           </div>

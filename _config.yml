@@ -6,8 +6,11 @@ gpa: 3.91
 linkedin: https://linkedin.com/in/its-aman-katyal
 github: https://github.com/aman-katyal
 resume: /assets/Aman_Katyal_Resume.pdf
-# Source doc for the hosted resume PDF (re-export on update):
-# https://docs.google.com/document/d/1Q_2PXr3RdMJTrLum_MNsarNbpxFvHKaCfchVLxuHGmk/edit?usp=sharing
-description: Computer Engineering Student at Purdue University | Hardware Design, UVM Verification, and Embedded Systems.
+# The hosted PDF is re-exported from the private LaTeX source
+# (Aman_Katyal_Firmware_Embedded_Resume.tex). Bump the version whenever the
+# PDF changes so returning visitors do not get a cached copy.
+resume_version: "2026-10"
+description: Computer Engineering student at Purdue building embedded firmware, ASIC tooling, and custom hardware.
 show_downloads: false
 url: "https://aman-katyal.github.io"
+og_image: /assets/images/og-portfolio.jpg

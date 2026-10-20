@@ -7,7 +7,7 @@
   category: "Embedded Hardware"
   badge_type: "hardware / pcb"
   role: "Embedded Firmware & Electrical"
-  year: "2024 - 2025"
+  year: "2024–2025"
   github: "https://github.com/purduerov/X18-ROV-Test-Bench"
   live: "/projects/rov-hil-testbench/"
   summary: "Surface-level Hardware-in-the-Loop carrier board for the Purdue IEEE ROV team. Mates a Raspberry Pi 5 with an STM32F091 and an RP2350B over a servo/ESC backplane, so thrusters and sensors validate topside without the vehicle in the water."
@@ -81,7 +81,7 @@
   category: "Subsea Robotics & Firmware"
   badge_type: "robotics / firmware"
   role: "Embedded Systems & Firmware Architecture"
-  year: "2024 - 2025"
+  year: "2026"
   github: "https://github.com/purduerov/X18-Float-Embedded"
   live: "/projects/rov-buoyancy-float/"
   summary: "Autonomous subsea profiling buoyancy float engineered for automated water column data collection. Features deterministic bare-metal C firmware on RP2040, 10Hz neutral-buoyancy feedforward PID holding depth within 5 cm, 915MHz LoRa telemetry, and bsdiff differential OTA updates that cut firmware refreshes from 8 minutes to under 20 seconds."
@@ -133,6 +133,9 @@
   year: "2026"
   github: "https://github.com/aman-katyal/posture-pet"
   live: "https://devpost.com/software/posture-pet-brh6vx"
+  # External Devpost entry: intentionally has no printable case study.
+  live_label: "Devpost"
+  live_external: true
   summary: "A wearable AI companion built at the StarkHacks Hardware Hackathon (Purdue University) that won Honorable Mention for Best Use of AMD Tech. Utilizes a hybrid system of wearable 3-IMU sensors and computer vision to track posture in real time at up to 98.18% detection accuracy, mirroring the user's spinal state on an articulating 3D-printed robotic pet."
   highlights:
     - "Awarded Honorable Mention for Best Use of AMD Tech at the StarkHacks Hardware Hackathon (Purdue University)."
@@ -176,12 +179,12 @@
       featured: false
 
 - id: "ml-dueling"
-  title: "Harry Potter Gesture Dueling Wand"
+  title: "ML Gesture Dueling System"
   subtitle: "Dual-Core RP2350 Gesture Recognition with On-Device TFLite Micro Inference"
   category: "Embedded ML & Hardware"
   badge_type: "embedded / ml"
   role: "Lead Embedded Engineer"
-  year: "2024 - 2025"
+  year: "2025"
   github: "https://github.com/aman-katyal/harry-potter-wand-duel"
   live: "/projects/ml-dueling/"
 
@@ -201,7 +204,6 @@
       - "TensorFlow Lite Micro"
       - "Edge Impulse"
       - "KiCad"
-      - "FreeRTOS"
       - "3D Printing"
     protocols:
       - "I2C"

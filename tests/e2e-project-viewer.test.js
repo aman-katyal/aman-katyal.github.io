@@ -19,6 +19,7 @@ const assert = require('node:assert/strict');
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const yaml = require('js-yaml');
 const { execSync } = require('child_process');
 
 // --- Helper: Mock DOM Environment for project-modal.js ---
@@ -384,12 +385,12 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
   let projects = [];
 
   before(() => {
-    // Load YAML via Python yaml parser
-    const projectsJson = execSync(
-      'python -c "import yaml, json; print(json.dumps(yaml.safe_load(open(\'_data/projects.yml\', encoding=\'utf-8\'))))"',
-      { encoding: 'utf8', cwd: path.join(__dirname, '..') }
+    // Parse the project data in Node so the suite has no Python dependency.
+    const projectsRaw = fs.readFileSync(
+      path.join(__dirname, '..', '_data', 'projects.yml'),
+      'utf8'
     );
-    projects = JSON.parse(projectsJson);
+    projects = yaml.load(projectsRaw);
   });
 
   // =========================================================================
@@ -952,6 +953,114 @@ describe('End-to-End Portfolio Showcase Verification Suite', () => {
         assert.ok(content.includes('image:'), `${file} missing image`);
         assert.ok(content.length > 2500, `${file} content body appears truncated (${content.length} chars)`);
       });
+    });
+  });
+
+  describe('6. Audit follow-ups', () => {
+    const read = (file) => fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
+    const byId = (id) => projects.find((project) => project.id === id);
+
+    it('should reconcile project metadata with the case studies', () => {
+      const buoyancy = byId('rov-buoyancy-float');
+      const wand = byId('ml-dueling');
+      const mlPage = read('ml-dueling.md');
+
+      assert.strictEqual(buoyancy.year, '2026', 'Buoyancy year must match the 2026 resume timeline');
+      assert.strictEqual(wand.year, '2025', 'Wand year must match the 2025 resume timeline');
+      assert.strictEqual(wand.title, 'ML Gesture Dueling System', 'Data and page must share one ML project name');
+      assert.ok(mlPage.includes('title: "ML Gesture Dueling System"'), 'Case study title must match the project data');
+      assert.ok(!wand.skills.technologies.includes('FreeRTOS'), 'ML metadata still claims unused FreeRTOS');
+      assert.ok(!mlPage.includes('FreeRTOS'), 'ML case study still claims unused FreeRTOS');
+      projects.forEach((project) => {
+        assert.ok(!project.year.includes(' - '), `${project.id} uses a non-standard year range`);
+      });
+    });
+
+    it('should label the external Posture Pet destination correctly', () => {
+      const posturePet = byId('posture-pet');
+      const home = read('index.md');
+
+      assert.strictEqual(posturePet.live_label, 'Devpost');
+      assert.strictEqual(posturePet.live_external, true);
+      assert.ok(home.includes('project.live_label'), 'Home card does not use the project link label');
+      assert.ok(home.includes('project.live_external'), 'Home card does not mark external links');
+    });
+
+    it('should keep modal media uncropped and free of empty image requests', () => {
+      const modal = read('_includes/project_modal.html');
+      const css = read('assets/css/style.scss');
+
+      assert.ok(!modal.includes('src=""'), 'Modal still contains an empty image src attribute');
+      assert.match(css, /\.modal-main-img\s*\{[\s\S]*?object-fit: contain;/, 'Modal images must use object-fit: contain');
+    });
+
+    it('should fix print-only URL leakage, overlays, and first-page breaks', () => {
+      const css = read('assets/css/style.scss');
+      const builder = read('print-portfolio.html');
+
+      assert.ok(css.includes('.markdown-body a[href^="http"]:after'), 'Print URL expansion is not scoped to article links');
+      assert.ok(css.includes('.project-modal-backdrop'), 'Print styles do not hide the project modal');
+      assert.ok(css.includes('.modal-lightbox'), 'Print styles do not hide the lightbox');
+      assert.ok(css.includes('.print-instruction-box'), 'Print styles reference the stale instruction selector');
+      assert.ok(css.includes('.print-project-section.is-first-visible'), 'Print CSS lacks a first-visible rule');
+      assert.ok(!css.includes(':not(.is-excluded):first-of-type'), 'Print CSS still relies on DOM-order first-of-type');
+      assert.ok(builder.includes("classList.add('is-first-visible')"), 'Builder JS does not mark the first visible section');
+    });
+
+    it('should expose accessible names, focus states, and theme state', () => {
+      const layout = read('_layouts/default.html');
+      const modal = read('_includes/project_modal.html');
+      const css = read('assets/css/style.scss');
+
+      assert.ok(layout.includes('class="skip-link'), 'Layout is missing the skip link');
+      assert.ok(layout.includes('id="main-content"'), 'Layout is missing the skip target');
+      assert.ok(layout.includes('aria-pressed="false"'), 'Theme toggle does not expose pressed state');
+      assert.ok(layout.includes("setAttribute('aria-pressed'"), 'Theme toggle never updates pressed state');
+      assert.ok(layout.includes('prefers-reduced-motion: reduce'), 'Scroll-to-top ignores reduced motion');
+      assert.ok(css.includes('.code-container-wrapper:focus-within .copy-code-btn'), 'Copy buttons are not revealed on keyboard focus');
+      assert.ok(css.includes('@media (hover: none)'), 'Copy buttons are not discoverable on touch devices');
+      assert.ok(css.includes('.project-toggle-checkbox:focus-visible + .custom-checkmark'), 'Print checkboxes lack a focus ring');
+      assert.ok(modal.includes('aria-label="Previous project"'), 'Previous project button has no accessible name');
+      assert.ok(modal.includes('aria-label="Next project"'), 'Next project button has no accessible name');
+      assert.ok(css.includes('font-size: 100%'), 'Root font size must respect browser preferences');
+    });
+
+    it('should meet contrast targets for muted and status text', () => {
+      const css = read('assets/css/style.scss');
+      assert.ok(css.includes('--text-muted: #5b6b7f'), 'Light muted text was not darkened');
+      assert.ok(css.includes('--text-muted: #a8b6c9'), 'Dark muted text was not lightened');
+      assert.ok(css.includes('[data-theme="dark"] .termbar-badge'), 'Dark terminal badge override is missing');
+      assert.ok(css.includes('[data-theme="dark"] .selected-badge.none-selected'), 'Dark empty-selection badge override is missing');
+    });
+
+    it('should publish canonical, social, sitemap, robots, and 404 metadata', () => {
+      const layout = read('_layouts/default.html');
+      const config = read('_config.yml');
+
+      assert.ok(layout.includes('rel="canonical"'), 'Layout is missing a canonical URL');
+      assert.ok(layout.includes('property="og:site_name"'), 'Layout is missing og:site_name');
+      assert.ok(layout.includes('name="theme-color"'), 'Layout is missing theme-color');
+      assert.ok(layout.includes("{% if page.role %}article{% else %}website{% endif %}"), 'OG type is not page-aware');
+      assert.ok(config.includes('og_image: /assets/images/og-portfolio.jpg'), 'Default OG image is not configured');
+      assert.ok(!config.includes('UVM Verification'), 'Stale UVM positioning remains in the description');
+      assert.ok(fs.existsSync(path.join(__dirname, '..', 'sitemap.xml')), 'sitemap.xml is missing');
+      assert.ok(fs.existsSync(path.join(__dirname, '..', 'robots.txt')), 'robots.txt is missing');
+      assert.ok(fs.existsSync(path.join(__dirname, '..', '404.html')), '404.html is missing');
+      assert.ok(fs.existsSync(path.join(__dirname, '..', 'assets', 'images', 'og-portfolio.jpg')), 'Default OG image file is missing');
+    });
+
+    it('should link the PDF builder and render its counter from the page set', () => {
+      const home = read('index.md');
+      const layout = read('_layouts/default.html');
+      const builder = read('print-portfolio.html');
+      const config = read('_config.yml');
+
+      assert.ok(home.includes("'/print-portfolio/'"), 'Home hero does not link the PDF builder');
+      assert.ok(layout.includes("'/print-portfolio/'"), 'Site footer does not link the PDF builder');
+      assert.ok(builder.includes('{{ print_pages.size }} of {{ print_pages.size }} Selected'), 'PDF counter is still hardcoded');
+      assert.ok(!builder.includes('3 of 3 Selected'), 'Stale hardcoded PDF counter remains');
+      assert.ok(config.includes('resume_version:'), 'Resume URL is not cache-busted');
+      assert.ok(home.includes('?v={{ site.resume_version }}'), 'Resume link does not use the version query');
     });
   });
 });

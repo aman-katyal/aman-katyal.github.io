@@ -17,7 +17,7 @@
   --bg-tertiary: #f1f5f9;
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --text-muted: #64748b;
+  --text-muted: #5b6b7f;
   --accent: #1e3a8a; /* Deep Navy Blue */
   --accent-light: #eff6ff;
   --accent-interactive: #2563eb;
@@ -47,7 +47,7 @@
   --bg-tertiary: #334155;
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
+  --text-muted: #a8b6c9;
   --accent: #38bdf8; /* Sky Blue */
   --accent-light: rgba(56, 189, 248, 0.1);
   --accent-interactive: #60a5fa;
@@ -90,7 +90,7 @@ html {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 100%;
   line-height: 1.6;
   transition: background-color var(--transition-normal), color var(--transition-normal);
 }
@@ -107,6 +107,31 @@ body {
   outline: 2px solid var(--accent-interactive);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
+}
+
+/* Skip link: hidden until keyboard focus, then pinned above the navbar. */
+.skip-link {
+  position: fixed;
+  top: -4rem;
+  left: 1rem;
+  z-index: 2000;
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+main:focus {
+  outline: none;
 }
 
 /* Respect users who prefer reduced motion */
@@ -278,6 +303,17 @@ body {
 .hero-left {
   min-width: 0;
   padding-top: 0.5rem;
+}
+
+.not-found {
+  max-width: 640px;
+  padding: 4rem 0;
+}
+
+@media (max-width: 768px) {
+  .not-found {
+    padding: 2rem 0;
+  }
 }
 
 .hero-name {
@@ -698,7 +734,8 @@ body {
 }
 
 [data-theme="dark"] .termbar-badge {
-  border-color: rgba(56, 189, 248, 0.25);
+  color: #7dd3fc;
+  border-color: rgba(125, 211, 252, 0.3);
 }
 
 /* Project Card Media & Body */
@@ -1565,8 +1602,17 @@ body {
   z-index: 5;
 }
 
-.code-container-wrapper:hover .copy-code-btn {
+.code-container-wrapper:hover .copy-code-btn,
+.code-container-wrapper:focus-within .copy-code-btn,
+.copy-code-btn:focus-visible {
   opacity: 1;
+}
+
+/* Touch devices have no hover state; keep the control discoverable. */
+@media (hover: none) {
+  .copy-code-btn {
+    opacity: 1;
+  }
 }
 
 .copy-code-btn:hover {
@@ -1677,6 +1723,19 @@ body {
   font-weight: 500;
   color: var(--text-secondary) !important;
   margin-top: 0.2rem;
+}
+
+.footer-pdf-link {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-interactive);
+  text-decoration: none;
+}
+
+.footer-pdf-link:hover {
+  text-decoration: underline;
 }
 
 .social-links {
@@ -1874,8 +1933,13 @@ body {
 
 .selected-badge.none-selected {
   background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-  border-color: rgba(239, 68, 68, 0.2);
+  color: #b91c1c;
+  border-color: rgba(185, 28, 28, 0.25);
+}
+
+[data-theme="dark"] .selected-badge.none-selected {
+  color: #fca5a5;
+  border-color: rgba(252, 165, 165, 0.3);
 }
 
 /* Project Checklist Grid */
@@ -1943,6 +2007,11 @@ body {
   background-color: var(--accent-interactive);
   border-color: var(--accent-interactive);
   color: #ffffff;
+}
+
+.project-toggle-checkbox:focus-visible + .custom-checkmark {
+  outline: 2px solid var(--accent-interactive);
+  outline-offset: 2px;
 }
 
 .checkbox-card-content {
@@ -2184,12 +2253,11 @@ body {
   .scroll-to-top-btn,
   .quick-actions,
   #theme-toggle,
-  .print-instruction,
-  .pdf-builder-panel {
-    display: none !important;
-  }
-
-  .print-project-section.is-excluded {
+  .print-instruction-box,
+  .pdf-builder-panel,
+  .project-modal-backdrop,
+  .modal-lightbox,
+  .copy-toast {
     display: none !important;
   }
 
@@ -2287,7 +2355,9 @@ body {
     break-before: page !important;
   }
 
-  .print-project-section:not(.is-excluded):first-of-type {
+  /* JS marks the first visible section, so excluding project 1 cannot
+     leave a blank first page. */
+  .print-project-section.is-first-visible {
     page-break-before: avoid !important;
     break-before: avoid !important;
   }
@@ -2352,14 +2422,15 @@ body {
     text-decoration: underline !important;
   }
   
-  a[href^="http"]:after {
+  /* Only expand real article links; never expose UI/button destinations. */
+  .markdown-body a[href^="http"]:after {
     content: " (" attr(href) ")";
     font-size: 8pt !important;
     color: #555555 !important;
     font-weight: normal !important;
   }
 
-  a[href^="/"]:after {
+  .markdown-body a[href^="/"]:after {
     content: "" !important;
   }
 
@@ -2720,13 +2791,9 @@ body.modal-open {
 .modal-main-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* Schematics and PCB layers must stay fully readable, not cropped. */
+  object-fit: contain;
   display: block;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.02);
-  }
 }
 
 .modal-main-video {

@@ -19,6 +19,17 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install test dependencies
+        run: npm ci
+
+      - name: Run regression tests
+        run: npm test
+
       - name: Build with Jekyll (same engine Pages uses)
         run: bundle exec jekyll build --destination _site --trace
 

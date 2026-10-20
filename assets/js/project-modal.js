@@ -632,7 +632,16 @@
 
     if (liveLinkEl) {
       if (project.live) {
+        const liveLabel = project.live_label || 'View';
         liveLinkEl.href = project.live;
+        liveLinkEl.setAttribute(
+          'aria-label',
+          project.live_label
+            ? 'View ' + project.title + ' on ' + liveLabel
+            : 'View ' + project.title
+        );
+        const liveLabelEl = liveLinkEl.querySelector('span');
+        if (liveLabelEl) liveLabelEl.textContent = liveLabel;
         liveLinkEl.style.display = 'inline-flex';
       } else {
         liveLinkEl.style.display = 'none';
